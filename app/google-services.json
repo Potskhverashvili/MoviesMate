@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "630745573812",
+    "project_id": "moviesmate-fe250",
+    "storage_bucket": "moviesmate-fe250.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630745573812:android:e37ab987301702a2e8aae1",
+        "android_client_info": {
+          "package_name": "com.example.moviesmate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdDCUDeV1ukRX4NBe1W8t5dPOWE7LElbg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

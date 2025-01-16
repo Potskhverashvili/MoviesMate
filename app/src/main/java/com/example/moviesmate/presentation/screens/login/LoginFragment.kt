@@ -1,5 +1,6 @@
 package com.example.moviesmate.presentation.screens.login
 
+import androidx.navigation.findNavController
 import com.example.moviesmate.databinding.FragmentLoginBinding
 import com.example.moviesmate.presentation.base.BaseFragment
 
@@ -13,5 +14,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         val regex = "^[a-zA-Z0-9._%+-]+@gmail\\.com$".toRegex()
         return regex.matches(email)
     }
+
+
+    // -- Go to register page --
+
 
 }
