@@ -61,4 +61,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         return regex.matches(email)
     }
 
+
+
 }

@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore.ktx)
+    implementation(libs.firebase.auth.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -87,4 +88,7 @@ dependencies {
 
     // Youtube dependencies
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0")
+
+    // Circular image dependencies
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 }
