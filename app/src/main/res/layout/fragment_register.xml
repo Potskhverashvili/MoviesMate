@@ -196,6 +196,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:text="Log In"
+            android:clickable="true"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </androidx.appcompat.widget.LinearLayoutCompat>

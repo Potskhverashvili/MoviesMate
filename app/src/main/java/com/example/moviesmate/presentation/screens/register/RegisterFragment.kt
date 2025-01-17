@@ -15,9 +15,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
     override fun viewCreated() {
         goToLogInPage()
         registerUser("user1", "user1@gmail.com", "12341234")
-
     }
-
 
     // ----------------- Auth test ---------------------
     fun registerUser(username: String, email: String, password: String) {
