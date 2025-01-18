@@ -7,5 +7,5 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val firebaseRepositoryModule = module {
-    singleOf(::FirebaseRepositoryImpl) bind  FirebaseRepository::class
+    singleOf(::FirebaseRepositoryImpl) bind FirebaseRepository::class
 }

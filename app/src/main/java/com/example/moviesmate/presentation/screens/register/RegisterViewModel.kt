@@ -22,16 +22,20 @@ class RegisterViewModel(
     private val _showError = MutableSharedFlow<String?>()
     val showError: SharedFlow<String?> = _showError
 
-    fun registerNewUser(email: String, password: String) = viewModelScope.launch {
-        when (val status = firebaseRepository.registerNewUser(email = email, password = password)) {
+    fun registerNewUser(email: String, username: String, password: String) = viewModelScope.launch {
+        when (val status = firebaseRepository.registerNewUser(
+            email = email,
+            //username = username,
+            password = password
+        )) {
             is OperationStatus.Success -> {
                 _registerFlow.emit(status.value.email.toString())
-                Log.d("RegisterViewModel","result = ${status.value}")
+                Log.d("RegisterViewModel", "result = ${status.value}")
             }
 
             is OperationStatus.Failure -> {
                 _showError.emit(status.exception.toString())
-                Log.d("RegisterViewModel","exception = ${status.exception}")
+                Log.d("RegisterViewModel", "exception = ${status.exception}")
             }
         }
     }
