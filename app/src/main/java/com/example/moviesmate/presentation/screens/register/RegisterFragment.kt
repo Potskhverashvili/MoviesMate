@@ -7,16 +7,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.moviesmate.databinding.FragmentRegisterBinding
 import com.example.moviesmate.presentation.base.BaseFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterBinding::inflate) {
-<<<<<<< HEAD
-    val auth = FirebaseAuth.getInstance()
-    val firestore = FirebaseFirestore.getInstance()
-=======
+
     private val viewModel by viewModel<RegisterViewModel>()
->>>>>>> 385e8bfd08dcf575a2bcbf9e776303125b5b6980
 
     override fun viewCreated() {
         goToLogInPage()
@@ -24,6 +22,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         registerNewUser()
         setCollectors()
     }
+
 
     private fun registerNewUser() {
         binding.btnRegister.setOnClickListener {
@@ -53,7 +52,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            Log.d("check", Thread.currentThread().name)
             viewModel.showError.collect { errorMessage ->
                 if (!errorMessage.isNullOrEmpty()) {
                     Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_LONG).show()
@@ -69,8 +67,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
     }
 
-<<<<<<< HEAD
-=======
 
     // ----------------- Auth test ---------------------
 //    fun registerUser(username: String, email: String, password: String) {
@@ -100,7 +96,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 //    }
 
 
->>>>>>> 385e8bfd08dcf575a2bcbf9e776303125b5b6980
     // --- Go to Login Page ---
     private fun goToLogInPage() {
         binding.btnLogIn.setOnClickListener {
@@ -113,8 +108,5 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         val regex = "^[a-zA-Z0-9._%+-]+@gmail\\.com$".toRegex()
         return regex.matches(email)
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> 385e8bfd08dcf575a2bcbf9e776303125b5b6980
 }
