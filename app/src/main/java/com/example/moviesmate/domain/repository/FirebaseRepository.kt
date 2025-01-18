@@ -6,6 +6,7 @@ import com.google.firebase.auth.FirebaseUser
 interface FirebaseRepository {
 
     suspend fun registerNewUser(
+        username: String,
         email: String,
         password: String
     ): OperationStatus<FirebaseUser>

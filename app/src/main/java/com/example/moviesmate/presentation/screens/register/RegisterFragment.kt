@@ -18,7 +18,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
     override fun viewCreated() {
         goToLogInPage()
-//        registerUser("user1", "user1@gmail.com", "12341234")
         registerNewUser()
         setCollectors()
     }
@@ -26,10 +25,11 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
     private fun registerNewUser() {
         binding.btnRegister.setOnClickListener {
+            val userName = binding.userName.text.toString()
             val email = binding.email.text.toString()
             val password = binding.password.text.toString()
             val repeatPassword = binding.passwordRepeat.text.toString()
-            if (email.isEmpty() || password.isEmpty() || repeatPassword.isEmpty()) {
+            if (userName.isEmpty() || email.isEmpty() || password.isEmpty() || repeatPassword.isEmpty()) {
                 Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT)
                     .show()
                 return@setOnClickListener
@@ -39,7 +39,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                     .show()
                 return@setOnClickListener
             }
-            viewModel.registerNewUser(email, password)
+            viewModel.registerNewUser(userName, email, password)
         }
     }
 
@@ -66,7 +66,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         }
 
     }
-
 
     // ----------------- Auth test ---------------------
 //    fun registerUser(username: String, email: String, password: String) {

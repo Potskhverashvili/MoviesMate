@@ -1,16 +1,15 @@
 package com.example.moviesmate.presentation.screens.register
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesmate.core.OperationStatus
-import com.example.moviesmate.domain.repository.FirebaseRepository
+import com.example.moviesmate.domain.usecases.RegisterNewUserUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 
 class RegisterViewModel(
-    private val firebaseRepository: FirebaseRepository
+    private val registerNewUserUseCase: RegisterNewUserUseCase
 ) : ViewModel() {
 
     private val _registerFlow = MutableSharedFlow<String>()
@@ -22,18 +21,18 @@ class RegisterViewModel(
     private val _showError = MutableSharedFlow<String?>()
     val showError: SharedFlow<String?> = _showError
 
-    fun registerNewUser(email: String, password: String) = viewModelScope.launch {
-        when (val status = firebaseRepository.registerNewUser(email = email, password = password)) {
+    fun registerNewUser(username: String, email: String, password: String) = viewModelScope.launch {
+        _isLoadingState.emit(true)
+        when (val status = registerNewUserUseCase.execute(username, email, password)) {
             is OperationStatus.Success -> {
                 _registerFlow.emit(status.value.email.toString())
-                Log.d("RegisterViewModel","result = ${status.value}")
             }
 
             is OperationStatus.Failure -> {
-                _showError.emit(status.exception.toString())
-                Log.d("RegisterViewModel","exception = ${status.exception}")
+                _showError.emit("Error: ${status.exception.message}")
             }
         }
+        _isLoadingState.emit(false)
     }
 
 }

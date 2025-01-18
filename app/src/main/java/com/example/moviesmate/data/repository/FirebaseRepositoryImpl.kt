@@ -5,21 +5,32 @@ import com.example.moviesmate.core.FirebaseCallHelper
 import com.example.moviesmate.core.OperationStatus
 import com.example.moviesmate.domain.repository.FirebaseRepository
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
 class FirebaseRepositoryImpl(
-    private val auth: FirebaseAuth
+    private val auth: FirebaseAuth,
+    private val firestore: FirebaseFirestore
 ) : FirebaseRepository {
 
     override suspend fun registerNewUser(
+        username: String,
         email: String,
         password: String
     ): OperationStatus<FirebaseUser> {
         return FirebaseCallHelper.safeFirebaseCall {
-            val result = auth.createUserWithEmailAndPassword(email,password).await()
-            Log.d("FirebaseRepositoryImpl","result => ${result}")
-            result.user ?: throw Exception("User creation failed.")
+            val authResult = auth.createUserWithEmailAndPassword(email, password).await()
+            val user = authResult.user
+            if (user != null) { val userMap = hashMapOf(
+                    "username" to username,
+                    "email" to email)
+                firestore.collection("users").document(user.uid).set(userMap).await()
+                user
+            } else {
+                throw Exception("User creation failed")
+            }
         }
     }
 
