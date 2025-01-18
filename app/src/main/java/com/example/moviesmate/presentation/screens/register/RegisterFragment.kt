@@ -8,16 +8,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterBinding::inflate) {
-
     val auth = FirebaseAuth.getInstance()
     val firestore = FirebaseFirestore.getInstance()
 
     override fun viewCreated() {
         goToLogInPage()
         registerUser("user1", "user1@gmail.com", "12341234")
-
     }
-
 
     // ----------------- Auth test ---------------------
     fun registerUser(username: String, email: String, password: String) {
@@ -46,7 +43,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
             }
     }
 
-
     // --- Go to Login Page ---
     private fun goToLogInPage() {
         binding.btnLogIn.setOnClickListener {
@@ -54,13 +50,9 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         }
     }
 
-
     // --- Email Validation ----
     fun isValidGmail(email: String): Boolean {
         val regex = "^[a-zA-Z0-9._%+-]+@gmail\\.com$".toRegex()
         return regex.matches(email)
     }
-
-
-
 }
