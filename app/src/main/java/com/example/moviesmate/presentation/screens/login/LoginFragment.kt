@@ -6,8 +6,7 @@ import com.example.moviesmate.presentation.base.BaseFragment
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
     override fun viewCreated() {
-<<<<<<< HEAD
-=======
+
         goToRegisterFragment()
         goToForgotPasswordFragment()
     }
@@ -22,16 +21,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         binding.btnRegister.setOnClickListener {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
         }
->>>>>>> 017db7772e1a07a92ff54c59e1273aa4b46361ff
+
     }
 
     fun isValidGmail(email: String): Boolean {
         val regex = "^[a-zA-Z0-9._%+-]+@gmail\\.com$".toRegex()
         return regex.matches(email)
     }
-<<<<<<< HEAD
-=======
 
-
->>>>>>> 017db7772e1a07a92ff54c59e1273aa4b46361ff
 }
