@@ -12,14 +12,17 @@ class RegisterViewModel(
     private val registerNewUserUseCase: RegisterNewUserUseCase
 ) : ViewModel() {
 
+    // Register Flow
     private val _registerFlow = MutableSharedFlow<String>()
     var registerFlow: SharedFlow<String> = _registerFlow
 
-    private val _isLoadingState = MutableSharedFlow<Boolean>()
-    val isLoadingState: SharedFlow<Boolean> = _isLoadingState
-
+    // Error Flow
     private val _showError = MutableSharedFlow<String?>()
     val showError: SharedFlow<String?> = _showError
+
+    // Loading Flow
+    private val _isLoadingState = MutableSharedFlow<Boolean>()
+    val isLoadingState: SharedFlow<Boolean> = _isLoadingState
 
     fun registerNewUser(username: String, email: String, password: String) = viewModelScope.launch {
         _isLoadingState.emit(true)
@@ -29,10 +32,9 @@ class RegisterViewModel(
             }
 
             is OperationStatus.Failure -> {
-                _showError.emit("Error: ${status.exception.message}")
+                _showError.emit(status.exception.message)
             }
         }
         _isLoadingState.emit(false)
     }
-
 }
