@@ -1,14 +1,11 @@
 package com.example.moviesmate.presentation.screens.register
 
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.moviesmate.databinding.FragmentRegisterBinding
 import com.example.moviesmate.presentation.base.BaseFragment
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -21,7 +18,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         registerNewUser()
         setCollectors()
     }
-
 
     private fun registerNewUser() {
         binding.btnRegister.setOnClickListener {
@@ -67,34 +63,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
     }
 
-    // ----------------- Auth test ---------------------
-//    fun registerUser(username: String, email: String, password: String) {
-//        auth.createUserWithEmailAndPassword(email, password)
-//            .addOnCompleteListener { task ->
-//                if (task.isSuccessful) {
-//                    // Get the registered user ID
-//                    val userId = auth.currentUser?.uid ?: return@addOnCompleteListener
-//
-//                    // Save the username in FireStore
-//                    val userMap = hashMapOf(
-//                        "username" to username,
-//                        "email" to email
-//                    )
-//                    firestore.collection("users").document(userId)
-//                        .set(userMap)
-//                        .addOnSuccessListener {
-//                            Log.d("Register", "User profile saved to Firestore")
-//                        }
-//                        .addOnFailureListener { e ->
-//                            Log.e("Register", "Failed to save user profile", e)
-//                        }
-//                } else {
-//                    Log.e("Register", "Authentication failed", task.exception)
-//                }
-//            }
-//    }
-
-
     // --- Go to Login Page ---
     private fun goToLogInPage() {
         binding.btnLogIn.setOnClickListener {
@@ -107,5 +75,4 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         val regex = "^[a-zA-Z0-9._%+-]+@gmail\\.com$".toRegex()
         return regex.matches(email)
     }
-
 }
