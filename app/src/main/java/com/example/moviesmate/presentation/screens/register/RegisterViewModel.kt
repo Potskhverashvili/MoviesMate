@@ -29,7 +29,7 @@ class RegisterViewModel(
             }
 
             is OperationStatus.Failure -> {
-                _showError.emit("Error: ${status.exception.message}")
+                _showError.emit("Error: ${status.exception.message.toString()}")
             }
         }
         _isLoadingState.emit(false)

@@ -12,13 +12,13 @@ class RegisterNewUserUseCase(
     suspend fun execute(
         username: String, email: String, password: String
     ): OperationStatus<FirebaseUser> {
-        return try {
-            firebaseRepository.registerNewUser(username, email, password)
-        } catch (exception: FirebaseAuthUserCollisionException) {
-            OperationStatus.Failure(exception)
-        } catch (exception: Exception) {
-            OperationStatus.Failure(exception)
-        }
+//        return try {
+        return firebaseRepository.registerNewUser(username, email, password)
+//        } catch (exception: FirebaseAuthUserCollisionException) {
+//            OperationStatus.Failure(exception)
+//        } catch (exception: Exception) {
+//            OperationStatus.Failure(exception)
+//        }
     }
 
 
