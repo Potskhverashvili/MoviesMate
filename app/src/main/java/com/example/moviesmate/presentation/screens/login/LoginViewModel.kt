@@ -1,21 +1,20 @@
-package com.example.moviesmate.presentation.screens.register
+package com.example.moviesmate.presentation.screens.login
 
-import android.util.Log.d
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesmate.core.OperationStatus
-import com.example.moviesmate.domain.usecases.RegisterNewUserUseCase
+import com.example.moviesmate.domain.usecases.LoginUserUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 
-class RegisterViewModel(
-    private val registerNewUserUseCase: RegisterNewUserUseCase
+class LoginViewModel(
+    private val loginUserUseCase: LoginUserUseCase
 ) : ViewModel() {
 
-    // Register Flow
-    private val _registerFlow = MutableSharedFlow<String>()
-    var registerFlow: SharedFlow<String> = _registerFlow
+    // Login Flow
+    private val _loginFlow = MutableSharedFlow<String>()
+    var loginFlow: SharedFlow<String> = _loginFlow
 
     // Error Flow
     private val _showError = MutableSharedFlow<String?>()
@@ -25,15 +24,15 @@ class RegisterViewModel(
     private val _isLoadingState = MutableSharedFlow<Boolean>()
     val isLoadingState: SharedFlow<Boolean> = _isLoadingState
 
-    fun registerNewUser(username: String, email: String, password: String) = viewModelScope.launch {
+    // --- Login User --
+    fun loginUser(email: String, password: String) = viewModelScope.launch {
         _isLoadingState.emit(true)
-        when (val status = registerNewUserUseCase.execute(username, email, password)) {
+        when (val status = loginUserUseCase.execute(email, password)) {
             is OperationStatus.Success -> {
-                _registerFlow.emit(status.value.email.toString())
+                _loginFlow.emit(status.value.toString())
             }
 
             is OperationStatus.Failure -> {
-                d("error", "erroe: ${status.exception.message}")
                 _showError.emit(status.exception.message)
             }
         }

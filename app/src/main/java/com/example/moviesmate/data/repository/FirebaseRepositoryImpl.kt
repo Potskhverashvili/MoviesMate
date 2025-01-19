@@ -1,5 +1,6 @@
 package com.example.moviesmate.data.repository
 
+import android.util.Log.d
 import com.example.moviesmate.core.FirebaseCallHelper
 import com.example.moviesmate.core.OperationStatus
 import com.example.moviesmate.domain.repository.FirebaseRepository
@@ -13,6 +14,7 @@ class FirebaseRepositoryImpl(
     private val firestore: FirebaseFirestore
 ) : FirebaseRepository {
 
+    // ------------- Register New User -------------
     override suspend fun registerNewUser(
         username: String,
         email: String,
@@ -21,13 +23,26 @@ class FirebaseRepositoryImpl(
         return FirebaseCallHelper.safeFirebaseCall {
             val authResult = auth.createUserWithEmailAndPassword(email, password).await()
             val user = authResult.user
+
+            // save username
             val userMap = hashMapOf(
-                    "username" to username,
-                    "email" to email)
-                firestore.collection("users").document(user!!.uid).set(userMap).await()
-                user
+                "username" to username,
+                "email" to email
+            )
+            firestore.collection("users").document(user!!.uid).set(userMap).await()
+            user
         }
     }
 
-
+    // -------------- Log In ------------------
+    override suspend fun loginInUser(
+        email: String,
+        password: String
+    ): OperationStatus<FirebaseUser> {
+        return FirebaseCallHelper.safeFirebaseCall {
+            val resultUser = auth.signInWithEmailAndPassword(email, password).await()
+            d("CheckLogin", "Result: ${resultUser.user!!}")
+            resultUser.user!!
+        }
+    }
 }

@@ -38,11 +38,12 @@
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="E-mail"
-            android:singleLine="true"
             android:ellipsize="end"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress"
             android:maxLength="50"
-            android:inputType="textEmailAddress" />
+            android:singleLine="true"
+            android:textColor="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -54,21 +55,22 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="24dp"
         app:endIconCheckable="true"
-        app:passwordToggleEnabled="true"
-        app:passwordToggleDrawable="@drawable/ic_eye_selector"
         app:endIconMode="password_toggle"
         app:endIconTint="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/tvEmailLayout">
+        app:layout_constraintTop_toBottomOf="@id/tvEmailLayout"
+        app:passwordToggleDrawable="@drawable/ic_eye_selector"
+        app:passwordToggleEnabled="true">
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
-            android:singleLine="true"
             android:ellipsize="end"
+            android:hint="Password"
+            android:inputType="textPassword"
             android:maxLength="40"
-            android:inputType="textPassword" />
+            android:singleLine="true"
+            android:textColor="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -158,5 +160,16 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
