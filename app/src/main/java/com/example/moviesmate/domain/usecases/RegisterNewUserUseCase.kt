@@ -8,7 +8,6 @@ import com.google.firebase.auth.FirebaseUser
 class RegisterNewUserUseCase(
     private val firebaseRepository: FirebaseRepository
 ) {
-
     suspend fun execute(
         username: String, email: String, password: String
     ): OperationStatus<FirebaseUser> {
@@ -20,5 +19,4 @@ class RegisterNewUserUseCase(
             OperationStatus.Failure(exception)
         }
     }
-
 }
