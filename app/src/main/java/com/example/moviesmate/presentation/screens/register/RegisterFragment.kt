@@ -43,7 +43,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
     private fun setCollectors() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.registerFlow.collect {
-                findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToHomeFragment())
+                findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToContainerFragment())
             }
         }
 
@@ -63,14 +63,12 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
     }
 
-    // --- Go to Login Page ---
     private fun goToLogInPage() {
         binding.btnLogIn.setOnClickListener {
             findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
         }
     }
 
-    // --- Email Validation ----
     fun isValidGmail(email: String): Boolean {
         val regex = "^[a-zA-Z0-9._%+-]+@gmail\\.com$".toRegex()
         return regex.matches(email)

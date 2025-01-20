@@ -14,7 +14,6 @@ class FirebaseRepositoryImpl(
     private val firestore: FirebaseFirestore
 ) : FirebaseRepository {
 
-    // ------------- Register New User -------------
     override suspend fun registerNewUser(
         username: String,
         email: String,
@@ -24,17 +23,15 @@ class FirebaseRepositoryImpl(
             val authResult = auth.createUserWithEmailAndPassword(email, password).await()
             val user = authResult.user
 
-            // save username
             val userMap = hashMapOf(
                 "username" to username,
-                "email" to email
+                "email" to email,
             )
             firestore.collection("users").document(user!!.uid).set(userMap).await()
             user
         }
     }
 
-    // -------------- Log In ------------------
     override suspend fun loginInUser(
         email: String,
         password: String
@@ -45,4 +42,11 @@ class FirebaseRepositoryImpl(
             resultUser.user!!
         }
     }
+
+    override suspend fun passwordReset(email: String): OperationStatus<Unit> {
+        return FirebaseCallHelper.safeFirebaseCall {
+            auth.sendPasswordResetEmail(email).await()
+        }
+    }
+
 }

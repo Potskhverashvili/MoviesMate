@@ -1,4 +1,4 @@
-package com.example.moviesmate.presentation.screens.homefragment
+package com.example.moviesmate.presentation.screens.containerFragment.home
 
 import android.widget.Toast
 import com.example.moviesmate.databinding.FragmentHomeBinding

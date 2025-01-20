@@ -13,15 +13,12 @@ class RegisterViewModel(
     private val registerNewUserUseCase: RegisterNewUserUseCase
 ) : ViewModel() {
 
-    // Register Flow
     private val _registerFlow = MutableSharedFlow<String>()
     var registerFlow: SharedFlow<String> = _registerFlow
 
-    // Error Flow
     private val _showError = MutableSharedFlow<String?>()
     val showError: SharedFlow<String?> = _showError
 
-    // Loading Flow
     private val _isLoadingState = MutableSharedFlow<Boolean>()
     val isLoadingState: SharedFlow<Boolean> = _isLoadingState
 

@@ -47,126 +47,42 @@
         android:layout_width="192dp"
         android:layout_height="192dp"
         android:layout_marginTop="40dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_email"
         app:civ_border_color="#FF000000"
         app:civ_border_width="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        android:src="@drawable/ic_email"
-        android:scaleType="centerCrop"/>
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="72dp"
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/poppins_medium"
         android:gravity="center"
-        android:text="Please Enter The 4 Digit Code Send To"
-        android:textSize="18sp"
+        android:text="The email was sent successfully."
+        android:textSize="21sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/image" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/userEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_medium"
-        android:textSize="18sp"
-        android:textStyle="bold"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:background="@color/red"
         app:layout_constraintEnd_toEndOf="@id/textview"
         app:layout_constraintStart_toStartOf="@id/textview"
-        app:layout_constraintTop_toBottomOf="@id/textview"
-        tools:text="www.userEmail@gmail.com" />
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/linearLayoutDigits"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@+id/textview">
-
-        <!-- First Digit -->
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/codeDigit1"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="8dp"
-            android:background="@drawable/otp_background"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="1"
-            android:textSize="20sp" />
-
-        <!-- Second Digit -->
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/codeDigit2"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="8dp"
-            android:background="@drawable/otp_background"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="1"
-            android:textSize="20sp" />
-
-        <!-- Third Digit -->
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/codeDigit3"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="8dp"
-            android:background="@drawable/otp_background"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="1"
-            android:textSize="20sp" />
-
-        <!-- Fourth Digit -->
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/codeDigit4"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="8dp"
-            android:background="@drawable/otp_background"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="1"
-            android:textSize="20sp" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/btnResendCode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:clickable="true"
-        android:fontFamily="@font/poppins_medium"
-        android:text="Resend Code"
-        android:textColor="@color/red"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutDigits" />
-
-    <View
-        android:layout_width="112dp"
-        android:layout_height="1dp"
-        android:background="@color/red"
-        app:layout_constraintTop_toBottomOf="@id/btnResendCode"
-        app:layout_constraintStart_toStartOf="@id/btnResendCode"
-        app:layout_constraintEnd_toEndOf="@id/btnResendCode"/>
+        app:layout_constraintTop_toBottomOf="@id/textview" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnVerify"
+        android:id="@+id/btnLogInPage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -175,7 +91,7 @@
         android:background="@drawable/ripple_btn_background"
         android:fontFamily="@font/poppins_light"
         android:padding="10dp"
-        android:text="Verify"
+        android:text="Proceed to Login"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="21sp"
@@ -183,6 +99,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnResendCode" />
+        app:layout_constraintTop_toBottomOf="@id/textview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
