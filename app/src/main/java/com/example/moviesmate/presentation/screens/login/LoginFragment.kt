@@ -38,7 +38,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     private fun setCollectors() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.loginFlow.collect {
-                findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+                findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToContainerFragment())
             }
         }
 
@@ -58,14 +58,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         }
     }
 
-    // --- Go to forgot password page ---
     private fun goToForgotPasswordFragment() {
         binding.tvForgetPassword.setOnClickListener {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToForgotPasswordFragment())
         }
     }
 
-    // --- Go to register page ---
     private fun goToRegisterFragment() {
         binding.btnRegister.setOnClickListener {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())

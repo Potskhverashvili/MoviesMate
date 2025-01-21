@@ -1,42 +1,44 @@
 package com.example.moviesmate.presentation.screens.passwordRecover.forgotPassword
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.auth.AuthState
+import androidx.lifecycle.viewModelScope
+import com.example.moviesmate.core.OperationStatus
+import com.example.moviesmate.domain.usecases.PasswordResetUseCase
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
-
-/*
-class ForgotPasswordViewModel() : ViewModel() {
-    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+import kotlinx.coroutines.launch
 
 
+class ForgotPasswordViewModel(
+    private val passwordResetUseCase: PasswordResetUseCase
+) : ViewModel() {
 
+    private val _isEmailSend = MutableSharedFlow<Boolean>()
+    val isEmailSend: SharedFlow<Boolean> = _isEmailSend
 
-    private val _sendEmailState = MutableStateFlow<AuthState>(AuthState.Id)
-    val sendEmailState: StateFlow<AuthState> = _sendEmailState
+    private val _showError = MutableSharedFlow<String?>()
+    val showError: SharedFlow<String?> = _showError
 
-    // Trigger email with verification code
-    fun sendVerificationCode(email: String) {
-        _sendEmailState.update { AuthState.Loading }
-        auth.sendPasswordResetEmail(email).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                _sendEmailState.update { AuthState.Success("Verification email sent to $email") }
-            } else {
-                _sendEmailState.update {
-                    AuthState.Error(
-                        task.exception?.message ?: "Error sending email"
-                    )
-                }
+    private val _isLoadingState = MutableSharedFlow<Boolean>()
+    val isLoadingState: SharedFlow<Boolean> = _isLoadingState
+
+    fun passwordReset(email: String) = viewModelScope.launch {
+        _isLoadingState.emit(true)
+        when (val status = passwordResetUseCase.execute(email)) {
+            is OperationStatus.Success -> {
+                _isEmailSend.emit(true)
+            }
+            is OperationStatus.Failure -> {
+                _showError.emit(status.exception.toString())
             }
         }
+        _isLoadingState.emit(false)
     }
-}
 
-sealed class AuthState {
-    object Idle : AuthState()
-    object Loading : AuthState()
-    data class Success(val message: String) : AuthState()
-    data class Error(val error: String) : AuthState()
-}*/
+}

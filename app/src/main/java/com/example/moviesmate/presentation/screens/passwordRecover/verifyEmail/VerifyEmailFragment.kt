@@ -8,12 +8,16 @@ class VerifyEmailFragment :
     BaseFragment<FragmentVerifyEmailBinding>(FragmentVerifyEmailBinding::inflate) {
 
     override fun viewCreated() {
-        goToCreateNewPasswordFragment()
+        setListeners()
     }
 
-    private fun goToCreateNewPasswordFragment(){
-        binding.btnVerify.setOnClickListener {
-            findNavController().navigate(VerifyEmailFragmentDirections.actionVerifyEmailFragmentToCreateNewPasswordFragment())
+    private fun setListeners() = with(binding) {
+        btnLogInPage.setOnClickListener {
+            findNavController().navigate(VerifyEmailFragmentDirections.actionVerifyEmailFragmentToLoginFragment())
+        }
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
+
 }
