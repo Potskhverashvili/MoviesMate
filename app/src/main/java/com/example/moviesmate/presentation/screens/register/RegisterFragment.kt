@@ -44,18 +44,22 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
     private fun setCollectors() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.registerFlow.collect {
-                findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToContainerFragment())
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.registerFlow.collect {
+                    findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToContainerFragment())
+                }
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.showError.collect { errorMessage ->
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.showError.collect { errorMessage ->
                     Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_LONG).show()
+                }
             }
         }
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.isLoadingState.collect { isLoading ->
                     binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
