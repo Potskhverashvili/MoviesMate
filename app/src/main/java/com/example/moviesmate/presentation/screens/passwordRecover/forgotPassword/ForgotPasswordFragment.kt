@@ -54,6 +54,5 @@ class ForgotPasswordFragment :
                 binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
             }
         }
-
     }
 }
