@@ -1,5 +1,6 @@
 package com.example.moviesmate.presentation.screens.containerFragment.search
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesmate.core.OperationStatus
@@ -36,6 +37,7 @@ class SearchViewModel(
             }
 
             is OperationStatus.Failure -> {
+                Log.d("SearchFragment", "Error === ${status.exception}")
                 _showError.emit(status.exception.toString())
             }
         }
