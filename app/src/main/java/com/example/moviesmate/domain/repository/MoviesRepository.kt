@@ -1,0 +1,10 @@
+package com.example.moviesmate.domain.repository
+
+import com.example.moviesmate.core.OperationStatus
+import com.example.moviesmate.domain.model.GenresType
+
+interface MoviesRepository {
+
+    suspend fun getGenresTypes(): OperationStatus<GenresType>
+
+}

@@ -2,7 +2,9 @@ package com.example.moviesmate.presentation.screens.register
 
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.moviesmate.databinding.FragmentRegisterBinding
 import com.example.moviesmate.presentation.base.BaseFragment
@@ -42,22 +44,26 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
     private fun setCollectors() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.registerFlow.collect {
-                findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToContainerFragment())
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.registerFlow.collect {
+                    findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToContainerFragment())
+                }
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.showError.collect { errorMessage ->
-                if (!errorMessage.isNullOrEmpty()) {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.showError.collect { errorMessage ->
                     Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_LONG).show()
                 }
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.isLoadingState.collect { isLoading ->
-                binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.isLoadingState.collect { isLoading ->
+                    binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+                }
             }
         }
 
@@ -69,8 +75,4 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         }
     }
 
-    fun isValidGmail(email: String): Boolean {
-        val regex = "^[a-zA-Z0-9._%+-]+@gmail\\.com$".toRegex()
-        return regex.matches(email)
-    }
 }

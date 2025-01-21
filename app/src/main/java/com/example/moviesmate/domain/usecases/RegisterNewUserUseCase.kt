@@ -3,6 +3,7 @@ package com.example.moviesmate.domain.usecases
 import com.example.moviesmate.core.OperationStatus
 import com.example.moviesmate.domain.repository.FirebaseRepository
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.delay
 
 class RegisterNewUserUseCase(
     private val firebaseRepository: FirebaseRepository

@@ -1,6 +1,5 @@
 package com.example.moviesmate.presentation.screens.register
 
-import android.util.Log.d
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesmate.core.OperationStatus
@@ -30,7 +29,6 @@ class RegisterViewModel(
             }
 
             is OperationStatus.Failure -> {
-                d("error", "erroe: ${status.exception.message}")
                 _showError.emit(status.exception.message)
             }
         }
