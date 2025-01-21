@@ -4,7 +4,9 @@ import com.example.moviesmate.core.ApiCallHelper
 import com.example.moviesmate.core.OperationStatus
 import com.example.moviesmate.core.map
 import com.example.moviesmate.data.remote.service.MovieService
+import com.example.moviesmate.data.toCategoryMovies
 import com.example.moviesmate.data.toGenresType
+import com.example.moviesmate.domain.model.CategoryMovies
 import com.example.moviesmate.domain.model.GenresType
 import com.example.moviesmate.domain.repository.MoviesRepository
 
@@ -18,4 +20,9 @@ class MoviesRepositoryImpl(
         }.map { genresTypeDto -> genresTypeDto.toGenresType() }
     }
 
+    override suspend fun getCategoryMovies(): OperationStatus<CategoryMovies> {
+        return ApiCallHelper.safeApiCall {
+            service.getCategoryMoves()
+        }.map { categoryMoviesDto -> categoryMoviesDto.toCategoryMovies() }
+    }
 }

@@ -11,11 +11,21 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     private val searchViewModel by viewModel<SearchViewModel>()
 
     override fun viewCreated() {
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            searchViewModel.getCategoryMovies()
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            searchViewModel.categoryMoviesFlow.collect {
+                Log.d("SearchFragment", "Category result === ${it}")
+            }
+        }
+
         viewLifecycleOwner.lifecycleScope.launch {
             searchViewModel.genresFlow.collect {
-                Log.d("SearchFragment", "result === ${it}")
+                /*Log.d("SearchFragment", "Fragment result === ${it}")*/
             }
         }
     }
-
 }

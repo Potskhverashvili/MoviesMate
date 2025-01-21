@@ -1,6 +1,7 @@
 package com.example.moviesmate.data.remote.service
 
 import com.example.moviesmate.core.Constants
+import com.example.moviesmate.data.remote.dto.CategoryMoviesDto
 import com.example.moviesmate.data.remote.dto.GenresTypeDto
 import retrofit2.Response
 import retrofit2.http.GET
@@ -13,4 +14,9 @@ interface MovieService {
         @Query("api_key") apiKey: String = Constants.API_KEY
     ): Response<GenresTypeDto>
 
+    @GET("discover/movie")
+    suspend fun getCategoryMoves(
+        @Query("page") page: Int = 1,
+        @Query("api_key") apiKey: String = Constants.API_KEY,
+    ): Response<CategoryMoviesDto>
 }
