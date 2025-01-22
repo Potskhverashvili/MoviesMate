@@ -25,4 +25,5 @@ class MoviesRepositoryImpl(
             service.getCategoryMoves()
         }.map { categoryMoviesDto -> categoryMoviesDto.toCategoryMovies() }
     }
+
 }

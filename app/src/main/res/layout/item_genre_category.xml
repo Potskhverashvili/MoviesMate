@@ -3,7 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="8dp">
+    android:layout_marginEnd="8dp"
+    android:id="@+id/genreCardView"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/white"
+    app:strokeWidth="2dp"
+    app:strokeColor="@color/white">
 
     <TextView
         android:id="@+id/genreTextView"
@@ -11,6 +16,7 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="16dp"
         android:paddingVertical="8dp"
-        tools:text="Category" />
+        tools:text="Category"
+        android:textColor="@color/white"/>
 
 </com.google.android.material.card.MaterialCardView>

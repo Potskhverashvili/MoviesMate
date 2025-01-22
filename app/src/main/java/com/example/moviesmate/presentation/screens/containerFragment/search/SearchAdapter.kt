@@ -2,22 +2,34 @@ package com.example.moviesmate.presentation.screens.containerFragment.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.moviesmate.R
 import com.example.moviesmate.databinding.ItemGenreCategoryRvBinding
 import com.example.moviesmate.databinding.ItemSearchedMoviesBinding
 import com.example.moviesmate.domain.model.CategoryMovies
+import com.example.moviesmate.domain.model.GenresType
 
-class SearchAdapter(
-    private val categoryMovies: List<CategoryMovies.Result>,
-    private val categoryAdapter: CategoryAdapter
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SearchAdapter :
+    ListAdapter<CategoryMovies.Result, SearchAdapter.ItemCategoryMovieHolder>(
+        ItemCategoryMovieCallback()
+    ) {
 
-    inner class CategoriesViewHolder(private val binding: ItemGenreCategoryRvBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind() {
-            binding.categoriesRecyclerView.adapter = categoryAdapter
-        }
+    var onItemClick: (genre: CategoryMovies.Result) -> Unit = {}
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemCategoryMovieHolder {
+        val binding = ItemSearchedMoviesBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return ItemCategoryMovieHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: ItemCategoryMovieHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 
     inner class ItemCategoryMovieHolder(private val binding: ItemSearchedMoviesBinding) :
@@ -25,59 +37,35 @@ class SearchAdapter(
         fun bind(movies: CategoryMovies.Result) {
             binding.tvMovieTitle.text = movies.title
 
+            val posterUrl = "https://image.tmdb.org/t/p/w500${movies.poster_path}"
             Glide.with(binding.ivMoviePoster)
-                .load(movies.poster_path)
+                .load(posterUrl)
                 .into(binding.ivMoviePoster)
 
-        }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-
-            VIEW_TYPE_CATEGORIES -> {
-                val binding = ItemGenreCategoryRvBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-                CategoriesViewHolder(binding)
+            binding.root.setOnClickListener {
+                onItemClick.invoke(movies)
             }
 
-            VIEW_TYPE_MOVIE -> {
-                val binding =
-                    ItemSearchedMoviesBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
-                ItemCategoryMovieHolder(binding)
+            // Set the click listener for the saveToFavorites button
+            binding.saveToFavorites.setOnClickListener {
+
             }
-
-            else -> throw IllegalArgumentException("Wrong viewType was found: $viewType")
         }
     }
 
-    override fun getItemCount(): Int {
-        return categoryMovies.size + 1
-    }
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder) {
-            is CategoriesViewHolder -> holder.bind()
-            is ItemCategoryMovieHolder -> holder.bind(categoryMovies[position - 1])
+    class ItemCategoryMovieCallback : DiffUtil.ItemCallback<CategoryMovies.Result>() {
+        override fun areItemsTheSame(
+            oldItem: CategoryMovies.Result,
+            newItem: CategoryMovies.Result
+        ): Boolean {
+            return oldItem.id == newItem.id
         }
-    }
 
-    override fun getItemViewType(position: Int): Int {
-        return when (position) {
-            0 -> VIEW_TYPE_CATEGORIES
-            else -> VIEW_TYPE_MOVIE
+        override fun areContentsTheSame(
+            oldItem: CategoryMovies.Result,
+            newItem: CategoryMovies.Result
+        ): Boolean {
+            return oldItem == newItem
         }
-    }
-
-    companion object {
-        const val VIEW_TYPE_CATEGORIES = 0
-        const val VIEW_TYPE_MOVIE = 1
     }
 }

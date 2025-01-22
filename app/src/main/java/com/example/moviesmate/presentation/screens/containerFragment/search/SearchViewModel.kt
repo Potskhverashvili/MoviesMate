@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.lang.Thread.State
 
 class SearchViewModel(
     private val fetchGenresTypesUseCase: FetchGenresTypesUseCase,
@@ -23,20 +24,27 @@ class SearchViewModel(
         MutableStateFlow<List<CategoryMovies.Result>>(emptyList())
     val categoryMoviesFlow: StateFlow<List<CategoryMovies.Result>> = _categoryMoviesFlow
 
+    private var _filteredMoviesFlow =
+        MutableStateFlow<List<CategoryMovies.Result>>(emptyList())
+    val filteredMoviesFlow: StateFlow<List<CategoryMovies.Result>> = _filteredMoviesFlow
+
+
     private var _genresFlow = MutableStateFlow<List<GenresType.Genre>>(emptyList())
     val genresFlow: StateFlow<List<GenresType.Genre>> = _genresFlow
 
     private var _showError = MutableSharedFlow<String?>()
     val showError: SharedFlow<String?> = _showError
 
-    private var _isLoadingState = MutableSharedFlow<Boolean>()
-    val isLoadingState: SharedFlow<Boolean> = _isLoadingState
+    private var _isLoadingState = MutableStateFlow<Boolean>(false)
+    val isLoadingState: StateFlow<Boolean> = _isLoadingState
 
     init {
         getAllGenresType()
+        getCategoryMovies()
     }
 
-    fun getCategoryMovies() = viewModelScope.launch {
+    private fun getCategoryMovies() = viewModelScope.launch {
+        _isLoadingState.emit(true)
         when (val status = searchedCategoryUseCase.execute()) {
             is OperationStatus.Success -> {
                 Log.d("SearchFragment", "Category result = ${status.value.results}")
@@ -47,11 +55,10 @@ class SearchViewModel(
                 _showError.emit(status.exception.message)
             }
         }
+        _isLoadingState.emit(false)
     }
 
-
     private fun getAllGenresType() = viewModelScope.launch {
-        _isLoadingState.emit(true)
         when (val status = fetchGenresTypesUseCase.execute()) {
             is OperationStatus.Success -> {
                 _genresFlow.emit(status.value.genres)
@@ -61,6 +68,22 @@ class SearchViewModel(
                 _showError.emit(status.exception.toString())
             }
         }
-        _isLoadingState.emit(false)
     }
+
+
+    fun filterMoviesByGenre(genreId: Int) = viewModelScope.launch {
+        val filteredMovies = _categoryMoviesFlow.value.filter { movie ->
+            movie.genre_ids.contains(genreId)
+        }
+        _filteredMoviesFlow.emit(filteredMovies)
+    }
+
+    fun searchMovies(query: String) = viewModelScope.launch {
+        val filteredMovies = _categoryMoviesFlow.value.filter { movie ->
+            movie.title.contains(query, ignoreCase = true)
+        }
+        _filteredMoviesFlow.emit(filteredMovies)
+    }
+
+
 }

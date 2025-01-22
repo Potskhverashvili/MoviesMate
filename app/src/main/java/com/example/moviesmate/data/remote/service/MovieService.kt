@@ -19,4 +19,5 @@ interface MovieService {
         @Query("page") page: Int = 1,
         @Query("api_key") apiKey: String = Constants.API_KEY,
     ): Response<CategoryMoviesDto>
+
 }
