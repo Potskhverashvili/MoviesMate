@@ -1,7 +1,5 @@
 package com.example.moviesmate.presentation.screens.containerFragment.search
 
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -35,32 +33,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     private fun setListeners() {
         categoryAdapter.onItemClick = { selectedGenre ->
-            searchViewModel.filterMoviesByGenre(selectedGenre.id)
             categoryAdapter.setSelectedCategory(selectedGenre.id)
         }
-
-        binding.btnSearch.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
-                val query = charSequence.toString().trim()
-                searchViewModel.searchMovies(query)
-            }
-
-            override fun afterTextChanged(editable: Editable?) {
-
-            }
-        })
     }
 
     private fun setCollectors() {
-        // Collect filtered movies to update the search adapter
-        viewLifecycleOwner.lifecycleScope.launch {
-            searchViewModel.filteredMoviesFlow.collect { categoryMovies ->
-                searchAdapter.submitList(categoryMovies)
-            }
-        }
-
         // Collect genres to update the category adapter
         viewLifecycleOwner.lifecycleScope.launch {
             searchViewModel.genresFlow.collect { genres ->
@@ -68,10 +45,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             }
         }
 
-        // Get Initial All Movies Page1
+        // Get Initial All Movies Pages1,2,3...
         viewLifecycleOwner.lifecycleScope.launch {
             searchViewModel.categoryMoviesFlow.collect { allMovies ->
-                searchAdapter.submitList(allMovies)
+                searchAdapter.submitData(allMovies)
             }
         }
 
@@ -79,11 +56,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         viewLifecycleOwner.lifecycleScope.launch {
             searchViewModel.isLoadingState.collect { isLoading ->
                 if (isLoading) {
-                    binding.progressBar.visibility = View.VISIBLE // Show progress bar
+                    binding.progressBar.visibility = View.VISIBLE
                 } else {
-                    binding.progressBar.visibility = View.GONE // Hide progress bar
+                    binding.progressBar.visibility = View.GONE
                 }
             }
         }
     }
+
 }

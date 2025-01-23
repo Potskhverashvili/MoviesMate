@@ -92,4 +92,8 @@ dependencies {
 
     // Circular image dependencies
     implementation("de.hdodenhof:circleimageview:3.1.0")
+
+    // Paging library
+    val paging_version = "3.3.5"
+    implementation("androidx.paging:paging-runtime:$paging_version")
 }

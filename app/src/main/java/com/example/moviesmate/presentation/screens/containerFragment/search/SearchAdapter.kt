@@ -2,34 +2,31 @@ package com.example.moviesmate.presentation.screens.containerFragment.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.moviesmate.R
-import com.example.moviesmate.databinding.ItemGenreCategoryRvBinding
 import com.example.moviesmate.databinding.ItemSearchedMoviesBinding
 import com.example.moviesmate.domain.model.CategoryMovies
-import com.example.moviesmate.domain.model.GenresType
 
 class SearchAdapter :
-    ListAdapter<CategoryMovies.Result, SearchAdapter.ItemCategoryMovieHolder>(
+    PagingDataAdapter<CategoryMovies.Result, SearchAdapter.ItemCategoryMovieHolder>(
         ItemCategoryMovieCallback()
     ) {
 
-    var onItemClick: (genre: CategoryMovies.Result) -> Unit = {}
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemCategoryMovieHolder {
-        val binding = ItemSearchedMoviesBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
+        return ItemCategoryMovieHolder(
+            ItemSearchedMoviesBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         )
-        return ItemCategoryMovieHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ItemCategoryMovieHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position) ?: return)
     }
 
     inner class ItemCategoryMovieHolder(private val binding: ItemSearchedMoviesBinding) :
@@ -42,14 +39,6 @@ class SearchAdapter :
                 .load(posterUrl)
                 .into(binding.ivMoviePoster)
 
-            binding.root.setOnClickListener {
-                onItemClick.invoke(movies)
-            }
-
-            // Set the click listener for the saveToFavorites button
-            binding.saveToFavorites.setOnClickListener {
-
-            }
         }
     }
 
@@ -68,4 +57,5 @@ class SearchAdapter :
             return oldItem == newItem
         }
     }
+
 }

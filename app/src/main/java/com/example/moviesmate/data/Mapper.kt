@@ -19,7 +19,7 @@ fun GenresTypeDto.toGenresType(): GenresType {
 
 fun CategoryMoviesDto.toCategoryMovies(): CategoryMovies {
     return CategoryMovies(
-        page = this.page,
+        pagingPage = this.pagingPageDto,
         results = this.results.map { resultDto ->
             CategoryMovies.Result(
                 adult = resultDto.adult,

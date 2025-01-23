@@ -23,11 +23,11 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
 
-        if (user.currentUser != null) {
-            navGraph.setStartDestination(R.id.containerFragment)
-        } else {
-            navGraph.setStartDestination(R.id.registerFragment)
-        }
+//        if (user.currentUser != null) {
+//            navGraph.setStartDestination(R.id.containerFragment)
+//        } else {
+//            navGraph.setStartDestination(R.id.registerFragment)
+//        }
         navController.graph = navGraph
     }
 }

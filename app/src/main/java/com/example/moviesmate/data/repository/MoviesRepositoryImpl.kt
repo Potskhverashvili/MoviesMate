@@ -20,10 +20,17 @@ class MoviesRepositoryImpl(
         }.map { genresTypeDto -> genresTypeDto.toGenresType() }
     }
 
-    override suspend fun getCategoryMovies(): OperationStatus<CategoryMovies> {
+    override suspend fun getCategoryMovies(page: Int): OperationStatus<CategoryMovies> {
         return ApiCallHelper.safeApiCall {
-            service.getCategoryMoves()
+            service.getCategoryMoves(page = page)
         }.map { categoryMoviesDto -> categoryMoviesDto.toCategoryMovies() }
     }
+
+    override suspend fun getMovieByGenre(genreId: Int, page: Int): OperationStatus<CategoryMovies> {
+        return ApiCallHelper.safeApiCall {
+            service.getMoviesByGenre(genreId = genreId, page = page)
+        }.map { categoryMoviesDto -> categoryMoviesDto.toCategoryMovies() }
+    }
+
 
 }

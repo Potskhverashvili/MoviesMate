@@ -20,4 +20,11 @@ interface MovieService {
         @Query("api_key") apiKey: String = Constants.API_KEY,
     ): Response<CategoryMoviesDto>
 
+    @GET("discover/movie")
+    suspend fun getMoviesByGenre(
+        @Query("api_key") apiKey: String = Constants.API_KEY,
+        @Query("with_genres") genreId: Int,
+        @Query("page") page: Int = 1
+    ): Response<CategoryMoviesDto>
+
 }

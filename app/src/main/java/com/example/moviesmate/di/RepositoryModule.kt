@@ -1,6 +1,7 @@
 package com.example.moviesmate.di
 
 import com.example.moviesmate.data.repository.FirebaseRepositoryImpl
+import com.example.moviesmate.data.pagingSourse.MoviesPagingSource
 import com.example.moviesmate.data.repository.MoviesRepositoryImpl
 import com.example.moviesmate.domain.repository.FirebaseRepository
 import com.example.moviesmate.domain.repository.MoviesRepository

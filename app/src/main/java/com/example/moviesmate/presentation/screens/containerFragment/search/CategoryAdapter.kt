@@ -14,6 +14,7 @@ class CategoryAdapter :
 
     var onItemClick: (genre: GenresType.Genre) -> Unit = {}
     private var selectedCategoryId: Int? = null
+    var onItemLongClick: (genre: GenresType.Genre) -> Unit = {}
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -39,9 +40,11 @@ class CategoryAdapter :
             onItemClick: (genre: GenresType.Genre) -> Unit
         ) {
             binding.genreTextView.text = category.name
+
             binding.root.setOnClickListener {
                 onItemClick(category)
             }
+
 
             if (isSelected) {
                 binding.genreCardView.setCardBackgroundColor(
