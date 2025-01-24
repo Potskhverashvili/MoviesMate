@@ -1,7 +1,9 @@
 package com.example.moviesmate.presentation
 
 import android.content.pm.ActivityInfo
+import android.os.Build
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import com.example.moviesmate.R
@@ -22,6 +24,7 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
         val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
+
 
 //        if (user.currentUser != null) {
 //            navGraph.setStartDestination(R.id.containerFragment)

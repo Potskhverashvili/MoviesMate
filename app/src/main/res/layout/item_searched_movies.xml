@@ -10,13 +10,13 @@
     app:cardUseCompatPadding="true">
 
     <RelativeLayout
-        android:layout_width="180dp"
-        android:layout_height="290dp">
+        android:layout_width="match_parent"
+        android:layout_height="220dp">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivMoviePoster"
-            android:layout_width="180dp"
-            android:layout_height="260dp"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
             android:scaleType="centerCrop"
             tools:src="@tools:sample/avatars" />
 

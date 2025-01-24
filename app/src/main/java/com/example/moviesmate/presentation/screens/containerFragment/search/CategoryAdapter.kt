@@ -12,73 +12,59 @@ import com.example.moviesmate.domain.model.GenresType
 class CategoryAdapter :
     ListAdapter<GenresType.Genre, CategoryAdapter.CategoryViewHolder>(CategoryItemGenreCallBack()) {
 
-    var onItemClick: (genre: GenresType.Genre) -> Unit = {}
-    private var selectedCategoryId: Int? = null
-    var onItemLongClick: (genre: GenresType.Genre) -> Unit = {}
+    var onGenreClick: (genre: GenresType.Genre) -> Unit = {}
+    private var selectedGenreId: Int? = null
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ) = CategoryViewHolder(
-        ItemGenreCategoryBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        CategoryViewHolder(
+            ItemGenreCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
-    )
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item, item.id == selectedCategoryId, onItemClick)
+        val genre = getItem(position)
+        holder.bind(genre, genre.id == selectedGenreId, onGenreClick)
+    }
+
+    fun updateSelectedGenre(selectedId: Int?) {
+        val previousSelectedGenreId = selectedGenreId
+        selectedGenreId = selectedId
+
+        // Only update the previous and newly selected items to avoid unnecessary changes
+        val previousIndex = currentList.indexOfFirst { it.id == previousSelectedGenreId }
+        val newIndex = currentList.indexOfFirst { it.id == selectedGenreId }
+
+        notifyItemChangedIfValid(previousIndex)
+        notifyItemChangedIfValid(newIndex)
+    }
+
+    private fun notifyItemChangedIfValid(index: Int) {
+        if (index != -1) {
+            notifyItemChanged(index)
+        }
     }
 
     class CategoryViewHolder(private val binding: ItemGenreCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(
-            category: GenresType.Genre,
-            isSelected: Boolean,
-            onItemClick: (genre: GenresType.Genre) -> Unit
-        ) {
-            binding.genreTextView.text = category.name
-
-            binding.root.setOnClickListener {
-                onItemClick(category)
-            }
-
-
-            if (isSelected) {
-                binding.genreCardView.setCardBackgroundColor(
-                    ContextCompat.getColor(binding.root.context, android.R.color.holo_orange_light)
+        fun bind(genre: GenresType.Genre, isSelected: Boolean, onItemClick: (GenresType.Genre) -> Unit) {
+            binding.genreTextView.text = genre.name
+            binding.root.setOnClickListener { onItemClick(genre) }
+            binding.genreCardView.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    binding.root.context,
+                    if (isSelected) android.R.color.holo_orange_light else android.R.color.transparent
                 )
-            } else {
-                binding.genreCardView.setCardBackgroundColor(
-                    ContextCompat.getColor(binding.root.context, android.R.color.transparent)
-                )
-            }
+            )
         }
-    }
-
-    fun setSelectedCategory(selectedCategoryId: Int?) {
-        this.selectedCategoryId = selectedCategoryId
-        notifyDataSetChanged()
-//        submitList(currentList.toList()) // Trigger rebind with updated selected state
     }
 
     private class CategoryItemGenreCallBack : DiffUtil.ItemCallback<GenresType.Genre>() {
-        override fun areItemsTheSame(
-            oldItem: GenresType.Genre,
-            newItem: GenresType.Genre
-        ): Boolean {
-            return oldItem.id == newItem.id
-        }
+        override fun areItemsTheSame(oldItem: GenresType.Genre, newItem: GenresType.Genre) =
+            oldItem.id == newItem.id
 
-        override fun areContentsTheSame(
-            oldItem: GenresType.Genre,
-            newItem: GenresType.Genre
-        ): Boolean {
-            return oldItem == newItem
-        }
+        override fun areContentsTheSame(oldItem: GenresType.Genre, newItem: GenresType.Genre) =
+            oldItem == newItem
     }
 }
+
 
 

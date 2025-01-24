@@ -9,7 +9,7 @@ class FetchMoviesByGenreUseCase(
 ) {
 
     suspend fun execute(genreId: Int, page: Int): OperationStatus<CategoryMovies> {
-        return repository.getMovieByGenre(genreId, page)
+        return repository.getMovieByGenre(genreId = genreId, page = page)
     }
 
 }

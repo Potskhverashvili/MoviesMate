@@ -26,7 +26,7 @@ class MoviesRepositoryImpl(
         }.map { categoryMoviesDto -> categoryMoviesDto.toCategoryMovies() }
     }
 
-    override suspend fun getMovieByGenre(genreId: Int, page: Int): OperationStatus<CategoryMovies> {
+    override suspend fun getMovieByGenre(genreId: Int,page:Int): OperationStatus<CategoryMovies> {
         return ApiCallHelper.safeApiCall {
             service.getMoviesByGenre(genreId = genreId, page = page)
         }.map { categoryMoviesDto -> categoryMoviesDto.toCategoryMovies() }
