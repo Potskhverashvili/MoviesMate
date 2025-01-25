@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_searchFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_searchInputFragment"
+            app:destination="@id/searchInputFragment" />
     </fragment>
 
     <fragment
@@ -38,5 +41,11 @@
         android:name="com.example.moviesmate.presentation.screens.containerFragment.details.DetailsFragment"
         android:label="DetailsFragment"
         tools:layout="@layout/fragment_details"/>
+
+    <fragment
+        android:id="@+id/searchInputFragment"
+        android:name="com.example.moviesmate.presentation.screens.containerFragment.search.SearchInput.SearchInputFragment"
+        android:label="SearchInputFragment"
+        tools:layout="@layout/fragment_search_input"/>
 
 </navigation>

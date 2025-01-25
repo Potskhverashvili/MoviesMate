@@ -10,8 +10,11 @@ import androidx.paging.cachedIn
 import com.example.moviesmate.core.OperationStatus
 import com.example.moviesmate.data.pagingSourse.MoviesPagingSource
 import com.example.moviesmate.data.pagingSourse.MoviesPagingSourceByGenre
+import com.example.moviesmate.data.repository.MoviesRepositoryImpl
 import com.example.moviesmate.domain.model.GenresType
+import com.example.moviesmate.domain.repository.MoviesRepository
 import com.example.moviesmate.domain.usecases.FetchGenresTypesUseCase
+import com.example.moviesmate.domain.usecases.FetchMoviesByGenreUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -27,7 +30,7 @@ import kotlinx.coroutines.launch
 
 class SearchViewModel(
     private val fetchGenresTypesUseCase: FetchGenresTypesUseCase,
-    private val moviesPagingSourceByGenre: MoviesPagingSourceByGenre,
+    private val fetchMoviesByGenreUseCase: FetchMoviesByGenreUseCase,
     private val moviePagingSource: MoviesPagingSource
 ) : ViewModel() {
 
@@ -38,6 +41,12 @@ class SearchViewModel(
     private val _genresFlow = MutableStateFlow<List<GenresType.Genre>>(emptyList())
     val genresFlow: StateFlow<List<GenresType.Genre>> = _genresFlow
 
+    private val _isLoadingState = MutableStateFlow(false)
+    val isLoadingState: StateFlow<Boolean> = _isLoadingState
+
+    private val _showError = MutableSharedFlow<String?>()
+    val showError: SharedFlow<String?> = _showError
+
     val categoryMoviesFlow = Pager(
         config = PagingConfig(
             pageSize = 20,
@@ -46,36 +55,13 @@ class SearchViewModel(
         pagingSourceFactory = { moviePagingSource }
     ).flow.cachedIn(viewModelScope)
 
-    var _selectedGenreId = MutableStateFlow<Int?>(null)
-    @OptIn(ExperimentalCoroutinesApi::class)
-    val genreMoviesFlow = _selectedGenreId.flatMapLatest { genreId ->
-        if (genreId == null) {
-            flowOf(PagingData.empty())
-        } else {
-            _isLoadingState.value = true
-            delay(300) // It might need change
-            moviesPagingSourceByGenre.genreId = genreId
-            Pager(
-                config = PagingConfig(
-                    pageSize = 20,
-                    prefetchDistance = 18
-                ),
-                pagingSourceFactory = { moviesPagingSourceByGenre }
-            ).flow.cachedIn(viewModelScope)
-        }
-    }.onEach {
-        _isLoadingState.value = false
-    }.catch { e ->
-        _isLoadingState.value = false
-    }
-
-
-    private val _isLoadingState = MutableStateFlow(false)
-    val isLoadingState: StateFlow<Boolean> = _isLoadingState
-
-
-    private val _showError = MutableSharedFlow<String?>()
-    val showError: SharedFlow<String?> = _showError
+    fun getGenreMovies(id: Int) = Pager(
+        config = PagingConfig(
+            pageSize = 20,
+            prefetchDistance = 18
+        ),
+        pagingSourceFactory = { MoviesPagingSourceByGenre(fetchMoviesByGenreUseCase, id) }
+    ).flow.cachedIn(viewModelScope)
 
     private fun fetchAllGenres() = viewModelScope.launch {
         _isLoadingState.emit(true)
@@ -83,18 +69,13 @@ class SearchViewModel(
             is OperationStatus.Success -> {
                 _genresFlow.emit(status.value.genres)
             }
+
             is OperationStatus.Failure -> {
                 _showError.emit(status.exception.toString())
             }
         }
         _isLoadingState.emit(false)
     }
-
-    fun fetchMoviesByGenre(genreId: Int) {
-        if (_selectedGenreId.value != genreId) {
-            _selectedGenreId.value = genreId
-            Log.d("SearchViewModel", "Fetching movies for genre ID: $genreId")
-        }
-    }
 }
+
 

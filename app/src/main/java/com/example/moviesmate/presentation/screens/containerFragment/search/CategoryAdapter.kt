@@ -28,11 +28,8 @@ class CategoryAdapter :
     fun updateSelectedGenre(selectedId: Int?) {
         val previousSelectedGenreId = selectedGenreId
         selectedGenreId = selectedId
-
-        // Only update the previous and newly selected items to avoid unnecessary changes
         val previousIndex = currentList.indexOfFirst { it.id == previousSelectedGenreId }
         val newIndex = currentList.indexOfFirst { it.id == selectedGenreId }
-
         notifyItemChangedIfValid(previousIndex)
         notifyItemChangedIfValid(newIndex)
     }

@@ -5,12 +5,12 @@ import androidx.paging.PagingState
 import com.example.moviesmate.core.OperationStatus
 import com.example.moviesmate.data.repository.MoviesRepositoryImpl
 import com.example.moviesmate.domain.model.CategoryMovies
+import com.example.moviesmate.domain.usecases.FetchMoviesByGenreUseCase
 
 class MoviesPagingSourceByGenre(
-    private val moviesRepositoryImpl: MoviesRepositoryImpl
+    private val fetchMoviesByGenreUseCase: FetchMoviesByGenreUseCase,
+    private var genreId: Int
 ) : PagingSource<Int, CategoryMovies.Result>() {
-    var genreId: Int = -1 // Default invalid genre ID
-
     override fun getRefreshKey(state: PagingState<Int, CategoryMovies.Result>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
@@ -21,7 +21,7 @@ class MoviesPagingSourceByGenre(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CategoryMovies.Result> {
         if (genreId == -1) return LoadResult.Error(IllegalArgumentException("Invalid genre ID"))
         val currentPage = params.key ?: 1
-        return when (val response = moviesRepositoryImpl.getMovieByGenre(genreId, currentPage)) {
+        return when (val response = fetchMoviesByGenreUseCase.execute(genreId, currentPage)) {
             is OperationStatus.Success -> {
                 val categoryMovies = response.value
                 LoadResult.Page(

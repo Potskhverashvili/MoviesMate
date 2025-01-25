@@ -3,6 +3,7 @@ package com.example.moviesmate.data.remote.service
 import com.example.moviesmate.core.Constants
 import com.example.moviesmate.data.remote.dto.CategoryMoviesDto
 import com.example.moviesmate.data.remote.dto.GenresTypeDto
+import com.example.moviesmate.data.remote.dto.SearchInputDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -26,5 +27,14 @@ interface MovieService {
         @Query("with_genres") genreId: Int,
         @Query("page") page: Int = 1
     ): Response<CategoryMoviesDto>
+
+
+    @GET("search/movie")
+    suspend fun searchMovies(
+        @Query("query") query: String,
+        @Query("language") language: String = "en-US",
+        @Query("page") page: Int = 1,
+        @Query("api_key") apiKey: String = "ecf551cd79c0550487694d36dfc0514c"
+    ): Response<SearchInputDto>
 
 }

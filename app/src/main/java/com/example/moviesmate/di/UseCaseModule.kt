@@ -5,6 +5,7 @@ import com.example.moviesmate.domain.usecases.FetchMoviesByGenreUseCase
 import com.example.moviesmate.domain.usecases.LoginUserUseCase
 import com.example.moviesmate.domain.usecases.PasswordResetUseCase
 import com.example.moviesmate.domain.usecases.RegisterNewUserUseCase
+import com.example.moviesmate.domain.usecases.SearchMovieInputUseCase
 import org.koin.dsl.module
 
 val useCaseModule = module {
@@ -13,4 +14,5 @@ val useCaseModule = module {
     factory { PasswordResetUseCase(get()) }
     factory { FetchGenresTypesUseCase(get()) }
     factory { FetchMoviesByGenreUseCase(get()) }
+    factory { SearchMovieInputUseCase(get()) }
 }

@@ -1,14 +1,12 @@
 package com.example.moviesmate.presentation.screens.containerFragment.search
 
-import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.paging.LoadStateAdapter
-import androidx.paging.PagingData
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviesmate.databinding.FragmentSearchBinding
 import com.example.moviesmate.presentation.base.BaseFragment
 import kotlinx.coroutines.flow.collectLatest
@@ -30,11 +28,19 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     private fun prepareRecyclerViews() {
         binding.categoriesRecyclerView.adapter = categoryAdapter
-        binding.searchRecyclerView.apply { adapter = searchAdapter.withLoadStateFooter(loadStateAdapter) }
+
+        binding.searchRecyclerView.apply {
+            adapter = searchAdapter.withLoadStateFooter(loadStateAdapter)
+        }
+
         binding.chooseGenreRecyclerview.apply {
-            layoutManager = GridLayoutManager(requireContext(),
-                2, GridLayoutManager.VERTICAL, false)
-            adapter = searchedSpecificGenreAdapter.withLoadStateFooter(loadStateAdapter) }
+            layoutManager = GridLayoutManager(
+                requireContext(),
+                2, GridLayoutManager.VERTICAL, false
+            )
+            adapter = searchedSpecificGenreAdapter.withLoadStateFooter(loadStateAdapter)
+        }
+
     }
 
     private fun setListeners() {
@@ -42,8 +48,24 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             categoryAdapter.updateSelectedGenre(selectedGenre.id)
             binding.searchRecyclerView.visibility = View.GONE
             binding.chooseGenreRecyclerview.visibility = View.VISIBLE
-            searchViewModel.fetchMoviesByGenre(selectedGenre.id)
+            searchViewModel.getGenreMovies(selectedGenre.id)
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    searchViewModel.getGenreMovies(selectedGenre.id).collectLatest { pagingData ->
+                        searchedSpecificGenreAdapter.submitData(pagingData)
+                    }
+                }
+            }
         }
+
+        binding.btnSearch.setOnClickListener {
+            goToSearchInputFragment()
+        }
+    }
+
+    private fun goToSearchInputFragment() {
+        findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToSearchInputFragment())
     }
 
     private fun setCollectors() {
@@ -65,12 +87,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             }
         }
 
-        // Collect paginated genre-specific movies
+        // Show Error
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                searchViewModel.genreMoviesFlow.collectLatest { pagingData ->
-                    Log.d("GenreMoviesFlow", "New genre movies received: $pagingData")
-                    searchedSpecificGenreAdapter.submitData(pagingData)
+                searchViewModel.showError.collect { error ->
+                    Toast.makeText(requireContext(), "Error: $error", Toast.LENGTH_SHORT).show()
                 }
             }
         }

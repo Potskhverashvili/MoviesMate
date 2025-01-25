@@ -1,5 +1,6 @@
 package com.example.moviesmate.di
 
+import com.example.moviesmate.presentation.screens.containerFragment.search.SearchInput.SearchInputViewModel
 import com.example.moviesmate.presentation.screens.containerFragment.search.SearchViewModel
 import com.example.moviesmate.presentation.screens.login.LoginViewModel
 import com.example.moviesmate.presentation.screens.passwordRecover.forgotPassword.ForgotPasswordViewModel
@@ -12,4 +13,5 @@ val viewModelsModule = module {
     viewModelOf(::LoginViewModel)
     viewModelOf(::ForgotPasswordViewModel)
     viewModelOf(::SearchViewModel)
+    viewModelOf(::SearchInputViewModel)
 }
