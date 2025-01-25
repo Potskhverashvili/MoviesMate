@@ -5,6 +5,8 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.NavHostFragment
 import com.example.moviesmate.R
 import com.example.moviesmate.databinding.ActivityMainBinding
@@ -25,14 +27,13 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
 
-
-        // Internet handle
-
         if (user.currentUser != null) {
             navGraph.setStartDestination(R.id.containerFragment)
         } else {
             navGraph.setStartDestination(R.id.registerFragment)
         }
         navController.graph = navGraph
+
+        // Internet handle to-do
     }
 }
