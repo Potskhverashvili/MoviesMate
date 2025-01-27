@@ -12,19 +12,15 @@ class LoginViewModel(
     private val loginUserUseCase: LoginUserUseCase
 ) : ViewModel() {
 
-    // Login Flow
     private val _loginFlow = MutableSharedFlow<String>()
     var loginFlow: SharedFlow<String> = _loginFlow
 
-    // Error Flow
     private val _showError = MutableSharedFlow<String?>()
     val showError: SharedFlow<String?> = _showError
 
-    // Loading Flow
     private val _isLoadingState = MutableSharedFlow<Boolean>()
     val isLoadingState: SharedFlow<Boolean> = _isLoadingState
 
-    // --- Login User --
     fun loginUser(email: String, password: String) = viewModelScope.launch {
         _isLoadingState.emit(true)
         when (val status = loginUserUseCase.execute(email, password)) {
@@ -38,4 +34,7 @@ class LoginViewModel(
         }
         _isLoadingState.emit(false)
     }
-}
+
+    fun isFormValid(email: String, password: String): Boolean {
+        return email.isNotEmpty() && password.isNotEmpty()
+    }}

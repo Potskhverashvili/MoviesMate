@@ -16,28 +16,23 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
     private val viewModel by viewModel<RegisterViewModel>()
 
     override fun viewCreated() {
-        goToLogInPage()
-        registerNewUser()
+        setListener()
         setCollectors()
     }
 
-    private fun registerNewUser() {
+    private fun setListener() {
         binding.btnRegister.setOnClickListener {
             val userName = binding.userName.text.toString()
             val email = binding.email.text.toString()
             val password = binding.password.text.toString()
             val repeatPassword = binding.passwordRepeat.text.toString()
-            if (userName.isEmpty() || email.isEmpty() || password.isEmpty() || repeatPassword.isEmpty()) {
-                Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT)
-                    .show()
-                return@setOnClickListener
+            val isValid = viewModel.isRegistrationValid(userName, email, password, repeatPassword)
+            if (isValid) {
+                viewModel.registerNewUser(userName, email, password)
             }
-            if (password != repeatPassword) {
-                Toast.makeText(requireContext(), "Passwords do not match", Toast.LENGTH_SHORT)
-                    .show()
-                return@setOnClickListener
-            }
-            viewModel.registerNewUser(userName, email, password)
+        }
+        binding.btnLogIn.setOnClickListener {
+            goToLogInPage()
         }
     }
 
@@ -69,9 +64,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
     }
 
     private fun goToLogInPage() {
-        binding.btnLogIn.setOnClickListener {
-            findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
-        }
+        findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
     }
 
 }

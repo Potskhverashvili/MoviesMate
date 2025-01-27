@@ -34,4 +34,24 @@ class RegisterViewModel(
         }
         _isLoadingState.emit(false)
     }
+
+
+    fun isRegistrationValid(
+        username: String,
+        email: String,
+        password: String,
+        repeatPassword: String
+    ): Boolean {
+        return when {
+            username.isEmpty() || email.isEmpty() || password.isEmpty() || repeatPassword.isEmpty() -> {
+                _showError.tryEmit("Please fill in all fields")
+                false
+            }
+            password != repeatPassword -> {
+                _showError.tryEmit("Passwords do not match")
+                false
+            }
+            else -> true
+        }
+    }
 }

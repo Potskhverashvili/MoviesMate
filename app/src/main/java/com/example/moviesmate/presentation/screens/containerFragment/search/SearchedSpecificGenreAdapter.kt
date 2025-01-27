@@ -13,6 +13,8 @@ import com.example.moviesmate.domain.model.CategoryMovies
 class SearchedSpecificGenreAdapter :
     PagingDataAdapter<CategoryMovies.Result, SearchedSpecificGenreAdapter.SearchedViewHolder>(ItemCategoryMovieCallback()) {
 
+        var onItemClick: (CategoryMovies.Result) -> Unit = {}
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchedViewHolder {
         return SearchedViewHolder(
             ItemSearchedMoviesBinding.inflate(
@@ -38,6 +40,10 @@ class SearchedSpecificGenreAdapter :
             Glide.with(binding.ivMoviePoster)
                 .load(posterUrl)
                 .into(binding.ivMoviePoster)
+
+            binding.root.setOnClickListener {
+                onItemClick.invoke(movies)
+            }
         }
     }
 

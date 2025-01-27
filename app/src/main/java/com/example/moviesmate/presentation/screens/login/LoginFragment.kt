@@ -13,24 +13,29 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     private val viewModel by viewModel<LoginViewModel>()
 
     override fun viewCreated() {
-        logInUser()
+        setListeners()
         setCollectors()
-        goToRegisterFragment()
-        goToForgotPasswordFragment()
     }
 
-    // --- Login User ---
-    private fun logInUser() = with(binding) {
+    private fun setListeners() = with(binding) {
         btnLogIn.setOnClickListener() {
             val email = email.text.toString()
             val password = password.text.toString()
-            if (email.isNotEmpty() && password.isNotEmpty()) {
+            if (viewModel.isFormValid(email, password)) {
                 viewModel.loginUser(email, password)
             } else {
                 Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT)
                     .show()
                 return@setOnClickListener
             }
+        }
+
+        tvForgetPassword.setOnClickListener {
+            goToForgotPasswordFragment()
+        }
+
+        binding.btnRegister.setOnClickListener {
+            goToRegisterFragment()
         }
     }
 
@@ -48,7 +53,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             }
         }
 
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.showError.collect { errorMessage ->
                 if (!errorMessage.isNullOrEmpty()) {
@@ -59,16 +63,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     }
 
     private fun goToForgotPasswordFragment() {
-        binding.tvForgetPassword.setOnClickListener {
-            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToForgotPasswordFragment())
-        }
+        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToForgotPasswordFragment())
     }
 
     private fun goToRegisterFragment() {
-        binding.btnRegister.setOnClickListener {
-            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
-        }
+        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
     }
-
 
 }

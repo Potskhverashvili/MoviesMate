@@ -19,9 +19,13 @@ class SearchInputViewModel(
     private var _searchMovieWithQuery = MutableStateFlow<SearchInput?>(null)
     val searchMovieWithQuery = _searchMovieWithQuery.asStateFlow()
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading = _isLoading.asStateFlow()
+
     fun searchedMovieWithQuery(query: String) {
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
+            _isLoading.emit(true)
             delay(600)
             when(val status = searchMovieInputUseCase.execute(query)){
                 is OperationStatus.Success -> {
@@ -31,6 +35,7 @@ class SearchInputViewModel(
 
                 }
             }
+            _isLoading.emit(false)
         }
     }
 

@@ -24,6 +24,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         prepareRecyclerViews()
         setListeners()
         setCollectors()
+
+        searchedSpecificGenreAdapter.onItemClick = {
+            findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToDetailsFragment())
+        }
     }
 
     private fun prepareRecyclerViews() {
@@ -31,6 +35,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
         binding.searchRecyclerView.apply {
             adapter = searchAdapter.withLoadStateFooter(loadStateAdapter)
+            layoutManager = GridLayoutManager(
+                requireContext(),
+                2, GridLayoutManager.VERTICAL, false
+            )
         }
 
         binding.chooseGenreRecyclerview.apply {

@@ -1,5 +1,6 @@
 package com.example.moviesmate.presentation.screens.containerFragment.search.SearchInput
 
+import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -14,6 +15,7 @@ class SearchInputFragment :
     BaseFragment<FragmentSearchInputBinding>(FragmentSearchInputBinding::inflate) {
     private val searchInputAdapter = SearchInputAdapter()
     private val viewmodel by viewModel<SearchInputViewModel>()
+    private val shimmerLoader by lazy { binding.shimmerLayout }
 
     override fun viewCreated() {
         prepareRecyclerView()
@@ -39,6 +41,20 @@ class SearchInputFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             viewmodel.searchMovieWithQuery.collect { movie ->
                 searchInputAdapter.submitList(movie?.results)
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewmodel.isLoading.collect { isLoading ->
+                if (isLoading) {
+                    shimmerLoader.startShimmer()
+                    shimmerLoader.visibility = View.VISIBLE
+                    binding.recyclerviewSearch.visibility = View.GONE
+                } else {
+                    shimmerLoader.stopShimmer()
+                    shimmerLoader.visibility = View.GONE
+                    binding.recyclerviewSearch.visibility = View.VISIBLE
+                }
             }
         }
     }

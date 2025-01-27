@@ -41,4 +41,7 @@ class ForgotPasswordViewModel(
         _isLoadingState.emit(false)
     }
 
+    fun isEmailValid(email: String): Boolean {
+        return email.isNotEmpty()
+    }
 }

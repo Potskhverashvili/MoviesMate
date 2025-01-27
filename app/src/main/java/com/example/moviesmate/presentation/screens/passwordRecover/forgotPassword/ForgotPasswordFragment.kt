@@ -18,17 +18,18 @@ class ForgotPasswordFragment :
         setCollectors()
     }
 
-    private fun setListeners() {
-        binding.btnSend.setOnClickListener {
-            val email = binding.emailAddress.text.toString()
-            if (email.isEmpty()) {
-                binding.emailAddress.error = "Please enter your email"
+    private fun setListeners() = with(binding) {
+        btnSend.setOnClickListener {
+            val email = emailAddress.text.toString()
+            if (viewmodel.isEmailValid(email)) {
+                viewmodel.passwordReset(email = email)
+            }else{
+                emailAddress.error = "Please enter a valid email"
                 return@setOnClickListener
             }
-            viewmodel.passwordReset(email = email)
         }
 
-        binding.btnBack.setOnClickListener {
+        btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
     }
