@@ -14,6 +14,9 @@ class SearchInputAdapter :
         SearchMovieCallBack()
     ) {
 
+    var onItemClick: (SearchInput.SearchedMovie) -> Unit = {}
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchInputViewHolder {
         return SearchInputViewHolder(
             ItemSearchInputBinding.inflate(
@@ -38,6 +41,9 @@ class SearchInputAdapter :
                 .load(posterUrl)
                 .into(moviePoster)
 
+            binding.root.setOnClickListener {
+                onItemClick.invoke(movie)
+            }
         }
     }
 
