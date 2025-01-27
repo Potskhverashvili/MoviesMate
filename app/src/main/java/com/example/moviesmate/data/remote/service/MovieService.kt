@@ -1,6 +1,7 @@
 package com.example.moviesmate.data.remote.service
 
 import com.example.moviesmate.core.Constants
+import com.example.moviesmate.data.remote.dto.AboutActorDto
 import com.example.moviesmate.data.remote.dto.ActorDetailsDto
 import com.example.moviesmate.data.remote.dto.CategoryMoviesDto
 import com.example.moviesmate.data.remote.dto.GenresTypeDto
@@ -40,7 +41,6 @@ interface MovieService {
         @Query("api_key") apiKey: String = Constants.API_KEY
     ): Response<SearchInputDto>
 
-
     @GET("movie/{movie_id}")
     suspend fun getMovieDetails(
         @Path("movie_id") movieId: String,
@@ -52,5 +52,11 @@ interface MovieService {
         @Path("movie_id") movieId: Int,
         @Query("api_key") apiKey: String = Constants.API_KEY
     ): Response<ActorDetailsDto>
+
+    @GET("person/{actorId}")
+    suspend fun infoAboutActor(
+        @Path("actorId") actorId: Int,
+        @Query("api_key") apiKey: String = Constants.API_KEY
+    ): Response<AboutActorDto>
 
 }

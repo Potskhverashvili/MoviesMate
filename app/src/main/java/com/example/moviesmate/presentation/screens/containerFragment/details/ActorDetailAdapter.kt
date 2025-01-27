@@ -13,12 +13,16 @@ import com.example.moviesmate.domain.model.ActorDetails
 class ActorDetailAdapter :
     ListAdapter<ActorDetails.Cast, ActorDetailAdapter.ActorViewHolder>(ActorDiffCallBack()) {
 
+    var onItemClick: (Int) -> Unit = {}
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorViewHolder {
         return ActorViewHolder(
             ItemActorBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
-                false))
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ActorViewHolder, position: Int) {
@@ -35,6 +39,10 @@ class ActorDetailAdapter :
                 .placeholder(R.color.red) // Optional: Add a placeholder
                 .error(R.drawable.ic_launcher_background) // Optional: Add an error image
                 .into(actorImage)
+
+            binding.root.setOnClickListener {
+                actor.id?.let { it1 -> onItemClick.invoke(it1) }
+            }
         }
     }
 

@@ -1,10 +1,12 @@
 package com.example.moviesmate.presentation.screens.containerFragment.details
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -21,6 +23,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
     override fun viewCreated() {
         prepareRecyclerViewCast()
         getMovieDetails()
+        setListeners()
         setCollectors()
     }
 
@@ -29,6 +32,14 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = actorDetailAdapter
+        }
+    }
+
+    private fun setListeners() {
+        actorDetailAdapter.onItemClick = { id ->
+            findNavController().navigate(
+                DetailsFragmentDirections.actionDetailsFragmentToActorBiographyFragment(actorId = id)
+            )
         }
     }
 
