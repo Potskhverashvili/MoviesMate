@@ -24,10 +24,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         prepareRecyclerViews()
         setListeners()
         setCollectors()
-
-        searchedSpecificGenreAdapter.onItemClick = {
-            findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToDetailsFragment())
-        }
     }
 
     private fun prepareRecyclerViews() {
@@ -65,6 +61,18 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                     }
                 }
             }
+        }
+
+        searchedSpecificGenreAdapter.onItemClick = { currentMovie ->
+            findNavController().navigate(
+                SearchFragmentDirections.actionSearchFragmentToDetailsFragment(
+                    currentMovie.id))
+        }
+
+        searchAdapter.onItemClick = { currentMovie ->
+            findNavController().navigate(
+                SearchFragmentDirections.actionSearchFragmentToDetailsFragment(
+                    currentMovie.id))
         }
 
         binding.btnSearch.setOnClickListener {

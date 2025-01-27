@@ -4,6 +4,7 @@ import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviesmate.databinding.FragmentSearchInputBinding
 import com.example.moviesmate.presentation.base.BaseFragment
@@ -34,6 +35,12 @@ class SearchInputFragment :
     private fun setListeners() {
         binding.btnSearch.doAfterTextChanged { newInputQuery ->
             viewmodel.searchedMovieWithQuery(newInputQuery.toString())
+        }
+
+        searchInputAdapter.onItemClick = { currentMovie ->
+            findNavController().navigate(
+                SearchInputFragmentDirections.actionSearchInputFragmentToDetailsFragment(
+                    currentMovie.id))
         }
     }
 

@@ -21,11 +21,18 @@
             app:expandedTitleTextColor="@color/white">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/img_meal_details"
+                android:id="@+id/imgMealDetails"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
+                android:scaleType="center"
                 app:layout_collapseMode="parallax" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/btnPlayVideo"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/ic_btn_play"
+                android:layout_gravity="center"/>
 
             <Toolbar
                 android:id="@+id/toolbar"
@@ -95,6 +102,7 @@
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/starLayout"
+                        android:layout_marginTop="4dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_star" />
@@ -136,7 +144,7 @@
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/genreTv"
+                        android:id="@+id/genreTvLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Genre"
@@ -145,6 +153,7 @@
                         android:textStyle="normal" />
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/genreTv"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
