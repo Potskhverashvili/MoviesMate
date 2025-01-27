@@ -2,7 +2,6 @@ package com.example.moviesmate.presentation.screens.containerFragment
 
 import android.util.Log
 import android.view.View
-import androidx.fragment.app.FragmentContainer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -15,9 +14,9 @@ class ContainerFragment :
     private lateinit var navController: NavController
 
 
-        override fun viewCreated() {
-            setUp()
-        }
+    override fun viewCreated() {
+        setUp()
+    }
 
     private fun setUp() {
         val navHostFragment =
@@ -36,6 +35,7 @@ class ContainerFragment :
                 R.id.detailsFragment -> {
                     binding.bottomNavigation.visibility = View.GONE
                 }
+
                 else -> {
                     binding.bottomNavigation.visibility = View.VISIBLE
                 }
