@@ -25,6 +25,7 @@ class SearchedSpecificGenreAdapter :
         )
     }
 
+
     override fun onBindViewHolder(holder: SearchedViewHolder, position: Int) {
         getItem(position)?.let { movies ->
             holder.bind(movies)
