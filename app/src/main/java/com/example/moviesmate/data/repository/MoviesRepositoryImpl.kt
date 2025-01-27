@@ -3,13 +3,14 @@ package com.example.moviesmate.data.repository
 import com.example.moviesmate.core.ApiCallHelper
 import com.example.moviesmate.core.OperationStatus
 import com.example.moviesmate.core.map
-import com.example.moviesmate.data.remote.dto.ActorDetailsDto
 import com.example.moviesmate.data.remote.service.MovieService
+import com.example.moviesmate.data.toAboutActor
 import com.example.moviesmate.data.toActorDetails
 import com.example.moviesmate.data.toCategoryMovies
 import com.example.moviesmate.data.toGenresType
 import com.example.moviesmate.data.toMovieDetails
 import com.example.moviesmate.data.toSearchInput
+import com.example.moviesmate.domain.model.AboutActor
 import com.example.moviesmate.domain.model.ActorDetails
 import com.example.moviesmate.domain.model.CategoryMovies
 import com.example.moviesmate.domain.model.GenresType
@@ -59,5 +60,10 @@ class MoviesRepositoryImpl(
         }.map { actorDetailsDto -> actorDetailsDto.toActorDetails() }
     }
 
+    override suspend fun infoAboutActor(actorId: Int): OperationStatus<AboutActor> {
+        return ApiCallHelper.safeApiCall {
+            service.infoAboutActor(actorId = actorId)
+        }.map { aboutActorDto -> aboutActorDto.toAboutActor() }
+    }
 
 }
