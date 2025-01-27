@@ -40,12 +40,20 @@
         android:id="@+id/detailsFragment"
         android:name="com.example.moviesmate.presentation.screens.containerFragment.details.DetailsFragment"
         android:label="DetailsFragment"
-        tools:layout="@layout/fragment_details"/>
+        tools:layout="@layout/fragment_details">
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/searchInputFragment"
         android:name="com.example.moviesmate.presentation.screens.containerFragment.search.SearchInput.SearchInputFragment"
         android:label="SearchInputFragment"
-        tools:layout="@layout/fragment_search_input"/>
+        tools:layout="@layout/fragment_search_input">
+        <action
+            android:id="@+id/action_searchInputFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
 
 </navigation>

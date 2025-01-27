@@ -15,6 +15,9 @@ class SearchAdapter :
         ItemCategoryMovieCallback()
     ) {
 
+    var onItemClick: (CategoryMovies.Result) -> Unit = {}
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemCategoryMovieHolder {
         return ItemCategoryMovieHolder(
             ItemSearchedMoviesBinding.inflate(
@@ -39,6 +42,9 @@ class SearchAdapter :
                 .load(posterUrl)
                 .into(binding.ivMoviePoster)
 
+            binding.root.setOnClickListener {
+                onItemClick.invoke(movies)
+            }
         }
     }
 
