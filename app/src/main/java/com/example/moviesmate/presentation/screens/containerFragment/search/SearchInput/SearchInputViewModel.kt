@@ -26,16 +26,18 @@ class SearchInputViewModel(
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
             _isLoading.emit(true)
-            delay(600)
-            when(val status = searchMovieInputUseCase.execute(query)){
-                is OperationStatus.Success -> {
-                    _searchMovieWithQuery.emit(status.value)
+            delay(600) // Optional delay, make sure this is necessary for your case
+            try {
+                when(val status = searchMovieInputUseCase.execute(query)) {
+                    is OperationStatus.Success -> {
+                        _searchMovieWithQuery.emit(status.value)
+                    }
+                    is OperationStatus.Failure -> {
+                    }
                 }
-                is OperationStatus.Failure -> {
-
-                }
+            } finally {
+                _isLoading.emit(false)
             }
-            _isLoading.emit(false)
         }
     }
 

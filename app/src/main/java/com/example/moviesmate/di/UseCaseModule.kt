@@ -2,6 +2,7 @@ package com.example.moviesmate.di
 
 import com.example.moviesmate.domain.usecases.AboutActorDetailsInfoUseCase
 import com.example.moviesmate.domain.usecases.ActorDetailsUseCase
+import com.example.moviesmate.domain.usecases.ActorFilmographyUseCase
 import com.example.moviesmate.domain.usecases.FetchGenresTypesUseCase
 import com.example.moviesmate.domain.usecases.FetchMoviesByGenreUseCase
 import com.example.moviesmate.domain.usecases.LoginUserUseCase
@@ -21,4 +22,5 @@ val useCaseModule = module {
     factory { MovieDetailsUseCase(get()) }
     factory { ActorDetailsUseCase(get()) }
     factory { AboutActorDetailsInfoUseCase(get()) }
+    factory { ActorFilmographyUseCase(get()) }
 }

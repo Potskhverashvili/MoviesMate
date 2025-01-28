@@ -28,9 +28,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="300dp"
         android:fontFamily="@font/poppins_medium"
+        android:gravity="center"
         android:textColor="@color/orange"
         android:textSize="36sp"
-        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/actorImage"
@@ -55,30 +55,30 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:letterSpacing="0.02"
+                android:text="Born"
                 android:textColor="@color/red"
                 android:textSize="18sp"
-                android:letterSpacing="0.02"
-                android:layout_marginTop="12dp"
-                android:text="Born"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/born"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="April 3, 1993 "
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/poppins_light"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                tools:text="April 3, 1993 " />
 
             <!-- Biography Layout -->
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 android:fontFamily="@font/poppins_medium"
                 android:letterSpacing="0.02"
                 android:text="Biography"
-                android:layout_marginTop="12dp"
                 android:textColor="@color/red"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -92,7 +92,7 @@
                 android:textColor="@color/white"
                 tools:text="Born in Tbilisi. Pursued acting career and is known for the role in 'Date'." />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/knownForLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -103,12 +103,13 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <!-- RecyclerView for Known For Movies -->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/knownForMoviesRecyclerView"
+                android:id="@+id/actorFilmographyRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8dp"
+                tools:itemCount="1"
+                tools:listitem="@layout/item_actor_filmography"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
