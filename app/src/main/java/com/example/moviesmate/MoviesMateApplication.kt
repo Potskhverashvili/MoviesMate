@@ -5,6 +5,7 @@ import com.example.moviesmate.di.RepositoryModule
 import com.example.moviesmate.di.firebaseModule
 import com.example.moviesmate.di.networkModule
 import com.example.moviesmate.di.pagingSourceModule
+import com.example.moviesmate.di.roomModule
 import com.example.moviesmate.di.useCaseModule
 import com.example.moviesmate.di.viewModelsModule
 import org.koin.android.ext.koin.androidContext
@@ -22,7 +23,8 @@ class MoviesMateApplication : Application() {
                 useCaseModule,
                 networkModule,
                 RepositoryModule,
-                pagingSourceModule
+                pagingSourceModule,
+                roomModule
             )
         }
     }

@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviesmate.databinding.ItemSearchedMoviesBinding
@@ -16,7 +15,7 @@ class SearchAdapter :
     ) {
 
     var onItemClick: (CategoryMovies.Result) -> Unit = {}
-
+    var onFavoriteClick: (CategoryMovies.Result) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemCategoryMovieHolder {
         return ItemCategoryMovieHolder(
@@ -44,6 +43,10 @@ class SearchAdapter :
 
             binding.root.setOnClickListener {
                 onItemClick.invoke(movies)
+            }
+
+            binding.saveToFavorites.setOnClickListener {
+                onFavoriteClick.invoke(movies)
             }
         }
     }

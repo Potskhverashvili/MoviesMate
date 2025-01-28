@@ -1,36 +1,28 @@
 package com.example.moviesmate.presentation.screens.containerFragment.search
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.moviesmate.core.OperationStatus
+import com.example.moviesmate.data.local.entity.MovieDbo
 import com.example.moviesmate.data.pagingSourse.MoviesPagingSource
 import com.example.moviesmate.data.pagingSourse.MoviesPagingSourceByGenre
-import com.example.moviesmate.data.repository.MoviesRepositoryImpl
 import com.example.moviesmate.domain.model.GenresType
-import com.example.moviesmate.domain.repository.MoviesRepository
 import com.example.moviesmate.domain.usecases.FetchGenresTypesUseCase
 import com.example.moviesmate.domain.usecases.FetchMoviesByGenreUseCase
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
+import com.example.moviesmate.domain.usecases.SaveToFavoriteUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class SearchViewModel(
     private val fetchGenresTypesUseCase: FetchGenresTypesUseCase,
     private val fetchMoviesByGenreUseCase: FetchMoviesByGenreUseCase,
+    private val saveToFavoriteUseCase: SaveToFavoriteUseCase,
     private val moviePagingSource: MoviesPagingSource
 ) : ViewModel() {
 
@@ -76,6 +68,11 @@ class SearchViewModel(
         }
         _isLoadingState.emit(false)
     }
+
+    fun saveToFavorite(movie: MovieDbo) = viewModelScope.launch {
+        saveToFavoriteUseCase.execute(movie)
+    }
 }
+
 
 

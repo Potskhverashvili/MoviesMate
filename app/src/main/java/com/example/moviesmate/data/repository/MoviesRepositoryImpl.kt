@@ -2,13 +2,17 @@ package com.example.moviesmate.data.repository
 
 import com.example.moviesmate.core.ApiCallHelper
 import com.example.moviesmate.core.OperationStatus
+import com.example.moviesmate.core.RoomCallHelper
 import com.example.moviesmate.core.map
+import com.example.moviesmate.data.local.entity.MovieDao
+import com.example.moviesmate.data.local.entity.MovieDbo
 import com.example.moviesmate.data.remote.service.MovieService
 import com.example.moviesmate.data.toAboutActor
 import com.example.moviesmate.data.toActorDetails
 import com.example.moviesmate.data.toActorFilmography
 import com.example.moviesmate.data.toCategoryMovies
 import com.example.moviesmate.data.toGenresType
+import com.example.moviesmate.data.toMovie
 import com.example.moviesmate.data.toMovieDetails
 import com.example.moviesmate.data.toSearchInput
 import com.example.moviesmate.domain.model.AboutActor
@@ -16,13 +20,15 @@ import com.example.moviesmate.domain.model.ActorDetails
 import com.example.moviesmate.domain.model.ActorFilmography
 import com.example.moviesmate.domain.model.CategoryMovies
 import com.example.moviesmate.domain.model.GenresType
+import com.example.moviesmate.domain.model.Movie
 import com.example.moviesmate.domain.model.MovieDetails
 import com.example.moviesmate.domain.model.SearchInput
 import com.example.moviesmate.domain.repository.MoviesRepository
-import com.google.protobuf.Api
 
 class MoviesRepositoryImpl(
-    private val service: MovieService
+    private val service: MovieService,
+    private val movieDao: MovieDao
+
 ) : MoviesRepository {
 
     override suspend fun getGenresTypes(): OperationStatus<GenresType> {
@@ -74,4 +80,22 @@ class MoviesRepositoryImpl(
         }.map { actorFilmographyDto -> actorFilmographyDto.toActorFilmography() }
     }
 
+    // ------------------------------------------------------------------------
+    override suspend fun saveToFavorite(movie: MovieDbo): OperationStatus<Unit> {
+        return RoomCallHelper.safeRoomCall {
+            movieDao.saveToFavorite(movie = movie)
+        }
+    }
+
+    override suspend fun deleteFromFavorite(movie: MovieDbo): OperationStatus<Unit> {
+        return RoomCallHelper.safeRoomCall {
+            movieDao.deleteFromFavorite(movie)
+        }
+    }
+
+    override suspend fun getAllSavedMovies(): OperationStatus<List<Movie>> {
+        return RoomCallHelper.safeRoomCall {
+            movieDao.getAllFavorites().map { movieDbo -> movieDbo.toMovie() }
+        }
+    }
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.moviesmate.data.toMovieDbo
 import com.example.moviesmate.databinding.FragmentSearchBinding
 import com.example.moviesmate.presentation.base.BaseFragment
 import kotlinx.coroutines.flow.collectLatest
@@ -14,7 +15,7 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate) {
-    private val searchViewModel by viewModel<SearchViewModel>()
+    private val viewModel by viewModel<SearchViewModel>()
     private val categoryAdapter = CategoryAdapter()
     private val searchAdapter = SearchAdapter()
     private val searchedSpecificGenreAdapter = SearchedSpecificGenreAdapter()
@@ -52,27 +53,35 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             categoryAdapter.updateSelectedGenre(selectedGenre.id)
             binding.searchRecyclerView.visibility = View.GONE
             binding.chooseGenreRecyclerview.visibility = View.VISIBLE
-            searchViewModel.getGenreMovies(selectedGenre.id)
+            viewModel.getGenreMovies(selectedGenre.id)
 
             viewLifecycleOwner.lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    searchViewModel.getGenreMovies(selectedGenre.id).collectLatest { pagingData ->
+                    viewModel.getGenreMovies(selectedGenre.id).collectLatest { pagingData ->
                         searchedSpecificGenreAdapter.submitData(pagingData)
                     }
                 }
             }
         }
 
+        searchAdapter.onFavoriteClick = { movie ->
+            viewModel.saveToFavorite(movie.toMovieDbo())
+        }
+
         searchedSpecificGenreAdapter.onItemClick = { currentMovie ->
             findNavController().navigate(
                 SearchFragmentDirections.actionSearchFragmentToDetailsFragment(
-                    currentMovie.id))
+                    currentMovie.id
+                )
+            )
         }
 
         searchAdapter.onItemClick = { currentMovie ->
             findNavController().navigate(
                 SearchFragmentDirections.actionSearchFragmentToDetailsFragment(
-                    currentMovie.id))
+                    currentMovie.id
+                )
+            )
         }
 
         binding.btnSearch.setOnClickListener {
@@ -88,7 +97,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         // Collect genres to update the category adapter
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                searchViewModel.genresFlow.collect { genres ->
+                viewModel.genresFlow.collect { genres ->
                     categoryAdapter.submitList(genres)
                 }
             }
@@ -97,7 +106,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         // Collect all movies for the initial search
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                searchViewModel.categoryMoviesFlow.collect { allMovies ->
+                viewModel.categoryMoviesFlow.collect { allMovies ->
                     searchAdapter.submitData(allMovies)
                 }
             }
@@ -106,7 +115,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         // Show Error
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                searchViewModel.showError.collect { error ->
+                viewModel.showError.collect { error ->
                     Toast.makeText(requireContext(), "Error: $error", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -115,7 +124,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         // Collect and handle loading state
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                searchViewModel.isLoadingState.collect { isLoading ->
+                viewModel.isLoadingState.collect { isLoading ->
                     binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
                 }
             }
