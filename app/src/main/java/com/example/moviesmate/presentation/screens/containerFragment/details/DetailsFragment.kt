@@ -1,7 +1,6 @@
 package com.example.moviesmate.presentation.screens.containerFragment.details
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope

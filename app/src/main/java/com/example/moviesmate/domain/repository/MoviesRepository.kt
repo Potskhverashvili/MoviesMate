@@ -3,6 +3,7 @@ package com.example.moviesmate.domain.repository
 import com.example.moviesmate.core.OperationStatus
 import com.example.moviesmate.domain.model.AboutActor
 import com.example.moviesmate.domain.model.ActorDetails
+import com.example.moviesmate.domain.model.ActorFilmography
 import com.example.moviesmate.domain.model.CategoryMovies
 import com.example.moviesmate.domain.model.GenresType
 import com.example.moviesmate.domain.model.MovieDetails
@@ -10,7 +11,9 @@ import com.example.moviesmate.domain.model.SearchInput
 
 interface MoviesRepository {
     suspend fun getGenresTypes(): OperationStatus<GenresType>
+
     suspend fun getCategoryMovies(page: Int): OperationStatus<CategoryMovies>
+
     suspend fun getMovieByGenre(genreId: Int, page: Int): OperationStatus<CategoryMovies>
 
     suspend fun getSearchedMovie(query: String): OperationStatus<SearchInput>
@@ -20,4 +23,6 @@ interface MoviesRepository {
     suspend fun getActorDetails(movieId: Int): OperationStatus<ActorDetails>
 
     suspend fun infoAboutActor(actorId: Int): OperationStatus<AboutActor>
+
+    suspend fun getActorFilmography(actorId: Int): OperationStatus<ActorFilmography>
 }
