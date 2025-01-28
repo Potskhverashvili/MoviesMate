@@ -44,6 +44,9 @@
         <argument
             android:name="movieId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_detailsFragment_to_actorBiographyFragment"
+            app:destination="@id/actorBiographyFragment" />
     </fragment>
 
     <fragment
@@ -53,6 +56,19 @@
         tools:layout="@layout/fragment_search_input">
         <action
             android:id="@+id/action_searchInputFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/actorBiographyFragment"
+        android:name="com.example.moviesmate.presentation.screens.containerFragment.actorBiography.ActorBiographyFragment"
+        android:label="ActorBiographyFragment"
+        tools:layout="@layout/fragment_actor_biography">
+        <argument
+            android:name="actorId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_actorBiographyFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
     </fragment>
 

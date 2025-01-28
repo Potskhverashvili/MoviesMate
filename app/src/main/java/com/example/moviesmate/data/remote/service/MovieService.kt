@@ -1,7 +1,9 @@
 package com.example.moviesmate.data.remote.service
 
 import com.example.moviesmate.core.Constants
+import com.example.moviesmate.data.remote.dto.AboutActorDto
 import com.example.moviesmate.data.remote.dto.ActorDetailsDto
+import com.example.moviesmate.data.remote.dto.ActorFilmographyDto
 import com.example.moviesmate.data.remote.dto.CategoryMoviesDto
 import com.example.moviesmate.data.remote.dto.GenresTypeDto
 import com.example.moviesmate.data.remote.dto.MovieDetailsDto
@@ -31,7 +33,6 @@ interface MovieService {
         @Query("page") page: Int = 1
     ): Response<CategoryMoviesDto>
 
-
     @GET("search/movie")
     suspend fun searchMovies(
         @Query("query") query: String,
@@ -39,7 +40,6 @@ interface MovieService {
         @Query("page") page: Int = 1,
         @Query("api_key") apiKey: String = Constants.API_KEY
     ): Response<SearchInputDto>
-
 
     @GET("movie/{movie_id}")
     suspend fun getMovieDetails(
@@ -52,5 +52,17 @@ interface MovieService {
         @Path("movie_id") movieId: Int,
         @Query("api_key") apiKey: String = Constants.API_KEY
     ): Response<ActorDetailsDto>
+
+    @GET("person/{actorId}")
+    suspend fun infoAboutActor(
+        @Path("actorId") actorId: Int,
+        @Query("api_key") apiKey: String = Constants.API_KEY
+    ): Response<AboutActorDto>
+
+    @GET("person/{actor_id}/movie_credits")
+    suspend fun getActorFilmography(
+        @Path("actor_id") actorId: Int,
+        @Query("api_key") apiKey: String = Constants.API_KEY,
+    ): Response<ActorFilmographyDto>
 
 }

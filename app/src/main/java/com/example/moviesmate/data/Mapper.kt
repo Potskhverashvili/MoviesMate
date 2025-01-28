@@ -1,11 +1,15 @@
 package com.example.moviesmate.data
 
+import com.example.moviesmate.data.remote.dto.AboutActorDto
 import com.example.moviesmate.data.remote.dto.ActorDetailsDto
+import com.example.moviesmate.data.remote.dto.ActorFilmographyDto
 import com.example.moviesmate.data.remote.dto.CategoryMoviesDto
 import com.example.moviesmate.data.remote.dto.GenresTypeDto
 import com.example.moviesmate.data.remote.dto.MovieDetailsDto
 import com.example.moviesmate.data.remote.dto.SearchInputDto
+import com.example.moviesmate.domain.model.AboutActor
 import com.example.moviesmate.domain.model.ActorDetails
+import com.example.moviesmate.domain.model.ActorFilmography
 import com.example.moviesmate.domain.model.CategoryMovies
 import com.example.moviesmate.domain.model.GenresType
 import com.example.moviesmate.domain.model.MovieDetails
@@ -104,5 +108,27 @@ fun ActorDetailsDto.toActorDetails(): ActorDetails {
                 profile_path = castDto.profile_path
             )
         }
+    )
+}
+
+fun AboutActorDto.toAboutActor(): AboutActor {
+    return AboutActor(
+        biography = this.biography,
+        birthday = this.birthday,
+        deathday = this.deathday,
+        homepage = this.homepage,
+        id = this.id,
+        name = this.name,
+        place_of_birth = this.place_of_birth,
+        popularity = this.popularity,
+        profile_path = this.profile_path
+    )
+}
+
+
+fun ActorFilmographyDto.toActorFilmography(): ActorFilmography {
+    return ActorFilmography(
+        cast = this.cast?.map { ActorFilmography.Cast(it.id, it.poster_path) },
+        id = this.id
     )
 }
