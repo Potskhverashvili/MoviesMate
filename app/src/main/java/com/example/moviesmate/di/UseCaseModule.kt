@@ -13,6 +13,7 @@ import com.example.moviesmate.domain.usecases.PasswordResetUseCase
 import com.example.moviesmate.domain.usecases.RegisterNewUserUseCase
 import com.example.moviesmate.domain.usecases.SaveToFavoriteUseCase
 import com.example.moviesmate.domain.usecases.SearchMovieInputUseCase
+import com.example.moviesmate.domain.usecases.UpcomingMoviesUseCase
 import org.koin.dsl.module
 
 val useCaseModule = module {
@@ -29,4 +30,5 @@ val useCaseModule = module {
     factory { SaveToFavoriteUseCase(get()) }
     factory { GetAllFavoritesUseCase(get()) }
     factory { DeleteFromFavoritesUsaCase(get()) }
+    factory { UpcomingMoviesUseCase(get()) }
 }

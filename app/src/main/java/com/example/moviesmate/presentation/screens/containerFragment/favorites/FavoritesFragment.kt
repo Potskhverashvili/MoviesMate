@@ -1,6 +1,7 @@
 package com.example.moviesmate.presentation.screens.containerFragment.favorites
 
 import android.util.Log.d
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -49,7 +50,14 @@ class FavoritesFragment :
 
     private fun setListeners() {
         favoritesAdapter.onItemDeleteClick = { movie ->
-            viewModel.deleteSavedMovie(movie)
+            AlertDialog.Builder(requireContext())
+                .setTitle("Delete Movie")
+                .setMessage("Are you sure you want to delete this movie from your favorites?")
+                .setPositiveButton("Yes") { _, _ ->
+                    viewModel.deleteSavedMovie(movie)
+                }
+                .setNegativeButton("No", null)
+                .show()
         }
     }
 }

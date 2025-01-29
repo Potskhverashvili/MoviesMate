@@ -7,6 +7,7 @@ import com.example.moviesmate.data.remote.dto.CategoryMoviesDto
 import com.example.moviesmate.data.remote.dto.GenresTypeDto
 import com.example.moviesmate.data.remote.dto.MovieDetailsDto
 import com.example.moviesmate.data.remote.dto.SearchInputDto
+import com.example.moviesmate.data.remote.dto.UpcomingMoviesDto
 import com.example.moviesmate.domain.model.AboutActor
 import com.example.moviesmate.domain.model.ActorDetails
 import com.example.moviesmate.domain.model.ActorFilmography
@@ -14,6 +15,7 @@ import com.example.moviesmate.domain.model.CategoryMovies
 import com.example.moviesmate.domain.model.GenresType
 import com.example.moviesmate.domain.model.MovieDetails
 import com.example.moviesmate.domain.model.SearchInput
+import com.example.moviesmate.domain.model.UpcomingMovies
 
 //Dto -> domain
 fun GenresTypeDto.toGenresType(): GenresType {
@@ -130,5 +132,19 @@ fun ActorFilmographyDto.toActorFilmography(): ActorFilmography {
     return ActorFilmography(
         cast = this.cast?.map { ActorFilmography.Cast(it.id, it.poster_path) },
         id = this.id
+    )
+}
+
+fun UpcomingMoviesDto.toUpcomingMovies(): UpcomingMovies {
+    return UpcomingMovies(
+        page = this.page,
+        results = this.results?.map { movieDto ->
+            UpcomingMovies.Movie(
+                id = movieDto.id,
+                backdrop_path = movieDto.backdrop_path,
+                poster_path = movieDto.poster_path,
+                title = movieDto.title
+            )
+        }
     )
 }

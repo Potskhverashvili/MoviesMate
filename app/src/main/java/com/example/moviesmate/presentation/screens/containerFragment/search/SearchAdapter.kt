@@ -6,6 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.moviesmate.R
 import com.example.moviesmate.databinding.ItemSearchedMoviesBinding
 import com.example.moviesmate.domain.model.CategoryMovies
 
@@ -13,6 +14,7 @@ class SearchAdapter :
     PagingDataAdapter<CategoryMovies.Result, SearchAdapter.ItemCategoryMovieHolder>(
         ItemCategoryMovieCallback()
     ) {
+    private var isFavorite = false
 
     var onItemClick: (CategoryMovies.Result) -> Unit = {}
     var onFavoriteClick: (CategoryMovies.Result) -> Unit = {}
@@ -46,6 +48,10 @@ class SearchAdapter :
             }
 
             binding.saveToFavorites.setOnClickListener {
+                isFavorite = !isFavorite // Toggle the state
+                binding.saveToFavorites.setImageResource(
+                    if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_state
+                )
                 onFavoriteClick.invoke(movies)
             }
         }

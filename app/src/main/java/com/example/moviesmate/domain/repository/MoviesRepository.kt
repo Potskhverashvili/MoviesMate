@@ -10,6 +10,7 @@ import com.example.moviesmate.domain.model.GenresType
 import com.example.moviesmate.domain.model.Movie
 import com.example.moviesmate.domain.model.MovieDetails
 import com.example.moviesmate.domain.model.SearchInput
+import com.example.moviesmate.domain.model.UpcomingMovies
 
 interface MoviesRepository {
     suspend fun getGenresTypes(): OperationStatus<GenresType>
@@ -24,4 +25,7 @@ interface MoviesRepository {
     suspend fun saveToFavorite(movie: Movie): OperationStatus<Unit>
     suspend fun deleteFromFavorite(movie: Movie): OperationStatus<Unit>
     suspend fun getAllSavedMovies(): OperationStatus<List<Movie>>
+
+
+    suspend fun getUpcomingMovies(): OperationStatus<UpcomingMovies>
 }

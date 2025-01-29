@@ -6,6 +6,7 @@ import com.example.moviesmate.core.RoomCallHelper
 import com.example.moviesmate.core.map
 import com.example.moviesmate.data.local.entity.MovieDao
 import com.example.moviesmate.data.local.entity.MovieDbo
+import com.example.moviesmate.data.remote.dto.UpcomingMoviesDto
 import com.example.moviesmate.data.remote.service.MovieService
 import com.example.moviesmate.data.toAboutActor
 import com.example.moviesmate.data.toActorDetails
@@ -16,6 +17,7 @@ import com.example.moviesmate.data.toMovie
 import com.example.moviesmate.data.toMovieDbo
 import com.example.moviesmate.data.toMovieDetails
 import com.example.moviesmate.data.toSearchInput
+import com.example.moviesmate.data.toUpcomingMovies
 import com.example.moviesmate.domain.model.AboutActor
 import com.example.moviesmate.domain.model.ActorDetails
 import com.example.moviesmate.domain.model.ActorFilmography
@@ -24,6 +26,7 @@ import com.example.moviesmate.domain.model.GenresType
 import com.example.moviesmate.domain.model.Movie
 import com.example.moviesmate.domain.model.MovieDetails
 import com.example.moviesmate.domain.model.SearchInput
+import com.example.moviesmate.domain.model.UpcomingMovies
 import com.example.moviesmate.domain.repository.MoviesRepository
 
 class MoviesRepositoryImpl(
@@ -99,4 +102,11 @@ class MoviesRepositoryImpl(
             movieDao.getAllFavorites().map { movieDbo -> movieDbo.toMovie() }
         }
     }
+
+    override suspend fun getUpcomingMovies(): OperationStatus<UpcomingMovies> {
+        return ApiCallHelper.safeApiCall {
+            service.getUpcomingMovies()
+        }.map { upcomingMoviesDto -> upcomingMoviesDto.toUpcomingMovies() }
+    }
+
 }
