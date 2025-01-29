@@ -21,7 +21,7 @@ interface MoviesRepository {
     suspend fun infoAboutActor(actorId: Int): OperationStatus<AboutActor>
     suspend fun getActorFilmography(actorId: Int): OperationStatus<ActorFilmography>
 
-    suspend fun saveToFavorite(movie: MovieDbo): OperationStatus<Unit>
-    suspend fun deleteFromFavorite(movie: MovieDbo): OperationStatus<Unit>
+    suspend fun saveToFavorite(movie: Movie): OperationStatus<Unit>
+    suspend fun deleteFromFavorite(movie: Movie): OperationStatus<Unit>
     suspend fun getAllSavedMovies(): OperationStatus<List<Movie>>
 }

@@ -29,7 +29,7 @@ class FavoritesViewModel(
         }
     }
 
-    fun deleteSavedMovie(movie: MovieDbo) = viewModelScope.launch {
+    fun deleteSavedMovie(movie: Movie) = viewModelScope.launch {
         when (deleteFromFavoritesUsaCase.execute(movie)) {
             is OperationStatus.Success -> {
                 showAllSavedMovies()

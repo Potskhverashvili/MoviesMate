@@ -7,7 +7,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.moviesmate.data.toMovieDbo
 import com.example.moviesmate.databinding.FragmentSearchBinding
 import com.example.moviesmate.presentation.base.BaseFragment
 import kotlinx.coroutines.flow.collectLatest
@@ -65,7 +64,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         }
 
         searchAdapter.onFavoriteClick = { movie ->
-            viewModel.saveToFavorite(movie.toMovieDbo())
+            viewModel.saveToFavorite(movie)
+        }
+
+        searchedSpecificGenreAdapter.onFavoriteClick = { movie ->
+            viewModel.saveToFavorite(movie)
         }
 
         searchedSpecificGenreAdapter.onItemClick = { currentMovie ->

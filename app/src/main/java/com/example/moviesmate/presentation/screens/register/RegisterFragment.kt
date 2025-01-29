@@ -66,5 +66,4 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
     private fun goToLogInPage() {
         findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
     }
-
 }

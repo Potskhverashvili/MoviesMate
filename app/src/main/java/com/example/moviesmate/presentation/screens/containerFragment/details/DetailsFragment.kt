@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.moviesmate.databinding.FragmentDetailsBinding
+import com.example.moviesmate.domain.model.MovieDetails
 import com.example.moviesmate.presentation.base.BaseFragment
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -18,6 +19,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
     private val args: DetailsFragmentArgs by navArgs()
     private val viewModel by viewModel<DetailsViewModel>()
     private val actorDetailAdapter = ActorDetailAdapter()
+    private lateinit var movie: MovieDetails
 
     override fun viewCreated() {
         prepareRecyclerViewCast()
@@ -40,6 +42,10 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
                 DetailsFragmentDirections.actionDetailsFragmentToActorBiographyFragment(actorId = id)
             )
         }
+
+        binding.btnFavorite.setOnClickListener {
+            viewModel.saveToFavorite(movie)
+        }
     }
 
     private fun getMovieDetails() {
@@ -52,6 +58,9 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.movieDetails.collect {
+                    if (it != null) {
+                        movie = it
+                    }
                     binding.titleTv.text = it?.original_title
                     binding.imdbRating.text =
                         it?.vote_average?.let { rating -> String.format("%.1f", rating) }

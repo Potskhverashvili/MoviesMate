@@ -66,5 +66,4 @@ class SearchAdapter :
             return oldItem == newItem
         }
     }
-
 }

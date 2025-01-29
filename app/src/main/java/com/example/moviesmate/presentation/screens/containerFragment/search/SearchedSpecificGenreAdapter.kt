@@ -4,16 +4,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviesmate.databinding.ItemSearchedMoviesBinding
 import com.example.moviesmate.domain.model.CategoryMovies
 
 class SearchedSpecificGenreAdapter :
-    PagingDataAdapter<CategoryMovies.Result, SearchedSpecificGenreAdapter.SearchedViewHolder>(ItemCategoryMovieCallback()) {
+    PagingDataAdapter<CategoryMovies.Result, SearchedSpecificGenreAdapter.SearchedViewHolder>(
+        ItemCategoryMovieCallback()
+    ) {
 
-        var onItemClick: (CategoryMovies.Result) -> Unit = {}
+    var onItemClick: (CategoryMovies.Result) -> Unit = {}
+    var onFavoriteClick: (CategoryMovies.Result) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchedViewHolder {
         return SearchedViewHolder(
@@ -44,6 +46,10 @@ class SearchedSpecificGenreAdapter :
 
             binding.root.setOnClickListener {
                 onItemClick.invoke(movies)
+            }
+
+            binding.saveToFavorites.setOnClickListener {
+                onFavoriteClick.invoke(movies)
             }
         }
     }

@@ -49,7 +49,7 @@ class FavoritesFragment :
 
     private fun setListeners() {
         favoritesAdapter.onItemDeleteClick = { movie ->
-            viewModel.deleteSavedMovie(movie.toMovieDbo())
+            viewModel.deleteSavedMovie(movie)
         }
     }
 }

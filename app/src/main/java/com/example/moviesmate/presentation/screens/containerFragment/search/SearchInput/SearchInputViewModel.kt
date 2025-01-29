@@ -3,7 +3,9 @@ package com.example.moviesmate.presentation.screens.containerFragment.search.Sea
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesmate.core.OperationStatus
+import com.example.moviesmate.data.toMovie
 import com.example.moviesmate.domain.model.SearchInput
+import com.example.moviesmate.domain.usecases.SaveToFavoriteUseCase
 import com.example.moviesmate.domain.usecases.SearchMovieInputUseCase
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -12,7 +14,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class SearchInputViewModel(
-    private val searchMovieInputUseCase: SearchMovieInputUseCase
+    private val searchMovieInputUseCase: SearchMovieInputUseCase,
+    private val saveToFavoriteUseCase: SaveToFavoriteUseCase
 ) : ViewModel() {
     private var searchJob: Job? = null
 
@@ -28,10 +31,11 @@ class SearchInputViewModel(
             _isLoading.emit(true)
             delay(600) // Optional delay, make sure this is necessary for your case
             try {
-                when(val status = searchMovieInputUseCase.execute(query)) {
+                when (val status = searchMovieInputUseCase.execute(query)) {
                     is OperationStatus.Success -> {
                         _searchMovieWithQuery.emit(status.value)
                     }
+
                     is OperationStatus.Failure -> {
                     }
                 }
@@ -41,4 +45,7 @@ class SearchInputViewModel(
         }
     }
 
+    fun saveToFavorite(movie: SearchInput.SearchedMovie) = viewModelScope.launch {
+        movie.toMovie()?.let { saveToFavoriteUseCase.execute(it) }
+    }
 }

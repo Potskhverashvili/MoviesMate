@@ -13,6 +13,7 @@ import com.example.moviesmate.data.toActorFilmography
 import com.example.moviesmate.data.toCategoryMovies
 import com.example.moviesmate.data.toGenresType
 import com.example.moviesmate.data.toMovie
+import com.example.moviesmate.data.toMovieDbo
 import com.example.moviesmate.data.toMovieDetails
 import com.example.moviesmate.data.toSearchInput
 import com.example.moviesmate.domain.model.AboutActor
@@ -81,15 +82,15 @@ class MoviesRepositoryImpl(
     }
 
     // ------------------------------------------------------------------------
-    override suspend fun saveToFavorite(movie: MovieDbo): OperationStatus<Unit> {
+    override suspend fun saveToFavorite(movie: Movie): OperationStatus<Unit> {
         return RoomCallHelper.safeRoomCall {
-            movieDao.saveToFavorite(movie = movie)
+            movieDao.saveToFavorite(movie = movie.toMovieDbo())
         }
     }
 
-    override suspend fun deleteFromFavorite(movie: MovieDbo): OperationStatus<Unit> {
+    override suspend fun deleteFromFavorite(movie: Movie): OperationStatus<Unit> {
         return RoomCallHelper.safeRoomCall {
-            movieDao.deleteFromFavorite(movie)
+            movieDao.deleteFromFavorite(movie.toMovieDbo())
         }
     }
 

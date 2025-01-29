@@ -6,9 +6,10 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.example.moviesmate.core.OperationStatus
-import com.example.moviesmate.data.local.entity.MovieDbo
 import com.example.moviesmate.data.pagingSourse.MoviesPagingSource
 import com.example.moviesmate.data.pagingSourse.MoviesPagingSourceByGenre
+import com.example.moviesmate.data.toMovie
+import com.example.moviesmate.domain.model.CategoryMovies
 import com.example.moviesmate.domain.model.GenresType
 import com.example.moviesmate.domain.usecases.FetchGenresTypesUseCase
 import com.example.moviesmate.domain.usecases.FetchMoviesByGenreUseCase
@@ -69,8 +70,8 @@ class SearchViewModel(
         _isLoadingState.emit(false)
     }
 
-    fun saveToFavorite(movie: MovieDbo) = viewModelScope.launch {
-        saveToFavoriteUseCase.execute(movie)
+    fun saveToFavorite(movie: CategoryMovies.Result) = viewModelScope.launch {
+        saveToFavoriteUseCase.execute(movie.toMovie())
     }
 }
 
