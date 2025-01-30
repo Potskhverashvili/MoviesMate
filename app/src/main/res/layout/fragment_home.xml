@@ -116,17 +116,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/recyclerViewUpcomingMovies" />
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewPopularMovies"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="12dp"
-        tools:itemCount="1"
+        android:layout_height="0dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/popularMoviesTv"
-        tools:listitem="@layout/item_popular_movies" />
+        tools:itemCount="1"
+        tools:listitem="@layout/item_popular_movies"
+        app:layout_constraintTop_toBottomOf="@id/popularMoviesTv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

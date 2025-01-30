@@ -8,7 +8,6 @@ import com.example.moviesmate.databinding.FragmentHomeBinding
 import com.example.moviesmate.presentation.base.BaseFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -17,6 +16,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private val auth = FirebaseAuth.getInstance()
     private val viewModel by viewModel<HomeViewModel>()
     private val upcomingMoviesAdapter = UpcomingMoviesAdapter()
+    private val popularMoviesAdapter = PopularMoviesAdapter()
 
     override fun viewCreated() {
         val userId = auth.currentUser?.uid
@@ -44,18 +44,35 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = upcomingMoviesAdapter
         }
+
+        binding.recyclerViewPopularMovies.apply {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = popularMoviesAdapter
+        }
     }
 
     private fun setListeners() {
         upcomingMoviesAdapter.onItemClick = {movie->
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailsFragment(movie.id ?: -1))
         }
+
+        popularMoviesAdapter.onItemClick = {movie->
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailsFragment(movie.id ?: -1))
+        }
     }
 
     private fun setCollectors() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.upcomingMovies.collect { upcomingMovies ->
+            viewModel.homePageMovies.collect { upcomingMovies ->
                 upcomingMoviesAdapter.submitList(upcomingMovies?.results)
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.popularMovies.collect { popularMovies ->
+                val results = popularMovies?.results ?: emptyList() // Default to empty list if null
+                popularMoviesAdapter.submitList(results)
             }
         }
     }

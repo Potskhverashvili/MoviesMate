@@ -1,7 +1,6 @@
 package com.example.moviesmate.domain.repository
 
 import com.example.moviesmate.core.OperationStatus
-import com.example.moviesmate.data.local.entity.MovieDbo
 import com.example.moviesmate.domain.model.AboutActor
 import com.example.moviesmate.domain.model.ActorDetails
 import com.example.moviesmate.domain.model.ActorFilmography
@@ -10,7 +9,7 @@ import com.example.moviesmate.domain.model.GenresType
 import com.example.moviesmate.domain.model.Movie
 import com.example.moviesmate.domain.model.MovieDetails
 import com.example.moviesmate.domain.model.SearchInput
-import com.example.moviesmate.domain.model.UpcomingMovies
+import com.example.moviesmate.domain.model.HomePageMovies
 
 interface MoviesRepository {
     suspend fun getGenresTypes(): OperationStatus<GenresType>
@@ -27,5 +26,7 @@ interface MoviesRepository {
     suspend fun getAllSavedMovies(): OperationStatus<List<Movie>>
 
 
-    suspend fun getUpcomingMovies(): OperationStatus<UpcomingMovies>
+    suspend fun getUpcomingMovies(): OperationStatus<HomePageMovies>
+    suspend fun getPopularMovies(): OperationStatus<HomePageMovies>
+
 }

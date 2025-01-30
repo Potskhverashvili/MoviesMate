@@ -8,7 +8,7 @@ import com.example.moviesmate.data.remote.dto.CategoryMoviesDto
 import com.example.moviesmate.data.remote.dto.GenresTypeDto
 import com.example.moviesmate.data.remote.dto.MovieDetailsDto
 import com.example.moviesmate.data.remote.dto.SearchInputDto
-import com.example.moviesmate.data.remote.dto.UpcomingMoviesDto
+import com.example.moviesmate.data.remote.dto.HomePageMoviesDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -66,10 +66,18 @@ interface MovieService {
         @Query("api_key") apiKey: String = Constants.API_KEY,
     ): Response<ActorFilmographyDto>
 
-// Upcoming movies one page
+    // Upcoming movies one page
     @GET("movie/upcoming")
     suspend fun getUpcomingMovies(
         @Query("page") page: Int = 1,
         @Query("api_key") apiKey: String = Constants.API_KEY
-    ): Response<UpcomingMoviesDto>
+    ): Response<HomePageMoviesDto>
+
+    // Popular movies one page
+    @GET("movie/popular")
+    suspend fun getPopularMovies(
+        @Query("page") page: Int = 1,
+        @Query("api_key") apiKey: String = Constants.API_KEY
+    ): Response<HomePageMoviesDto>
+
 }

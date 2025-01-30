@@ -1,10 +1,10 @@
-package com.example.moviesmate.domain.model
+package com.example.moviesmate.data.remote.dto
 
-data class UpcomingMovies(
+data class HomePageMoviesDto(
     val page: Int?,
-    val results: List<Movie>?,
+    val results: List<MovieDto>?,
 ) {
-    data class Movie(
+    data class MovieDto(
         val id: Int?,
         val backdrop_path: String?,
         val poster_path: String?,

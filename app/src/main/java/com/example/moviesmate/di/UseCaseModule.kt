@@ -10,6 +10,7 @@ import com.example.moviesmate.domain.usecases.GetAllFavoritesUseCase
 import com.example.moviesmate.domain.usecases.LoginUserUseCase
 import com.example.moviesmate.domain.usecases.MovieDetailsUseCase
 import com.example.moviesmate.domain.usecases.PasswordResetUseCase
+import com.example.moviesmate.domain.usecases.PopularMoviesUseCase
 import com.example.moviesmate.domain.usecases.RegisterNewUserUseCase
 import com.example.moviesmate.domain.usecases.SaveToFavoriteUseCase
 import com.example.moviesmate.domain.usecases.SearchMovieInputUseCase
@@ -31,4 +32,5 @@ val useCaseModule = module {
     factory { GetAllFavoritesUseCase(get()) }
     factory { DeleteFromFavoritesUsaCase(get()) }
     factory { UpcomingMoviesUseCase(get()) }
+    factory { PopularMoviesUseCase(get()) }
 }

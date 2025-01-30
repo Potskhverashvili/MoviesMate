@@ -99,4 +99,7 @@ dependencies {
 
     // Shimmer dependency
     implementation("com.facebook.shimmer:shimmer:0.5.0")
+
+    //ViewPager
+    implementation ("androidx.viewpager2:viewpager2:1.0.0")
 }

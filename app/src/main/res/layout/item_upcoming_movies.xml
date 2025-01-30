@@ -5,57 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="220dp"
     android:layout_margin="8dp"
-    app:cardElevation="0dp"
-    app:cardUseCompatPadding="false"
     android:backgroundTint="@android:color/transparent"
-    app:cardCornerRadius="24dp">
+    app:cardCornerRadius="24dp"
+    app:cardElevation="0dp"
+    app:cardUseCompatPadding="false">
 
-    <!--    <androidx.appcompat.widget.AppCompatImageView-->
-    <!--        android:id="@+id/upcomingMoviePoster"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:scaleType="centerCrop"-->
-    <!--        tools:src="@drawable/giorgi" />-->
 
-    <FrameLayout
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/upcomingMoviePoster"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <!-- Main ImageView -->
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/upcomingMoviePoster"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/giorgi" />
-
-        <!-- Left Cutout (Half-Circle) -->
-        <View
-            android:layout_width="60dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="-25dp"
-            android:background="@drawable/half_circle_cutout" />
-
-        <!-- Right Cutout (Half-Circle) -->
-        <View
-            android:layout_width="60dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center_vertical|end"
-            android:layout_marginEnd="-25dp"
-            android:background="@drawable/half_circle_cutout" />
-    </FrameLayout>
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/giorgi" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/upcomingMovieTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:fontFamily="@font/bebas_neue"
-        android:letterSpacing="0.1"
-        android:gravity="center"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:fontFamily="@font/bebas_neue"
+        android:gravity="center"
+        android:letterSpacing="0.1"
         android:textColor="@color/white"
         android:textSize="38sp"
         tools:text="Giorgi" />

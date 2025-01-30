@@ -1,24 +1,23 @@
 package com.example.moviesmate.presentation.screens.containerFragment.home
 
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.moviesmate.databinding.ItemUpcomingMoviesBinding
+import com.example.moviesmate.databinding.ItemPopularMoviesBinding
 import com.example.moviesmate.domain.model.HomePageMovies
 
-class UpcomingMoviesAdapter :
-    ListAdapter<HomePageMovies.Movie, UpcomingMoviesAdapter.UpcomingMoviesViewHolder>(
-        DiffUtilCallBack()
-    ) {
+class PopularMoviesAdapter() :
+    ListAdapter<HomePageMovies.Movie, PopularMoviesAdapter.PopularMoviesViewHolder>(DiffUtilCallBack()) {
 
     var onItemClick: (HomePageMovies.Movie) -> Unit = {}
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingMoviesViewHolder {
-        return UpcomingMoviesViewHolder(
-            ItemUpcomingMoviesBinding.inflate(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularMoviesViewHolder {
+        return PopularMoviesViewHolder(
+            ItemPopularMoviesBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -26,26 +25,23 @@ class UpcomingMoviesAdapter :
         )
     }
 
-    override fun onBindViewHolder(holder: UpcomingMoviesViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PopularMoviesViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    inner class UpcomingMoviesViewHolder(private val binding: ItemUpcomingMoviesBinding) :
+    inner class PopularMoviesViewHolder(private val binding: ItemPopularMoviesBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: HomePageMovies.Movie) {
             val imageUrl = "https://image.tmdb.org/t/p/w500${movie.backdrop_path}"
-            Glide.with(binding.upcomingMoviePoster)
+            Glide.with(binding.coverImage)
                 .load(imageUrl)
-                .into(binding.upcomingMoviePoster)
-
-            binding.upcomingMovieTitle.text = movie.title
+                .into(binding.coverImage)
 
             binding.root.setOnClickListener {
                 onItemClick.invoke(movie)
             }
         }
     }
-
 
     class DiffUtilCallBack : DiffUtil.ItemCallback<HomePageMovies.Movie>() {
         override fun areItemsTheSame(
@@ -64,3 +60,4 @@ class UpcomingMoviesAdapter :
     }
 
 }
+
