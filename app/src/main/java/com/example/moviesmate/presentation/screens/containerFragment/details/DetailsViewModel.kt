@@ -42,7 +42,6 @@ class DetailsViewModel(
         }
     }
 
-
     fun getActorDetails(movieId: Int) = viewModelScope.launch {
         when (val status = actorDetailsUseCase.execute(movieId = movieId)) {
             is OperationStatus.Success -> {
