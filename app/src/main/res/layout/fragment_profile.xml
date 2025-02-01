@@ -56,7 +56,8 @@
             app:civ_circle_background_color="@color/red" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/editImageIcon"
+            android:id="@+id/btnUpdateImage"
+            android:clickable="true"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
@@ -125,7 +126,7 @@
                 app:layout_constraintTop_toBottomOf="@id/userEmail">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/emailEditText"
+                    android:id="@+id/usernameEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/mutedBlue"

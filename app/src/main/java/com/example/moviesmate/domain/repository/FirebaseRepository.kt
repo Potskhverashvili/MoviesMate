@@ -1,7 +1,6 @@
 package com.example.moviesmate.domain.repository
 
 import com.example.moviesmate.core.OperationStatus
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 interface FirebaseRepository {
@@ -15,4 +14,12 @@ interface FirebaseRepository {
     suspend fun loginInUser(email: String, password: String): OperationStatus<FirebaseUser>
 
     suspend fun passwordReset(email: String): OperationStatus<Unit>
+
+    suspend fun getUsername(): OperationStatus<String>
+
+    suspend fun updateUsername(updateName: String): OperationStatus<Unit>
+
+    suspend fun getUserEmail(): OperationStatus<String?>
+
+    suspend fun logOut(): OperationStatus<Unit>
 }

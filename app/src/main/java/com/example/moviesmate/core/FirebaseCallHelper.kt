@@ -11,5 +11,4 @@ object FirebaseCallHelper {
             OperationStatus.Failure(e)
         }
     }
-
 }
