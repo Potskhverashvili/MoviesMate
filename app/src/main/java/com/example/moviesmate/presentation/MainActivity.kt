@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         }
         navController.graph = navGraph
 
-        // Internet handle to-do
+        // Internet handle
         networkReceiver = NetworkChangeReceiver { isConnected ->
             handleNetworkChange(isConnected)
         }

@@ -77,4 +77,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
     }
 
+
 }

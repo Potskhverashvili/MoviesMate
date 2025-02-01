@@ -13,7 +13,6 @@ class ContainerFragment :
     BaseFragment<FragmentContainerBinding>(FragmentContainerBinding::inflate) {
     private lateinit var navController: NavController
 
-
     override fun viewCreated() {
         setUp()
     }
@@ -35,7 +34,6 @@ class ContainerFragment :
                 R.id.detailsFragment -> {
                     binding.bottomNavigation.visibility = View.GONE
                 }
-
                 else -> {
                     binding.bottomNavigation.visibility = View.VISIBLE
                 }
