@@ -37,6 +37,8 @@ class PopularMoviesAdapter() :
                 .load(imageUrl)
                 .into(binding.coverImage)
 
+            binding.movieTitle.text = movie.title
+
             binding.root.setOnClickListener {
                 onItemClick.invoke(movie)
             }

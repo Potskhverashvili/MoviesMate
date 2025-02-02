@@ -63,14 +63,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             }
         }
 
-        searchAdapter.onFavoriteClick = { movie ->
-            viewModel.saveToFavorite(movie)
-        }
-
-        searchedSpecificGenreAdapter.onFavoriteClick = { movie ->
-            viewModel.saveToFavorite(movie)
-        }
-
         searchedSpecificGenreAdapter.onItemClick = { currentMovie ->
             findNavController().navigate(
                 SearchFragmentDirections.actionSearchFragmentToDetailsFragment(

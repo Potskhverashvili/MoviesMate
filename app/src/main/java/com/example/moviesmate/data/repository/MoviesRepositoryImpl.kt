@@ -16,6 +16,7 @@ import com.example.moviesmate.data.toMovieDbo
 import com.example.moviesmate.data.toMovieDetails
 import com.example.moviesmate.data.toSearchInput
 import com.example.moviesmate.data.toHomePageMovies
+import com.example.moviesmate.data.toYoutube
 import com.example.moviesmate.domain.model.AboutActor
 import com.example.moviesmate.domain.model.ActorDetails
 import com.example.moviesmate.domain.model.ActorFilmography
@@ -25,6 +26,7 @@ import com.example.moviesmate.domain.model.Movie
 import com.example.moviesmate.domain.model.MovieDetails
 import com.example.moviesmate.domain.model.SearchInput
 import com.example.moviesmate.domain.model.HomePageMovies
+import com.example.moviesmate.domain.model.Youtube
 import com.example.moviesmate.domain.repository.MoviesRepository
 
 class MoviesRepositoryImpl(
@@ -111,6 +113,12 @@ class MoviesRepositoryImpl(
         return ApiCallHelper.safeApiCall {
             service.getPopularMovies()
         }.map { popularMovies -> popularMovies.toHomePageMovies() }
+    }
+
+    override suspend fun getVideoTrailer(movieId: String): OperationStatus<Youtube> {
+        return ApiCallHelper.safeApiCall {
+            service.getVideoTrailer(movieId)
+        }.map { youtubeDto -> youtubeDto.toYoutube() }
     }
 
 }

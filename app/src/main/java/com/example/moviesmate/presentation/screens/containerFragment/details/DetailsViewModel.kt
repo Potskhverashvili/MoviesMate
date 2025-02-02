@@ -1,12 +1,17 @@
 package com.example.moviesmate.presentation.screens.containerFragment.details
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesmate.core.OperationStatus
+import com.example.moviesmate.core.map
 import com.example.moviesmate.data.toMovie
 import com.example.moviesmate.domain.model.ActorDetails
+import com.example.moviesmate.domain.model.Movie
 import com.example.moviesmate.domain.model.MovieDetails
 import com.example.moviesmate.domain.usecases.ActorDetailsUseCase
+import com.example.moviesmate.domain.usecases.DeleteFromFavoritesUsaCase
+import com.example.moviesmate.domain.usecases.GetAllFavoritesUseCase
 import com.example.moviesmate.domain.usecases.MovieDetailsUseCase
 import com.example.moviesmate.domain.usecases.SaveToFavoriteUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -18,7 +23,9 @@ import kotlinx.coroutines.launch
 class DetailsViewModel(
     private val movieDetailsUseCase: MovieDetailsUseCase,
     private val actorDetailsUseCase: ActorDetailsUseCase,
-    private val saveToFavoriteUseCase: SaveToFavoriteUseCase
+    private val saveToFavoriteUseCase: SaveToFavoriteUseCase,
+    private val deleteFromFavoritesUsaCase: DeleteFromFavoritesUsaCase,
+    private val getAllFavoritesUseCase: GetAllFavoritesUseCase,
 ) : ViewModel() {
 
     private val _movieDetails = MutableStateFlow<MovieDetails?>(null)
@@ -29,6 +36,9 @@ class DetailsViewModel(
 
     private val _errorMessage = MutableSharedFlow<String?>()
     val errorMessage = _errorMessage.asSharedFlow()
+
+    private val _isFavoriteMovie = MutableStateFlow(false)
+    val isFavoriteMovie = _isFavoriteMovie.asStateFlow()
 
     fun getMovieDetails(movieId: Int) = viewModelScope.launch {
         when (val status = movieDetailsUseCase.execute(movieId = movieId)) {
@@ -41,7 +51,6 @@ class DetailsViewModel(
             }
         }
     }
-
 
     fun getActorDetails(movieId: Int) = viewModelScope.launch {
         when (val status = actorDetailsUseCase.execute(movieId = movieId)) {
@@ -57,5 +66,27 @@ class DetailsViewModel(
 
     fun saveToFavorite(movie: MovieDetails) = viewModelScope.launch {
         movie.toMovie()?.let { saveToFavoriteUseCase.execute(it) }
+        _isFavoriteMovie.emit(true)
+    }
+
+
+    fun deleteSavedMovie(movie: Movie) = viewModelScope.launch {
+        when (deleteFromFavoritesUsaCase.execute(movie)) {
+            is OperationStatus.Success -> {
+                _isFavoriteMovie.emit(false)
+            }
+
+            is OperationStatus.Failure -> {}
+        }
+    }
+
+    fun checkIfMovieIsSaveInRoom(id: Int) = viewModelScope.launch {
+        when (val status = getAllFavoritesUseCase.execute()) {
+            is OperationStatus.Success -> {
+                val favorites = status.value
+                _isFavoriteMovie.emit(favorites.any { it.id == id })
+            }
+            is OperationStatus.Failure -> {}
+        }
     }
 }

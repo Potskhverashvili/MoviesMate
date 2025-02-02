@@ -10,6 +10,7 @@ import com.example.moviesmate.domain.model.Movie
 import com.example.moviesmate.domain.model.MovieDetails
 import com.example.moviesmate.domain.model.SearchInput
 import com.example.moviesmate.domain.model.HomePageMovies
+import com.example.moviesmate.domain.model.Youtube
 
 interface MoviesRepository {
     suspend fun getGenresTypes(): OperationStatus<GenresType>
@@ -28,5 +29,7 @@ interface MoviesRepository {
 
     suspend fun getUpcomingMovies(): OperationStatus<HomePageMovies>
     suspend fun getPopularMovies(): OperationStatus<HomePageMovies>
+
+    suspend fun getVideoTrailer(movieId: String): OperationStatus<Youtube>
 
 }

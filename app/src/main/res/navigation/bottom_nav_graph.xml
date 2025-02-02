@@ -51,6 +51,9 @@
         <action
             android:id="@+id/action_detailsFragment_to_actorBiographyFragment"
             app:destination="@id/actorBiographyFragment" />
+        <action
+            android:id="@+id/action_detailsFragment_to_youtubeVideoFragment"
+            app:destination="@id/youtubeVideoFragment" />
     </fragment>
 
     <fragment
@@ -74,6 +77,15 @@
         <action
             android:id="@+id/action_actorBiographyFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/youtubeVideoFragment"
+        android:name="com.example.moviesmate.presentation.screens.containerFragment.youtubeVideo.YoutubeVideoFragment"
+        android:label="YoutubeVideoFragment"
+        tools:layout="@layout/fragment_youtube_video">
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
     </fragment>
 
 </navigation>

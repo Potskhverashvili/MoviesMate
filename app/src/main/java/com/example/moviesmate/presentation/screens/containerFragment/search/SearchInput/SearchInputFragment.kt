@@ -42,10 +42,6 @@ class SearchInputFragment :
                 SearchInputFragmentDirections.actionSearchInputFragmentToDetailsFragment(
                     currentMovie.id))
         }
-
-        searchInputAdapter.onFavoriteClick = { saveMovie ->
-            viewmodel.saveToFavorite(saveMovie)
-        }
     }
 
     private fun setCollectors() {

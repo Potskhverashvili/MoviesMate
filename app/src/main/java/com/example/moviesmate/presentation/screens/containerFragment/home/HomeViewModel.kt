@@ -4,15 +4,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesmate.core.OperationStatus
 import com.example.moviesmate.domain.model.HomePageMovies
+import com.example.moviesmate.domain.usecases.GetUserNameUseCase
 import com.example.moviesmate.domain.usecases.PopularMoviesUseCase
 import com.example.moviesmate.domain.usecases.UpcomingMoviesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val upcomingMoviesUseCase: UpcomingMoviesUseCase,
-    private val popularMoviesUseCase: PopularMoviesUseCase
+    private val popularMoviesUseCase: PopularMoviesUseCase,
+    private val getUserNameUseCase: GetUserNameUseCase
 ) : ViewModel() {
 
     private val _homePageMovies = MutableStateFlow<HomePageMovies?>(null)
@@ -20,6 +23,9 @@ class HomeViewModel(
 
     private val _popularMovies = MutableStateFlow<HomePageMovies?>(null)
     val popularMovies: StateFlow<HomePageMovies?> = _popularMovies
+
+    private val _username = MutableStateFlow<String?>(null)
+    val username = _username.asStateFlow()
 
     init {
         fetchUpcomingMovies()
@@ -43,6 +49,18 @@ class HomeViewModel(
             }
 
             is OperationStatus.Failure -> {}
+        }
+    }
+
+    fun getUsername() = viewModelScope.launch {
+        when (val result = getUserNameUseCase.execute()) {
+            is OperationStatus.Success -> {
+                _username.emit(result.value.toString())
+            }
+
+            is OperationStatus.Failure -> {
+
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 package com.example.moviesmate.presentation.screens.containerFragment.details
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -9,6 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.moviesmate.R
+import com.example.moviesmate.data.toMovie
 import com.example.moviesmate.databinding.FragmentDetailsBinding
 import com.example.moviesmate.domain.model.MovieDetails
 import com.example.moviesmate.presentation.base.BaseFragment
@@ -20,12 +23,19 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
     private val viewModel by viewModel<DetailsViewModel>()
     private val actorDetailAdapter = ActorDetailAdapter()
     private lateinit var movie: MovieDetails
+    private var isFavorite: Boolean = false
 
     override fun viewCreated() {
+        checkIfMovieIsSaved()
         prepareRecyclerViewCast()
         getMovieDetails()
         setListeners()
         setCollectors()
+    }
+
+    private fun checkIfMovieIsSaved() {
+        viewModel.checkIfMovieIsSaveInRoom(args.movieId)
+        Log.d("MyLog", "Result => ${args.movieId}")
     }
 
     private fun prepareRecyclerViewCast() {
@@ -43,14 +53,29 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
             )
         }
 
+        binding.btnPlayVideo.setOnClickListener {
+            goToYoutubeVideo()
+        }
+
         binding.btnFavorite.setOnClickListener {
-            viewModel.saveToFavorite(movie)
+            if (isFavorite) {
+                movie.toMovie()?.let { it1 -> viewModel.deleteSavedMovie(it1) }
+                binding.btnFavorite.setImageResource(R.drawable.ic_favorite_state) // Set to unfilled favorite icon
+            } else {
+                viewModel.saveToFavorite(movie)
+                binding.btnFavorite.setImageResource(R.drawable.ic_favorite) // Set to filled favorite icon
+            }
+            isFavorite = !isFavorite // Toggle favorite state
         }
     }
 
     private fun getMovieDetails() {
         viewModel.getMovieDetails(args.movieId)
         viewModel.getActorDetails(args.movieId)
+    }
+
+    private fun goToYoutubeVideo() {
+        findNavController().navigate(DetailsFragmentDirections.actionDetailsFragmentToYoutubeVideoFragment(args.movieId))
     }
 
     @SuppressLint("DefaultLocale")
@@ -73,7 +98,6 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
                         .load(imageUrl)
                         .into(binding.imgMealDetails)
                 }
-
             }
         }
 
@@ -92,6 +116,24 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
                 }
             }
         }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.isFavoriteMovie.collect { isFav ->
+                    Log.d("MyLog", "vnaxot ${isFav}")
+                    isFavorite = isFav
+                    binding.btnFavorite.setImageResource(
+                        if (isFav) R.drawable.ic_favorite else R.drawable.ic_favorite_state
+                    )
+                }
+            }
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkIfMovieIsSaved()
     }
 
 }

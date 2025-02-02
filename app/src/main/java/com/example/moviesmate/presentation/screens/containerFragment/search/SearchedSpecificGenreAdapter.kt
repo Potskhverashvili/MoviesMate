@@ -15,7 +15,6 @@ class SearchedSpecificGenreAdapter :
     ) {
 
     var onItemClick: (CategoryMovies.Result) -> Unit = {}
-    var onFavoriteClick: (CategoryMovies.Result) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchedViewHolder {
         return SearchedViewHolder(
@@ -48,9 +47,6 @@ class SearchedSpecificGenreAdapter :
                 onItemClick.invoke(movies)
             }
 
-            binding.saveToFavorites.setOnClickListener {
-                onFavoriteClick.invoke(movies)
-            }
         }
     }
 

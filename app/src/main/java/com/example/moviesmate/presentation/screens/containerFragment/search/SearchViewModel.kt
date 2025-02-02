@@ -23,7 +23,6 @@ import kotlinx.coroutines.launch
 class SearchViewModel(
     private val fetchGenresTypesUseCase: FetchGenresTypesUseCase,
     private val fetchMoviesByGenreUseCase: FetchMoviesByGenreUseCase,
-    private val saveToFavoriteUseCase: SaveToFavoriteUseCase,
     private val moviePagingSource: MoviesPagingSource
 ) : ViewModel() {
 
@@ -70,9 +69,6 @@ class SearchViewModel(
         _isLoadingState.emit(false)
     }
 
-    fun saveToFavorite(movie: CategoryMovies.Result) = viewModelScope.launch {
-        saveToFavoriteUseCase.execute(movie.toMovie())
-    }
 }
 
 

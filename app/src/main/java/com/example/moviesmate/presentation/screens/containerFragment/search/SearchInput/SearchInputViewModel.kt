@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 
 class SearchInputViewModel(
     private val searchMovieInputUseCase: SearchMovieInputUseCase,
-    private val saveToFavoriteUseCase: SaveToFavoriteUseCase
 ) : ViewModel() {
     private var searchJob: Job? = null
 
@@ -29,7 +28,7 @@ class SearchInputViewModel(
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
             _isLoading.emit(true)
-            delay(600) // Optional delay, make sure this is necessary for your case
+            delay(600)
             try {
                 when (val status = searchMovieInputUseCase.execute(query)) {
                     is OperationStatus.Success -> {
@@ -43,9 +42,5 @@ class SearchInputViewModel(
                 _isLoading.emit(false)
             }
         }
-    }
-
-    fun saveToFavorite(movie: SearchInput.SearchedMovie) = viewModelScope.launch {
-        movie.toMovie()?.let { saveToFavoriteUseCase.execute(it) }
     }
 }

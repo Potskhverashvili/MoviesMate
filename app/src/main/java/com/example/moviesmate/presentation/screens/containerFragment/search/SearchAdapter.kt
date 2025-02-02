@@ -14,10 +14,8 @@ class SearchAdapter :
     PagingDataAdapter<CategoryMovies.Result, SearchAdapter.ItemCategoryMovieHolder>(
         ItemCategoryMovieCallback()
     ) {
-    private var isFavorite = false
 
     var onItemClick: (CategoryMovies.Result) -> Unit = {}
-    var onFavoriteClick: (CategoryMovies.Result) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemCategoryMovieHolder {
         return ItemCategoryMovieHolder(
@@ -47,13 +45,6 @@ class SearchAdapter :
                 onItemClick.invoke(movies)
             }
 
-            binding.saveToFavorites.setOnClickListener {
-                isFavorite = !isFavorite // Toggle the state
-                binding.saveToFavorites.setImageResource(
-                    if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_state
-                )
-                onFavoriteClick.invoke(movies)
-            }
         }
     }
 

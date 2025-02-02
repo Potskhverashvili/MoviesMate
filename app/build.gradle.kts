@@ -102,4 +102,7 @@ dependencies {
 
     //ViewPager
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
+
+    // Youtube dependencies
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0")
 }

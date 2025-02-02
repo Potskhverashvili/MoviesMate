@@ -8,6 +8,7 @@ import com.example.moviesmate.data.remote.dto.GenresTypeDto
 import com.example.moviesmate.data.remote.dto.MovieDetailsDto
 import com.example.moviesmate.data.remote.dto.SearchInputDto
 import com.example.moviesmate.data.remote.dto.HomePageMoviesDto
+import com.example.moviesmate.data.remote.dto.YoutubeDto
 import com.example.moviesmate.domain.model.AboutActor
 import com.example.moviesmate.domain.model.ActorDetails
 import com.example.moviesmate.domain.model.ActorFilmography
@@ -16,6 +17,7 @@ import com.example.moviesmate.domain.model.GenresType
 import com.example.moviesmate.domain.model.MovieDetails
 import com.example.moviesmate.domain.model.SearchInput
 import com.example.moviesmate.domain.model.HomePageMovies
+import com.example.moviesmate.domain.model.Youtube
 
 //Dto -> domain
 fun GenresTypeDto.toGenresType(): GenresType {
@@ -146,5 +148,26 @@ fun HomePageMoviesDto.toHomePageMovies(): HomePageMovies {
                 title = movieDto.title
             )
         }
+    )
+}
+
+
+fun YoutubeDto.toYoutube(): Youtube {
+    return Youtube(
+        id = this.id,
+        results = this.results.map { videoDto ->
+            Youtube.Video(
+                iso_639_1 = videoDto?.iso_639_1,
+                iso_3166_1 = videoDto?.iso_3166_1,
+                name = videoDto?.name,
+                key = videoDto?.key,
+                site = videoDto?.site,
+                size = videoDto?.size,
+                type = videoDto?.type,
+                official = videoDto?.official,
+                published_at = videoDto?.published_at,
+                id = videoDto?.id
+            )
+        } ?: emptyList()
     )
 }

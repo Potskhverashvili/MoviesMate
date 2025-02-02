@@ -20,15 +20,6 @@
             android:scaleType="centerCrop"
             tools:src="@tools:sample/avatars" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/saveToFavorites"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-
-            android:layout_margin="8dp"
-            android:src="@drawable/ic_favorite_state" />
-
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvMovieTitle"
             android:layout_width="wrap_content"

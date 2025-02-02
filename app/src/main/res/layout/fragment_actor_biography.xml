@@ -6,59 +6,86 @@
     android:layout_height="match_parent"
     android:background="@color/blackVariant">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:src="@drawable/ic_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/actorImage"
+    <!-- AppBarLayout (Collapsing Toolbar) -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/giorgi" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/actorName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
-        android:fontFamily="@font/bebas_neue"
-        android:gravity="center"
-        android:letterSpacing="0.1"
-        android:textColor="@color/white"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="@id/actorImage"
+        android:layout_height="300dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/actorImage"
-        tools:text="George Dzagania" />
+        app:layout_constraintTop_toTopOf="parent">
 
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentScrim="@color/red"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+            app:expandedTitleTextColor="@color/white">
+
+            <!-- Image inside CollapsingToolbarLayout to make it collapse -->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/actorImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:contentDescription="Actor Image"
+                tools:src="@drawable/giorgi"
+                app:layout_collapseMode="pin"
+                app:layout_collapseParallaxMultiplier="0.7"/>
+
+            <!-- Toolbar that collapses -->
+            <Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:layout_collapseMode="pin">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imgBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_back" />
+            </Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- NestedScrollView (Starts Below AppBarLayout) -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/actorImage">
+        app:layout_constraintTop_toBottomOf="@id/appbar">
 
-        <!-- Child Layout inside NestedScrollView -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="12dp">
+            android:padding="16dp">
 
+            <!-- Actor Name -->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/actorName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/bebas_neue"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="36sp"
+                tools:text="George Dzagania" />
+
+            <!-- Born Section -->
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:letterSpacing="0.02"
                 android:text="Born"
                 android:textColor="@color/red"
                 android:textSize="18sp"
@@ -68,18 +95,14 @@
                 android:id="@+id/born"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:fontFamily="@font/poppins_light"
                 android:textColor="@color/white"
-                tools:text="April 3, 1993 " />
+                tools:text="April 3, 1993" />
 
-            <!-- Biography Layout -->
+            <!-- Biography Section -->
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:fontFamily="@font/poppins_medium"
-                android:letterSpacing="0.02"
                 android:text="Biography"
                 android:textColor="@color/red"
                 android:textSize="18sp"
@@ -89,17 +112,15 @@
                 android:id="@+id/biography"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:fontFamily="@font/poppins_light"
                 android:textColor="@color/white"
                 tools:text="Born in Tbilisi. Pursued acting career and is known for the role in 'Date'." />
 
+            <!-- Known For Section -->
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/knownForLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/poppins_medium"
                 android:text="Known For"
                 android:textColor="@color/red"
                 android:textSize="18sp"
@@ -111,10 +132,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 tools:itemCount="1"
-                tools:listitem="@layout/item_actor_filmography"/>
-
+                tools:listitem="@layout/item_actor_filmography" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+

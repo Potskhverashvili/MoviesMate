@@ -15,8 +15,6 @@ class SearchInputAdapter :
     ) {
 
     var onItemClick: (SearchInput.SearchedMovie) -> Unit = {}
-    var onFavoriteClick: (SearchInput.SearchedMovie) -> Unit = {}
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchInputViewHolder {
         return SearchInputViewHolder(
@@ -46,9 +44,6 @@ class SearchInputAdapter :
                 onItemClick.invoke(movie)
             }
 
-            binding.btnFavorite.setOnClickListener {
-                onFavoriteClick.invoke(movie)
-            }
         }
     }
 

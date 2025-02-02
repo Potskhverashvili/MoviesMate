@@ -35,14 +35,15 @@ class ActorDetailAdapter :
             actorName.text = actor.original_name
 
             Glide.with(actorImage.context)
-                .load("https://image.tmdb.org/t/p/w500${actor.profile_path}") // Construct the image URL
-                .placeholder(R.color.red) // Optional: Add a placeholder
-                .error(R.drawable.ic_launcher_background) // Optional: Add an error image
+                .load("https://image.tmdb.org/t/p/w500${actor.profile_path}")
+                .placeholder(R.color.red)
+                .error(R.drawable.ic_launcher_background)
                 .into(actorImage)
 
             binding.root.setOnClickListener {
                 actor.id?.let { it1 -> onItemClick.invoke(it1) }
             }
+
         }
     }
 

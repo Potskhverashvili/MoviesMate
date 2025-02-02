@@ -9,6 +9,7 @@ import com.example.moviesmate.data.remote.dto.GenresTypeDto
 import com.example.moviesmate.data.remote.dto.MovieDetailsDto
 import com.example.moviesmate.data.remote.dto.SearchInputDto
 import com.example.moviesmate.data.remote.dto.HomePageMoviesDto
+import com.example.moviesmate.data.remote.dto.YoutubeDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -79,5 +80,11 @@ interface MovieService {
         @Query("page") page: Int = 1,
         @Query("api_key") apiKey: String = Constants.API_KEY
     ): Response<HomePageMoviesDto>
+
+    @GET("movie/{movie_id}/videos")
+    suspend fun getVideoTrailer(
+        @Path("movie_id") movieId: String,
+        @Query("api_key") apiKey: String = Constants.API_KEY
+    ): Response<YoutubeDto>
 
 }
