@@ -1,8 +1,12 @@
 package com.example.moviesmate.presentation.screens.containerFragment.home
 
+import android.view.View
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.moviesmate.databinding.FragmentHomeBinding
 import com.example.moviesmate.presentation.base.BaseFragment
 import kotlinx.coroutines.launch
@@ -18,6 +22,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         prepareRecyclerview()
         setListeners()
         setCollectors()
+        getProfileImage()
+
+    }
+
+    private fun getProfileImage() {
+        viewModel.fetchUserProfileImage()
     }
 
     private fun getUserName() {
@@ -70,10 +80,29 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             }
         }
 
+        lifecycleScope.launch {
+            viewModel.selectedImageUri.collect { uri ->
+                uri?.let {
+                    Glide.with(this@HomeFragment) // Or use Fragment context
+                        .load(it)
+                        .into(binding.userImage) // Replace with your ImageView
+                }
+            }
+        }
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.username.collect { username ->
                 binding.userName.text = username
             }
         }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.isLoadingState.collect { isLoading ->
+                    binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+                }
+            }
+        }
+
     }
 }

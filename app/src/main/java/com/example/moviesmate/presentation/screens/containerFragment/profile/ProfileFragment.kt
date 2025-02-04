@@ -4,17 +4,21 @@ import android.net.Uri
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.moviesmate.databinding.FragmentProfileBinding
 import com.example.moviesmate.presentation.base.BaseFragment
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
     private val viewModel by viewModel<ProfileViewModel>()
 
     private val pickImageLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            uri?.let { viewModel.onImageSelected(it) }
+            uri?.let {
+                viewModel.uploadImageToFireStore(it) // Call ViewModel function
+            }
         }
 
     override fun viewCreated() {
@@ -41,9 +45,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
         binding.btnUpdateImage.setOnClickListener {
             pickImageLauncher.launch("image/*")
+
         }
     }
-
 
     private fun setCollector() {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -58,10 +62,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
+        lifecycleScope.launch {
             viewModel.selectedImageUri.collect { uri ->
                 uri?.let {
-                    binding.userImage.setImageURI(it)
+                    Glide.with(this@ProfileFragment) // Or use Fragment context
+                        .load(it)
+                        .into(binding.userImage) // Replace with your ImageView
                 }
             }
         }
