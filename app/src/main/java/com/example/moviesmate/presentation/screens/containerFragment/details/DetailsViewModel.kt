@@ -1,10 +1,8 @@
 package com.example.moviesmate.presentation.screens.containerFragment.details
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesmate.core.OperationStatus
-import com.example.moviesmate.core.map
 import com.example.moviesmate.data.toMovie
 import com.example.moviesmate.domain.model.ActorDetails
 import com.example.moviesmate.domain.model.Movie

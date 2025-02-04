@@ -6,9 +6,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.moviesmate.core.OperationStatus
 import com.example.moviesmate.domain.usecases.GetUserEmailUseCase
 import com.example.moviesmate.domain.usecases.GetUserNameUseCase
+import com.example.moviesmate.domain.usecases.GetUserProfileImageUseCase
 import com.example.moviesmate.domain.usecases.LogOutUseCase
 import com.example.moviesmate.domain.usecases.UpdateUserNameUseCase
-import com.google.firebase.auth.FirebaseAuth
+import com.example.moviesmate.domain.usecases.UploadImageToFireStoreUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -17,7 +18,9 @@ class ProfileViewModel(
     private val getUserNameUseCase: GetUserNameUseCase,
     private val updateUserNameUseCase: UpdateUserNameUseCase,
     private val getUserEmailUseCase: GetUserEmailUseCase,
-    private val logOutUseCase: LogOutUseCase
+    private val logOutUseCase: LogOutUseCase,
+    private val uploadImageToFireStoreUseCase: UploadImageToFireStoreUseCase,
+    private val getUserProfileImageUseCase: GetUserProfileImageUseCase
 ) : ViewModel() {
 
     private val _username = MutableStateFlow<String?>(null)
@@ -34,6 +37,10 @@ class ProfileViewModel(
 
     private val _loading = MutableStateFlow(false)
     val loading = _loading.asStateFlow()
+
+    init {
+        fetchUserProfileImage()
+    }
 
     fun getUsername() = viewModelScope.launch {
         _loading.emit(true)
@@ -94,10 +101,34 @@ class ProfileViewModel(
         _loading.emit(false)
     }
 
-    fun onImageSelected(uri: Uri) {
-        _selectedImageUri.value = uri
-        // Optionally, you can upload the image to Firebase or perform other actions
+    fun uploadImageToFireStore(uri: Uri) = viewModelScope.launch {
+        when (val status = uploadImageToFireStoreUseCase.execute(uri)) {
+            is OperationStatus.Success -> {
+                _selectedImageUri.emit(Uri.parse(status.value)) // Emit the image URL as a URI
+            }
 
+            is OperationStatus.Failure -> {
+                _error.emit("Failed to upload image: ${status.exception.message}")
+            }
+        }
+    }
+
+
+    private fun fetchUserProfileImage() = viewModelScope.launch {
+        _loading.emit(true)
+
+        when (val status = getUserProfileImageUseCase.execute()) { // Fetch URL from Firebase
+            is OperationStatus.Success -> {
+                _selectedImageUri.emit(Uri.parse(status.value)) // Emit image URL
+            }
+
+            is OperationStatus.Failure -> {
+                _selectedImageUri.emit(null) // Set null if image doesn't exist
+                _error.emit("No profile image found")
+            }
+        }
+
+        _loading.emit(false)
     }
 
 }
