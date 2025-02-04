@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
     private val user = FirebaseAuth.getInstance()
     private lateinit var networkReceiver: NetworkChangeReceiver
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
@@ -33,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
