@@ -120,7 +120,6 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.isFavoriteMovie.collect { isFav ->
-                    Log.d("MyLog", "vnaxot ${isFav}")
                     isFavorite = isFav
                     binding.btnFavorite.setImageResource(
                         if (isFav) R.drawable.ic_favorite else R.drawable.ic_favorite_state
