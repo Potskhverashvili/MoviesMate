@@ -13,6 +13,8 @@ class FavoritesAdapter : ListAdapter<Movie, FavoritesAdapter.FavoritesViewHolder
 
     var onItemDeleteClick: (movie: Movie) -> Unit = {}
 
+    var onItemClick: (movie: Movie) -> Unit = {}
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesViewHolder {
         return FavoritesViewHolder(
             ItemFavoritesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -35,6 +37,10 @@ class FavoritesAdapter : ListAdapter<Movie, FavoritesAdapter.FavoritesViewHolder
 
             binding.btnDelete.setOnClickListener {
                 onItemDeleteClick.invoke(movie)
+            }
+
+            binding.moviePoster.setOnClickListener {
+                onItemClick.invoke(movie)
             }
         }
     }

@@ -64,5 +64,11 @@ class FavoritesFragment :
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
+
+        favoritesAdapter.onItemClick = { movie ->
+            findNavController().navigate(
+                FavoritesFragmentDirections.actionFavoritesFragmentToDetailsFragment(
+                    movie.id))
+        }
     }
 }
