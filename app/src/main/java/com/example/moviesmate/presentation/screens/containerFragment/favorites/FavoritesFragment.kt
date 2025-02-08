@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviesmate.data.toMovieDbo
 import com.example.moviesmate.databinding.FragmentFavoritesBinding
@@ -58,6 +59,16 @@ class FavoritesFragment :
                 }
                 .setNegativeButton("No", null)
                 .show()
+        }
+
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        favoritesAdapter.onItemClick = { movie ->
+            findNavController().navigate(
+                FavoritesFragmentDirections.actionFavoritesFragmentToDetailsFragment(
+                    movie.id))
         }
     }
 }

@@ -106,4 +106,8 @@ dependencies {
 
     // Youtube dependencies
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0")
+
+
+    implementation ("com.google.android.material:material:1.4.0")
+
 }

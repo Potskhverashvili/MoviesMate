@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blackVariant">
@@ -10,7 +9,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="130dp"
-        android:background="@color/mutedBlue"
+        android:background="@color/blackVariantDark"
         app:layout_collapseMode="pin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,19 +17,19 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btnBack"
+            android:layout_width="32dp"
+            android:layout_height="32sp"
             android:clickable="true"
-            android:layout_width="42sp"
-            android:layout_height="42sp"
             android:src="@drawable/ic_back" />
     </Toolbar>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/userImage"
-        android:layout_width="240dp"
-        android:layout_height="240dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/ic_person_default"
-        app:civ_border_color="@color/mutedBlue"
+        app:civ_border_color="@color/yellow"
         app:civ_border_overlay="false"
         app:civ_border_width="2dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,10 +56,10 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btnUpdateImage"
-            android:clickable="true"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
+            android:clickable="true"
             android:scaleType="centerInside"
             android:src="@drawable/ic_edit" />
     </FrameLayout>
@@ -68,7 +67,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="80dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +83,6 @@
                 android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
                 android:fontFamily="@font/poppins_medium"
                 android:text="Dzago@sd"
                 android:textColor="@color/white"
@@ -247,4 +245,15 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:progressTint="@color/red"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

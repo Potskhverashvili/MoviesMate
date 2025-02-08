@@ -82,6 +82,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         binding.btnSearch.setOnClickListener {
             goToSearchInputFragment()
         }
+
+        binding.btnBack.setOnClickListener{
+            findNavController().navigateUp()
+        }
     }
 
     private fun goToSearchInputFragment() {

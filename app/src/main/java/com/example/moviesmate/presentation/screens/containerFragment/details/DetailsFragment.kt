@@ -35,7 +35,6 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
 
     private fun checkIfMovieIsSaved() {
         viewModel.checkIfMovieIsSaveInRoom(args.movieId)
-        Log.d("MyLog", "Result => ${args.movieId}")
     }
 
     private fun prepareRecyclerViewCast() {
@@ -55,6 +54,10 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
 
         binding.btnPlayVideo.setOnClickListener {
             goToYoutubeVideo()
+        }
+
+        binding.btnBack.setOnClickListener{
+            findNavController().navigateUp()
         }
 
         binding.btnFavorite.setOnClickListener {

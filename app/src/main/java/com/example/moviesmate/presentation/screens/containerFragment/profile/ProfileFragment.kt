@@ -1,6 +1,7 @@
 package com.example.moviesmate.presentation.screens.containerFragment.profile
 
 import android.net.Uri
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -62,13 +63,19 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             }
         }
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.selectedImageUri.collect { uri ->
                 uri?.let {
                     Glide.with(this@ProfileFragment) // Or use Fragment context
                         .load(it)
                         .into(binding.userImage) // Replace with your ImageView
                 }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.loading.collect { isLoading ->
+                binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
             }
         }
     }

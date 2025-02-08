@@ -102,6 +102,7 @@ class ProfileViewModel(
     }
 
     fun uploadImageToFireStore(uri: Uri) = viewModelScope.launch {
+        _loading.emit(true)
         when (val status = uploadImageToFireStoreUseCase.execute(uri)) {
             is OperationStatus.Success -> {
                 _selectedImageUri.emit(Uri.parse(status.value)) // Emit the image URL as a URI
@@ -111,12 +112,12 @@ class ProfileViewModel(
                 _error.emit("Failed to upload image: ${status.exception.message}")
             }
         }
+        _loading.emit(false)
     }
 
 
     private fun fetchUserProfileImage() = viewModelScope.launch {
         _loading.emit(true)
-
         when (val status = getUserProfileImageUseCase.execute()) { // Fetch URL from Firebase
             is OperationStatus.Success -> {
                 _selectedImageUri.emit(Uri.parse(status.value)) // Emit image URL
@@ -127,8 +128,6 @@ class ProfileViewModel(
                 _error.emit("No profile image found")
             }
         }
-
         _loading.emit(false)
     }
-
 }

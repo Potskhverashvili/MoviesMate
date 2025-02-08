@@ -28,12 +28,19 @@ class ContainerFragment :
         navController = navHostFragment.navController
         binding.bottomNavigation.setupWithNavController(navController)
 
+
         // Add listener for destination changes
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.detailsFragment -> {
                     binding.bottomNavigation.visibility = View.GONE
                 }
+
+               /* R.id.actorBiographyFragment -> {
+                    binding
+                        .bottomNavigation.visibility = View.GONE
+                }*/
+
                 else -> {
                     binding.bottomNavigation.visibility = View.VISIBLE
                 }
@@ -41,5 +48,4 @@ class ContainerFragment :
         }
 
     }
-
 }
