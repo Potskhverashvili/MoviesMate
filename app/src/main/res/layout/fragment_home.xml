@@ -10,7 +10,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/red"
+        android:background="@color/blackVariant"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -21,12 +21,12 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/userImage"
-                android:layout_width="68dp"
-                android:layout_height="68dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
                 android:backgroundTint="@color/gray"
-                android:src="@color/navy_purple"
+                android:src="@drawable/ic_person"
                 app:civ_border_color="@color/orange"
                 app:civ_border_width="1dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -35,14 +35,13 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textviewHey"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="4dp"
                 android:fontFamily="@font/poppins_medium"
                 android:text="Hey"
                 android:textColor="@color/white"
-                android:textSize="21sp"
+                android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@id/userImage"
                 app:layout_constraintTop_toTopOf="@id/userImage" />
 
@@ -55,7 +54,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:letterSpacing="0.02"
                 android:textColor="@color/white"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/textviewHey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/textviewHey"
@@ -70,9 +69,22 @@
                 android:text="Lights, camera, action! Ready to watch?"
                 android:textColor="@color/shimmerColor"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/userImage"
-                app:layout_constraintTop_toBottomOf="@id/textviewHey" />
+                app:layout_constraintStart_toEndOf="@id/userImage" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_heart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/userName"
+                app:layout_constraintBottom_toBottomOf="@id/userName"
+                android:layout_marginEnd="8dp"
+                app:civ_border_overlay="true"
+                app:civ_circle_background_color="@color/blackVariantDark"
+                app:civ_border_color="@color/white"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
@@ -82,10 +94,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="24dp"
-        android:letterSpacing="0.02"
+        android:letterSpacing="0.04"
         android:text="Upcoming Movies"
         android:textColor="@color/white"
         android:textSize="23sp"
+        android:textStyle="bold"
         app:fontFamily="@font/poppins_medium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
@@ -94,8 +107,8 @@
         android:id="@+id/recyclerViewUpcomingMovies"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/upcomingMoviesTv"
@@ -107,10 +120,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        android:letterSpacing="0.02"
+        android:letterSpacing="0.04"
         android:text="PopularMovies"
+        android:layout_marginTop="16dp"
         android:textColor="@color/white"
+        android:textStyle="bold"
         android:textSize="23sp"
         app:fontFamily="@font/poppins_medium"
         app:layout_constraintStart_toStartOf="parent"
@@ -121,8 +135,9 @@
         android:id="@+id/recyclerViewPopularMovies"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
+        android:layout_marginStart="12dp"
+        app:layout_constraintVertical_bias="0"
+        android:layout_marginEnd="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
