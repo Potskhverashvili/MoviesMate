@@ -19,6 +19,7 @@ class YoutubeVideoFragment :
     private var youTubePlayer: YouTubePlayer? = null
 
     override fun viewCreated() {
+        lifecycle.addObserver(binding.youtubeVideo)
         setListeners()
         setCollectors()
     }
@@ -31,7 +32,7 @@ class YoutubeVideoFragment :
         }
     }
 
-    private fun navigateBack(){
+    private fun navigateBack() {
         findNavController().navigateUp()
     }
 
@@ -59,10 +60,10 @@ class YoutubeVideoFragment :
 
     }
 
+
     override fun onDestroyView() {
         super.onDestroyView()
-        youTubePlayer?.pause()
-        youTubePlayer = null
+        lifecycle.removeObserver(binding.youtubeVideo)
     }
 
 }

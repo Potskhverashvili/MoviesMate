@@ -3,13 +3,13 @@ package com.example.moviesmate.presentation.screens.containerFragment.search.Sea
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesmate.core.OperationStatus
-import com.example.moviesmate.data.toMovie
 import com.example.moviesmate.domain.model.SearchInput
-import com.example.moviesmate.domain.usecases.SaveToFavoriteUseCase
 import com.example.moviesmate.domain.usecases.SearchMovieInputUseCase
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
@@ -21,8 +21,8 @@ class SearchInputViewModel(
     private var _searchMovieWithQuery = MutableStateFlow<SearchInput?>(null)
     val searchMovieWithQuery = _searchMovieWithQuery.asStateFlow()
 
-    private val _isLoading = MutableStateFlow(false)
-    val isLoading = _isLoading.asStateFlow()
+    private val _isLoading = MutableSharedFlow<Boolean>()
+    val isLoading = _isLoading.asSharedFlow()
 
     fun searchedMovieWithQuery(query: String) {
         searchJob?.cancel()
@@ -35,12 +35,12 @@ class SearchInputViewModel(
                         _searchMovieWithQuery.emit(status.value)
                     }
 
-                    is OperationStatus.Failure -> {
-                    }
+                    is OperationStatus.Failure -> {}
                 }
             } finally {
                 _isLoading.emit(false)
             }
         }
     }
+
 }
