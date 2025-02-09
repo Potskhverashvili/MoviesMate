@@ -3,9 +3,7 @@ package com.example.moviesmate.presentation.screens.containerFragment.search.Sea
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesmate.core.OperationStatus
-import com.example.moviesmate.data.toMovie
 import com.example.moviesmate.domain.model.SearchInput
-import com.example.moviesmate.domain.usecases.SaveToFavoriteUseCase
 import com.example.moviesmate.domain.usecases.SearchMovieInputUseCase
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

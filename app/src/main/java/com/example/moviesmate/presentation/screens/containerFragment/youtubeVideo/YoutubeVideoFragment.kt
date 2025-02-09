@@ -64,5 +64,4 @@ class YoutubeVideoFragment :
         youTubePlayer?.pause()
         youTubePlayer = null
     }
-
 }

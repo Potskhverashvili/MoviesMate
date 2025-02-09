@@ -1,14 +1,15 @@
 package com.example.moviesmate.presentation.screens.containerFragment.search.SearchInput
 
+import android.content.Context
+import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviesmate.databinding.FragmentSearchInputBinding
 import com.example.moviesmate.presentation.base.BaseFragment
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -40,7 +41,9 @@ class SearchInputFragment :
         searchInputAdapter.onItemClick = { currentMovie ->
             findNavController().navigate(
                 SearchInputFragmentDirections.actionSearchInputFragmentToDetailsFragment(
-                    currentMovie.id))
+                    currentMovie.id
+                )
+            )
         }
     }
 
@@ -54,6 +57,7 @@ class SearchInputFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             viewmodel.isLoading.collect { isLoading ->
                 if (isLoading) {
+                    Log.d("MyFragment", "isLoading $isLoading")
                     shimmerLoader.startShimmer()
                     shimmerLoader.visibility = View.VISIBLE
                     binding.recyclerviewSearch.visibility = View.GONE
@@ -62,8 +66,64 @@ class SearchInputFragment :
                     shimmerLoader.visibility = View.GONE
                     binding.recyclerviewSearch.visibility = View.VISIBLE
                 }
+
             }
+
         }
+    }
+
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.d("MyFragment", "----------------\nonAttach() called")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("MyFragment", "onCreate() called")
+    }
+
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Log.d("MyFragment", "onViewCreated() called")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("MyFragment", "onStart() called")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("MyFragment", "onResume() called")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("MyFragment", "onPause() called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("MyFragment", "onStop() called")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d("MyFragment", "onDestroyView() called")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("MyFragment", "onDestroy() called")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.d("MyFragment", "onDetach() called")
     }
 
 }
