@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -21,7 +21,8 @@
             android:layout_height="match_parent"
             app:contentScrim="@color/red"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            app:expandedTitleTextColor="@color/white">
+            app:expandedTitleTextColor="@color/white"
+            app:title="George Dzagania">
 
             <!-- Image inside CollapsingToolbarLayout to make it collapse -->
             <androidx.appcompat.widget.AppCompatImageView
@@ -32,8 +33,7 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="Actor Image"
                 tools:src="@drawable/giorgi"
-                app:layout_collapseMode="pin"
-                app:layout_collapseParallaxMultiplier="0.7"/>
+                app:layout_collapseMode="pin" />
 
             <!-- Toolbar that collapses -->
             <Toolbar
@@ -43,9 +43,10 @@
                 app:layout_collapseMode="pin">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/imgBack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/btnBack"
+                    android:clickable="true"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:src="@drawable/ic_back" />
             </Toolbar>
 
@@ -57,11 +58,10 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:fillViewport="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appbar">
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -136,6 +136,6 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 

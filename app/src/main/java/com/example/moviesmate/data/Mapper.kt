@@ -96,7 +96,8 @@ fun MovieDetailsDto.toMovieDetails(): MovieDetails {
         poster_path = this.poster_path,
         runtime = this.runtime,
         title = this.title,
-        vote_average = this.vote_average
+        vote_average = this.vote_average,
+        release_date = this.release_date
     )
 }
 
