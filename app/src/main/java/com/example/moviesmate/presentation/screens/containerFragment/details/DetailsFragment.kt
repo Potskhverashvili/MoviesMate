@@ -90,8 +90,9 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
                         movie = it
                     }
                     val releaseDateString = it?.release_date
-                    val year = releaseDateString?.substring(0, 4)
-                    binding.releaseDate.text = year
+                    val year = releaseDateString?.takeIf { it.length >= 4 }?.substring(0, 4)
+                    binding.releaseDate.text = year ?: "Unknown"
+                    Log.d("MyLog", "${releaseDateString}")
 
                     binding.collapsingToolbar.title = it?.title
                     binding.imdbRating.text =

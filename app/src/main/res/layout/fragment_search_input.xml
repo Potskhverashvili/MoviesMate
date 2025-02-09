@@ -10,11 +10,12 @@
         android:id="@+id/shimmerLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:shimmer_duration="800"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnSearch"
-        app:shimmer_duration="800">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnSearch">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -60,7 +61,7 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
-
+        
     </com.facebook.shimmer.ShimmerFrameLayout>
 
 
@@ -68,8 +69,8 @@
         android:id="@+id/btnSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
         android:layout_marginTop="48dp"
+        android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
         android:background="@drawable/search_background"
         android:drawableStart="@drawable/ic_btn_search"
@@ -86,16 +87,16 @@
         android:id="@+id/recyclerviewSearch"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="8dp"
         android:layout_marginTop="12dp"
-        android:visibility="visible"
+        android:layout_margin="8dp"
+        tools:itemCount="4"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        android:visibility="visible"
+        tools:listitem="@layout/item_search_input"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnSearch"
-        app:spanCount="2"
-        tools:itemCount="4"
-        tools:listitem="@layout/item_search_input" />
+        app:layout_constraintTop_toBottomOf="@id/btnSearch" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
