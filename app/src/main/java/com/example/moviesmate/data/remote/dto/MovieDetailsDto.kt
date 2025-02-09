@@ -11,6 +11,7 @@ data class MovieDetailsDto(
     val runtime: Int?,
     val title: String?,
     val vote_average: Double?,
+    val release_date: String?,
 ) {
     data class GenreDto(
         val id: Int?,

@@ -89,7 +89,11 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
                     if (it != null) {
                         movie = it
                     }
-                    binding.titleTv.text = it?.original_title
+                    val releaseDateString = it?.release_date
+                    val year = releaseDateString?.substring(0, 4)
+                    binding.releaseDate.text = year
+
+                    binding.collapsingToolbar.title = it?.title
                     binding.imdbRating.text =
                         it?.vote_average?.let { rating -> String.format("%.1f", rating) }
                     binding.genreTv.text =

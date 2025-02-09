@@ -50,12 +50,16 @@ class ActorBiographyFragment :
                 ActorBiographyFragmentDirections.actionActorBiographyFragmentToDetailsFragment(
                     movieId))
         }
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     private fun setCollectors() = with(binding) {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.actorInfo.collect { actor ->
+                    collapsingToolbar.title = actor?.name
                     val imageUrl = "https://image.tmdb.org/t/p/w500${actor?.profile_path}"
                     if (!actor?.profile_path.isNullOrEmpty()) {
                         Glide.with(binding.root)
