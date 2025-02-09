@@ -37,4 +37,5 @@ class LoginViewModel(
 
     fun isFormValid(email: String, password: String): Boolean {
         return email.isNotEmpty() && password.isNotEmpty()
-    }}
+    }
+}

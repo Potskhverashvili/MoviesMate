@@ -23,8 +23,6 @@
                 android:id="@+id/userImage"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
                 android:backgroundTint="@color/gray"
                 android:src="@drawable/ic_person"
                 app:civ_border_color="@color/orange"
@@ -38,6 +36,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
+                android:layout_marginTop="-5dp"
                 android:fontFamily="@font/poppins_medium"
                 android:text="Hey"
                 android:textColor="@color/white"
@@ -65,25 +64,27 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
+                android:layout_marginTop="-5dp"
                 android:fontFamily="@font/poppins_light"
-                android:text="Lights, camera, action! Ready to watch?"
+                android:text="Are you ready to watch?"
                 android:textColor="@color/shimmerColor"
+                android:textSize="11sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/userImage" />
+                app:layout_constraintStart_toEndOf="@id/userImage"
+                app:layout_constraintTop_toBottomOf="@+id/textviewHey" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_heart"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/userName"
-                app:layout_constraintBottom_toBottomOf="@id/userName"
                 android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_heart"
+                app:civ_border_color="@color/white"
                 app:civ_border_overlay="true"
                 app:civ_circle_background_color="@color/blackVariantDark"
-                app:civ_border_color="@color/white"/>
+                app:layout_constraintBottom_toBottomOf="@id/userName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/userName" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
@@ -120,12 +121,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
         android:letterSpacing="0.04"
         android:text="PopularMovies"
-        android:layout_marginTop="16dp"
         android:textColor="@color/white"
-        android:textStyle="bold"
         android:textSize="23sp"
+        android:textStyle="bold"
         app:fontFamily="@font/poppins_medium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/recyclerViewUpcomingMovies" />
@@ -136,12 +137,12 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="12dp"
-        app:layout_constraintVertical_bias="0"
         android:layout_marginEnd="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/popularMoviesTv"
+        app:layout_constraintVertical_bias="0"
         tools:itemCount="1"
         tools:listitem="@layout/item_popular_movies" />
 
@@ -149,9 +150,9 @@
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:indeterminate="true"
         android:progressTint="@color/red"
         android:visibility="gone"
-        android:indeterminate="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -24,24 +24,49 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:text="Favorites"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:layout_gravity="center"
-            android:text="Favorites"/>
+            android:textStyle="bold" />
     </Toolbar>
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favoritesRv"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:layout_centerHorizontal="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolBar"
         tools:itemCount="5"
-        tools:listitem="@layout/item_favorites"
-        android:layout_centerHorizontal="true" />
+        tools:listitem="@layout/item_favorites" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/noMoviesAnimation"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_colorFilter="@color/red"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/nothing_found" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/noMoviesMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
+        android:gravity="center"
+        android:text="Oops! You haven't saved\nany movies yet"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@id/noMoviesAnimation"
+        app:layout_constraintStart_toStartOf="@id/noMoviesAnimation"
+        app:layout_constraintTop_toBottomOf="@id/noMoviesAnimation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

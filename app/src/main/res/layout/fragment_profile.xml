@@ -129,7 +129,6 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/mutedBlue"
                     android:fontFamily="@font/poppins_light"
-                    android:hint="Update Username"
                     android:inputType="textEmailAddress"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"

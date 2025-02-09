@@ -1,13 +1,12 @@
 package com.example.moviesmate.presentation.screens.containerFragment.favorites
 
-import android.util.Log.d
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.moviesmate.data.toMovieDbo
 import com.example.moviesmate.databinding.FragmentFavoritesBinding
 import com.example.moviesmate.presentation.base.BaseFragment
 import kotlinx.coroutines.launch
@@ -42,8 +41,19 @@ class FavoritesFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.allSavedMovies.collect { allMovies ->
-                    d("All movies", "Movies : $allMovies")
                     favoritesAdapter.submitList(allMovies)
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.noMoviesMessageVisible.collect { isVisible ->
+                    if (isVisible) {
+                        showNoMoviesMessage()
+                    } else {
+                        showSavedMovies()
+                    }
                 }
             }
         }
@@ -68,7 +78,21 @@ class FavoritesFragment :
         favoritesAdapter.onItemClick = { movie ->
             findNavController().navigate(
                 FavoritesFragmentDirections.actionFavoritesFragmentToDetailsFragment(
-                    movie.id))
+                    movie.id
+                )
+            )
         }
+    }
+
+    private fun showNoMoviesMessage() = with(binding) {
+        // Show the Lottie animation and message for no saved movies
+        noMoviesAnimation.visibility = View.VISIBLE
+        noMoviesMessage.visibility = View.VISIBLE
+    }
+
+    private fun showSavedMovies() = with(binding) {
+        // Hide the Lottie animation and message when movies are present
+        noMoviesAnimation.visibility = View.GONE
+        noMoviesMessage.visibility = View.GONE
     }
 }

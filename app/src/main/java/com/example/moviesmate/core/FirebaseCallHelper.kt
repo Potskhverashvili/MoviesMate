@@ -1,6 +1,7 @@
 package com.example.moviesmate.core
 
 object FirebaseCallHelper {
+
     suspend fun <T> safeFirebaseCall(
         firebaseCall: suspend () -> T
     ): OperationStatus<T> {
@@ -11,4 +12,6 @@ object FirebaseCallHelper {
             OperationStatus.Failure(e)
         }
     }
+
+
 }
