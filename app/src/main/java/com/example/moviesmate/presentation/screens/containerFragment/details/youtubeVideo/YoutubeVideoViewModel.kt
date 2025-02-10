@@ -1,4 +1,4 @@
-package com.example.moviesmate.presentation.screens.containerFragment.youtubeVideo
+package com.example.moviesmate.presentation.screens.containerFragment.details.youtubeVideo
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

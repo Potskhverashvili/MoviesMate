@@ -44,11 +44,11 @@ class RegisterViewModel(
     ): Boolean {
         return when {
             username.isEmpty() || email.isEmpty() || password.isEmpty() || repeatPassword.isEmpty() -> {
-                _showError.tryEmit("Please fill in all fields")
+                viewModelScope.launch { _showError.emit("Please fill in all fields") }
                 false
             }
             password != repeatPassword -> {
-                _showError.tryEmit("Passwords do not match")
+                viewModelScope.launch { _showError.emit("Passwords do not match") }
                 false
             }
             else -> true

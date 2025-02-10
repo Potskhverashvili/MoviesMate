@@ -7,7 +7,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.moviesmate.R
 import com.example.moviesmate.databinding.FragmentContainerBinding
-import com.example.moviesmate.presentation.base.BaseFragment
+import com.example.moviesmate.core.base.BaseFragment
 
 class ContainerFragment :
     BaseFragment<FragmentContainerBinding>(FragmentContainerBinding::inflate) {
@@ -36,10 +36,13 @@ class ContainerFragment :
                     binding.bottomNavigation.visibility = View.GONE
                 }
 
-               /* R.id.actorBiographyFragment -> {
-                    binding
-                        .bottomNavigation.visibility = View.GONE
-                }*/
+                R.id.actorBiographyFragment -> {
+                    binding.bottomNavigation.visibility = View.GONE
+                }
+
+                R.id.searchInputFragment -> {
+                    binding.bottomNavigation.visibility = View.GONE
+                }
 
                 else -> {
                     binding.bottomNavigation.visibility = View.VISIBLE

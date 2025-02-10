@@ -10,7 +10,9 @@ import com.example.moviesmate.domain.usecases.GetUserProfileImageUseCase
 import com.example.moviesmate.domain.usecases.LogOutUseCase
 import com.example.moviesmate.domain.usecases.UpdateUserNameUseCase
 import com.example.moviesmate.domain.usecases.UploadImageToFireStoreUseCase
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
@@ -29,8 +31,8 @@ class ProfileViewModel(
     private val _userEmail = MutableStateFlow<String?>(null)
     val userEmail = _userEmail.asStateFlow()
 
-    private val _selectedImageUri = MutableStateFlow<Uri?>(null)
-    val selectedImageUri = _selectedImageUri.asStateFlow()
+    private val _selectedImageUri = MutableSharedFlow<Uri?>()
+    val selectedImageUri = _selectedImageUri.asSharedFlow()
 
     private val _error = MutableStateFlow<String?>(null)
     val error = _error.asStateFlow()
@@ -115,16 +117,15 @@ class ProfileViewModel(
         _loading.emit(false)
     }
 
-
-    private fun fetchUserProfileImage() = viewModelScope.launch {
+    fun fetchUserProfileImage() = viewModelScope.launch {
         _loading.emit(true)
-        when (val status = getUserProfileImageUseCase.execute()) { // Fetch URL from Firebase
+        when (val status = getUserProfileImageUseCase.execute()) {
             is OperationStatus.Success -> {
-                _selectedImageUri.emit(Uri.parse(status.value)) // Emit image URL
+                _selectedImageUri.emit(Uri.parse(status.value))
             }
 
             is OperationStatus.Failure -> {
-                _selectedImageUri.emit(null) // Set null if image doesn't exist
+                _selectedImageUri.emit(null)
                 _error.emit("No profile image found")
             }
         }

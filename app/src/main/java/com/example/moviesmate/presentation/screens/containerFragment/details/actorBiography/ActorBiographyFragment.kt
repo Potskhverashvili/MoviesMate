@@ -1,4 +1,4 @@
-package com.example.moviesmate.presentation.screens.containerFragment.actorBiography
+package com.example.moviesmate.presentation.screens.containerFragment.details.actorBiography
 
 import android.widget.Toast
 import androidx.lifecycle.Lifecycle
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.moviesmate.R
 import com.example.moviesmate.databinding.FragmentActorBiographyBinding
-import com.example.moviesmate.presentation.base.BaseFragment
+import com.example.moviesmate.core.base.BaseFragment
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

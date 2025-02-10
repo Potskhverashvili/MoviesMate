@@ -54,7 +54,9 @@
             app:argType="integer" />
         <action
             android:id="@+id/action_detailsFragment_to_actorBiographyFragment"
-            app:destination="@id/actorBiographyFragment" />
+            app:destination="@id/actorBiographyFragment"
+            app:popUpTo="@id/actorBiographyFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_detailsFragment_to_youtubeVideoFragment"
             app:destination="@id/youtubeVideoFragment" />
@@ -72,7 +74,7 @@
 
     <fragment
         android:id="@+id/actorBiographyFragment"
-        android:name="com.example.moviesmate.presentation.screens.containerFragment.actorBiography.ActorBiographyFragment"
+        android:name="com.example.moviesmate.presentation.screens.containerFragment.details.actorBiography.ActorBiographyFragment"
         android:label="ActorBiographyFragment"
         tools:layout="@layout/fragment_actor_biography">
         <argument
@@ -84,7 +86,7 @@
     </fragment>
     <fragment
         android:id="@+id/youtubeVideoFragment"
-        android:name="com.example.moviesmate.presentation.screens.containerFragment.youtubeVideo.YoutubeVideoFragment"
+        android:name="com.example.moviesmate.presentation.screens.containerFragment.details.youtubeVideo.YoutubeVideoFragment"
         android:label="YoutubeVideoFragment"
         tools:layout="@layout/fragment_youtube_video">
         <argument

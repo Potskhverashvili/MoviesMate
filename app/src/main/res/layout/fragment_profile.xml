@@ -215,10 +215,11 @@
                     android:textSize="16sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/gioDeveloperLinkedIn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_light"
-                    android:text="georgedzagania@gmail.com"
+                    android:text="https://www.linkedin.com/in/giorgi-dzagania/"
                     android:textColor="@color/mutedBlue"
                     android:textSize="14sp" />
 
@@ -233,10 +234,11 @@
                     android:textSize="16sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/giaDeveloperLinkedIn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_light"
-                    android:text="gia.focxverashvili@gmail.com"
+                    android:text="https://www.linkedin.com/in/gia-potskhverashvili/"
                     android:textColor="@color/mutedBlue"
                     android:textSize="14sp" />
 
