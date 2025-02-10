@@ -25,7 +25,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         setListeners()
         setCollectors()
         getProfileImage()
-
     }
 
     private fun getProfileImage() {

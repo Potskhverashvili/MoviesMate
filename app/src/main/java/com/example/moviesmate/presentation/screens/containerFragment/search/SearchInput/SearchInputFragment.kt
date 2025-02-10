@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviesmate.databinding.FragmentSearchInputBinding
 import com.example.moviesmate.presentation.base.BaseFragment
 import com.facebook.shimmer.ShimmerFrameLayout
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,7 +26,6 @@ class SearchInputFragment :
         prepareRecyclerView()
         setListeners()
         setCollectors()
-        binding.btnSearch.text?.clear()
     }
 
     private fun prepareRecyclerView() {
@@ -50,7 +47,6 @@ class SearchInputFragment :
                     currentMovie.id
                 )
             )
-            binding.btnSearch.text?.clear()
         }
     }
 
@@ -80,20 +76,4 @@ class SearchInputFragment :
             }
         }
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.d("STATECheck","onDestroyView")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("STATECheck","onDestroy")
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        Log.d("STATECheck","onDetach")
-    }
-
 }
