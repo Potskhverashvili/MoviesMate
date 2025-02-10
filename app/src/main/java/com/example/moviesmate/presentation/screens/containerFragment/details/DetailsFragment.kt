@@ -14,7 +14,7 @@ import com.example.moviesmate.R
 import com.example.moviesmate.data.toMovie
 import com.example.moviesmate.databinding.FragmentDetailsBinding
 import com.example.moviesmate.domain.model.MovieDetails
-import com.example.moviesmate.presentation.base.BaseFragment
+import com.example.moviesmate.core.base.BaseFragment
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

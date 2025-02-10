@@ -1,4 +1,4 @@
-package com.example.moviesmate.presentation.screens.containerFragment.actorBiography
+package com.example.moviesmate.presentation.screens.containerFragment.details.actorBiography
 
 import android.util.Log
 import android.view.LayoutInflater

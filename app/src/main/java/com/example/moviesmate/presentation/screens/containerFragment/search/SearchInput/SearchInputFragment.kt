@@ -9,8 +9,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviesmate.databinding.FragmentSearchInputBinding
-import com.example.moviesmate.presentation.base.BaseFragment
+import com.example.moviesmate.core.base.BaseFragment
 import com.facebook.shimmer.ShimmerFrameLayout
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -22,7 +24,6 @@ class SearchInputFragment :
 
     override fun viewCreated() {
         shimmerLoader = binding.shimmerLayout
-        Log.d("SearchInputFragment", "View created")
         prepareRecyclerView()
         setListeners()
         setCollectors()
@@ -39,6 +40,10 @@ class SearchInputFragment :
     private fun setListeners() {
         binding.btnSearch.doAfterTextChanged { newInputQuery ->
             viewmodel.searchedMovieWithQuery(newInputQuery.toString())
+        }
+
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
         }
 
         searchInputAdapter.onItemClick = { currentMovie ->
@@ -62,7 +67,6 @@ class SearchInputFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewmodel.isLoading.collect { isLoading ->
-                    Log.d("SearchInputFragment", "isLoading collected: $isLoading")
                     if (isLoading) {
                         shimmerLoader.startShimmer()
                         shimmerLoader.visibility = View.VISIBLE
@@ -75,5 +79,22 @@ class SearchInputFragment :
                 }
             }
         }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewmodel.noMoviesFound.collect { noMoviesFound ->
+                    if (noMoviesFound) {
+                        binding.recyclerviewSearch.visibility = View.GONE
+                        binding.noSearchResultImage.visibility = View.VISIBLE
+                        binding.noSearchTextview.visibility = View.VISIBLE
+                    } else {
+                        binding.noSearchResultImage.visibility = View.GONE
+                        binding.noSearchTextview.visibility = View.GONE
+                    }
+                }
+            }
+        }
+
     }
+
 }

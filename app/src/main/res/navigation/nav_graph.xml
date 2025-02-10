@@ -16,7 +16,9 @@
             app:destination="@id/loginFragment" />
         <action
             android:id="@+id/action_registerFragment_to_containerFragment"
-            app:destination="@id/containerFragment" />
+            app:destination="@id/containerFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment
@@ -34,7 +36,9 @@
             app:destination="@id/forgotPasswordFragment" />
         <action
             android:id="@+id/action_loginFragment_to_containerFragment"
-            app:destination="@id/containerFragment" />
+            app:destination="@id/containerFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment
@@ -61,6 +65,10 @@
         android:id="@+id/containerFragment"
         android:name="com.example.moviesmate.presentation.screens.containerFragment.ContainerFragment"
         android:label="ContainerFragment"
-        tools:layout="@layout/fragment_container"/>
+        tools:layout="@layout/fragment_container">
+        <action
+            android:id="@+id/action_containerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
 </navigation>

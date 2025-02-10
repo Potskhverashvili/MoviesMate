@@ -1,4 +1,4 @@
-package com.example.moviesmate.presentation.base
+package com.example.moviesmate.core.base
 
 import android.view.LayoutInflater
 import android.view.View

@@ -1,13 +1,15 @@
 package com.example.moviesmate.presentation.screens.containerFragment.profile
 
+import android.content.Intent
 import android.net.Uri
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.example.moviesmate.R
 import com.example.moviesmate.databinding.FragmentProfileBinding
-import com.example.moviesmate.presentation.base.BaseFragment
+import com.example.moviesmate.core.base.BaseFragment
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -18,7 +20,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     private val pickImageLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             uri?.let {
-                viewModel.uploadImageToFireStore(it) // Call ViewModel function
+                viewModel.uploadImageToFireStore(it)
             }
         }
 
@@ -27,6 +29,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         getUserEmail()
         setListeners()
         setCollector()
+        visitDevelopersLinkedin()
     }
 
     private fun setListeners() = with(binding) {
@@ -40,13 +43,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
         btnLogOut.setOnClickListener {
             viewModel.logOut()
-            requireActivity().finish()
+            activity?.finish()
         }
 
 
         binding.btnUpdateImage.setOnClickListener {
             pickImageLauncher.launch("image/*")
-
         }
     }
 
@@ -87,4 +89,19 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     private fun getUserEmail() {
         viewModel.getUserEmail()
     }
+
+    private fun visitDevelopersLinkedin() = with(binding) {
+        gioDeveloperLinkedIn.setOnClickListener {
+            openLinkedIn("https://www.linkedin.com/in/giorgi-dzagania/")
+        }
+        giaDeveloperLinkedIn.setOnClickListener {
+            openLinkedIn("https://www.linkedin.com/in/gia-potskhverashvili/")
+        }
+    }
+
+    private fun openLinkedIn(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
+    }
+
 }

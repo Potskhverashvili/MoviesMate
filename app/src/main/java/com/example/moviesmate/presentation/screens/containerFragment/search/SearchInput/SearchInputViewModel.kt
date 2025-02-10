@@ -24,21 +24,35 @@ class SearchInputViewModel(
     private val _isLoading = MutableSharedFlow<Boolean>()
     val isLoading = _isLoading.asSharedFlow()
 
+
+    private val _noMoviesFound = MutableStateFlow(false) // New state to track "No Movies Found"
+    val noMoviesFound = _noMoviesFound.asStateFlow()
+
     fun searchedMovieWithQuery(query: String) {
+        if (query.isBlank()) {
+            _searchMovieWithQuery.value = null
+            _noMoviesFound.value = false
+            return
+        }
+
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
-            _isLoading.emit(true)
+            _isLoading.emit(true) // Show loading spinner
+            _noMoviesFound.value = false // Hide "No Movies Found" until we check the result
             delay(600)
+
             try {
                 when (val status = searchMovieInputUseCase.execute(query)) {
                     is OperationStatus.Success -> {
                         _searchMovieWithQuery.emit(status.value)
+                        _noMoviesFound.value = status.value?.results.isNullOrEmpty() // If no results, set flag
                     }
-
-                    is OperationStatus.Failure -> {}
+                    is OperationStatus.Failure -> {
+                        _noMoviesFound.value = true // If failed, show "No Movies Found"
+                    }
                 }
             } finally {
-                _isLoading.emit(false)
+                _isLoading.emit(false) // Hide loading spinner
             }
         }
     }

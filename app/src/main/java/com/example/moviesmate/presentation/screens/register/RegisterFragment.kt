@@ -7,7 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.moviesmate.databinding.FragmentRegisterBinding
-import com.example.moviesmate.presentation.base.BaseFragment
+import com.example.moviesmate.core.base.BaseFragment
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -31,6 +31,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                 viewModel.registerNewUser(userName, email, password)
             }
         }
+
         binding.btnLogIn.setOnClickListener {
             goToLogInPage()
         }
