@@ -1,6 +1,7 @@
 package com.example.moviesmate.presentation.screens.containerFragment.favorites
 
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -19,10 +20,10 @@ class FavoritesFragment :
     private val favoritesAdapter = FavoritesAdapter()
 
     override fun viewCreated() {
+        showAllSavedMovies()
         prepareRecyclerViews()
         setListeners()
         setCollectors()
-        showAllFavorite()
     }
 
     private fun prepareRecyclerViews() {
@@ -33,30 +34,8 @@ class FavoritesFragment :
         }
     }
 
-    private fun showAllFavorite() {
+    private fun showAllSavedMovies() {
         viewModel.showAllSavedMovies()
-    }
-
-    private fun setCollectors() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.allSavedMovies.collect { allMovies ->
-                    favoritesAdapter.submitList(allMovies)
-                }
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.noMoviesMessageVisible.collect { isVisible ->
-                    if (isVisible) {
-                        showNoMoviesMessage()
-                    } else {
-                        showSavedMovies()
-                    }
-                }
-            }
-        }
     }
 
     private fun setListeners() {
@@ -84,14 +63,44 @@ class FavoritesFragment :
         }
     }
 
+    private fun setCollectors() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.allSavedMovies.collect { allMovies ->
+                    favoritesAdapter.submitList(allMovies)
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.noMoviesMessageVisible.collect { isVisible ->
+                    if (isVisible) {
+                        showNoMoviesMessage()
+                    } else {
+                        showSavedMovies()
+                    }
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.showError.collect { error ->
+                    Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+    }
+
+
     private fun showNoMoviesMessage() = with(binding) {
-        // Show the Lottie animation and message for no saved movies
         noMoviesAnimation.visibility = View.VISIBLE
         noMoviesMessage.visibility = View.VISIBLE
     }
 
     private fun showSavedMovies() = with(binding) {
-        // Hide the Lottie animation and message when movies are present
         noMoviesAnimation.visibility = View.GONE
         noMoviesMessage.visibility = View.GONE
     }

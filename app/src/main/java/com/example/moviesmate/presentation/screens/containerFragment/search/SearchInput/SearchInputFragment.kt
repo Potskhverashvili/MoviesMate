@@ -1,6 +1,5 @@
 package com.example.moviesmate.presentation.screens.containerFragment.search.SearchInput
 
-import android.util.Log
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
@@ -11,8 +10,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviesmate.databinding.FragmentSearchInputBinding
 import com.example.moviesmate.core.base.BaseFragment
 import com.facebook.shimmer.ShimmerFrameLayout
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

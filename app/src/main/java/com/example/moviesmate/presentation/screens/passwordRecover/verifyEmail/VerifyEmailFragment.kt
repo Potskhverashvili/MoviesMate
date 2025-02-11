@@ -13,11 +13,15 @@ class VerifyEmailFragment :
 
     private fun setListeners() = with(binding) {
         btnLogInPage.setOnClickListener {
-            findNavController().navigate(VerifyEmailFragmentDirections.actionVerifyEmailFragmentToLoginFragment())
+            goToLogInFragment()
         }
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
+    }
+
+    private fun goToLogInFragment(){
+        findNavController().navigate(VerifyEmailFragmentDirections.actionVerifyEmailFragmentToLoginFragment())
     }
 
 }

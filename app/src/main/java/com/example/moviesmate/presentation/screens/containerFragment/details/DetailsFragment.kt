@@ -63,12 +63,12 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
         binding.btnFavorite.setOnClickListener {
             if (isFavorite) {
                 movie.toMovie()?.let { it1 -> viewModel.deleteSavedMovie(it1) }
-                binding.btnFavorite.setImageResource(R.drawable.ic_favorite_state) // Set to unfilled favorite icon
+                binding.btnFavorite.setImageResource(R.drawable.ic_favorite_state)
             } else {
                 viewModel.saveToFavorite(movie)
-                binding.btnFavorite.setImageResource(R.drawable.ic_favorite) // Set to filled favorite icon
+                binding.btnFavorite.setImageResource(R.drawable.ic_favorite)
             }
-            isFavorite = !isFavorite // Toggle favorite state
+            isFavorite = !isFavorite
         }
     }
 
@@ -92,7 +92,6 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
                     val releaseDateString = it?.release_date
                     val year = releaseDateString?.takeIf { it.length >= 4 }?.substring(0, 4)
                     binding.releaseDate.text = year ?: "Unknown"
-                    Log.d("MyLog", "${releaseDateString}")
 
                     binding.collapsingToolbar.title = it?.title
                     binding.imdbRating.text =

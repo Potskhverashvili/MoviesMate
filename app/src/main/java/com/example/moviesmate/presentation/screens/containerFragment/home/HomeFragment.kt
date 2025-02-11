@@ -21,10 +21,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     override fun viewCreated() {
         getUserName()
+        getProfileImage()
         prepareRecyclerview()
         setListeners()
         setCollectors()
-        getProfileImage()
     }
 
     private fun getProfileImage() {
@@ -71,31 +71,39 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     private fun setCollectors() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.homePageMovies.collect { upcomingMovies ->
-                upcomingMoviesAdapter.submitList(upcomingMovies?.results)
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.popularMovies.collect { popularMovies ->
-                val results = popularMovies?.results ?: emptyList() // Default to empty list if null
-                popularMoviesAdapter.submitList(results)
-            }
-        }
-
-        lifecycleScope.launch {
-            viewModel.selectedImageUri.collect { uri ->
-                uri?.let {
-                    Glide.with(this@HomeFragment) // Or use Fragment context
-                        .load(it)
-                        .into(binding.userImage) // Replace with your ImageView
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.homePageMovies.collect { upcomingMovies ->
+                    upcomingMoviesAdapter.submitList(upcomingMovies?.results)
                 }
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.username.collect { username ->
-                binding.userName.text = username
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.popularMovies.collect { popularMovies ->
+                    val results = popularMovies?.results ?: emptyList()
+                    popularMoviesAdapter.submitList(results)
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.selectedImageUri.collect { uri ->
+                    uri?.let {
+                        Glide.with(this@HomeFragment)
+                            .load(it)
+                            .into(binding.userImage)
+                    }
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.username.collect { username ->
+                    binding.userName.text = username
+                }
             }
         }
 

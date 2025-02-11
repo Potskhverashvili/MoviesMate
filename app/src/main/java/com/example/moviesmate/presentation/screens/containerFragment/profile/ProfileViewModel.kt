@@ -31,8 +31,8 @@ class ProfileViewModel(
     private val _userEmail = MutableStateFlow<String?>(null)
     val userEmail = _userEmail.asStateFlow()
 
-    private val _selectedImageUri = MutableSharedFlow<Uri?>()
-    val selectedImageUri = _selectedImageUri.asSharedFlow()
+    private val _selectedImageUri = MutableStateFlow<Uri?>(null)
+    val selectedImageUri = _selectedImageUri.asStateFlow()
 
     private val _error = MutableStateFlow<String?>(null)
     val error = _error.asStateFlow()
@@ -48,7 +48,7 @@ class ProfileViewModel(
         _loading.emit(true)
         when (val result = getUserNameUseCase.execute()) {
             is OperationStatus.Success -> {
-                _username.emit(result.value.toString())
+                _username.emit(result.value)
                 _error.emit(null)
             }
 
@@ -107,7 +107,7 @@ class ProfileViewModel(
         _loading.emit(true)
         when (val status = uploadImageToFireStoreUseCase.execute(uri)) {
             is OperationStatus.Success -> {
-                _selectedImageUri.emit(Uri.parse(status.value)) // Emit the image URL as a URI
+                _selectedImageUri.emit(Uri.parse(status.value))
             }
 
             is OperationStatus.Failure -> {

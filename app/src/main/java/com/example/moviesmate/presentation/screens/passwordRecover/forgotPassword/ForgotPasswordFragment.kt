@@ -2,7 +2,9 @@ package com.example.moviesmate.presentation.screens.passwordRecover.forgotPasswo
 
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.moviesmate.databinding.FragmentForgotPasswordBinding
 import com.example.moviesmate.core.base.BaseFragment
@@ -23,7 +25,7 @@ class ForgotPasswordFragment :
             val email = emailAddress.text.toString()
             if (viewmodel.isEmailValid(email)) {
                 viewmodel.passwordReset(email = email)
-            }else{
+            } else {
                 emailAddress.error = "Please enter a valid email"
                 return@setOnClickListener
             }
@@ -36,23 +38,27 @@ class ForgotPasswordFragment :
 
     private fun setCollectors() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewmodel.isEmailSend.collect {
-                findNavController().navigate(ForgotPasswordFragmentDirections.actionForgotPasswordFragmentToVerifyEmailFragment())
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewmodel.isEmailSend.collect {
+                    findNavController().navigate(ForgotPasswordFragmentDirections.actionForgotPasswordFragmentToVerifyEmailFragment())
+                }
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewmodel.showError.collect { error ->
-                Toast.makeText(
-                    requireContext(),
-                    "Error: ${error.toString()}", Toast.LENGTH_SHORT
-                ).show()
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewmodel.showError.collect { error ->
+                    Toast.makeText(requireContext(),
+                        "Error: ${error.toString()}", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewmodel.isLoadingState.collect { isLoading ->
-                binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewmodel.isLoadingState.collect { isLoading ->
+                    binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+                }
             }
         }
     }

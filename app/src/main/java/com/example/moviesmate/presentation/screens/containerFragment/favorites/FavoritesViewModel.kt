@@ -6,8 +6,10 @@ import com.example.moviesmate.core.OperationStatus
 import com.example.moviesmate.domain.model.Movie
 import com.example.moviesmate.domain.usecases.DeleteFromFavoritesUsaCase
 import com.example.moviesmate.domain.usecases.GetAllFavoritesUseCase
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
 class FavoritesViewModel(
@@ -21,6 +23,9 @@ class FavoritesViewModel(
     private val _noMoviesMessageVisible = MutableStateFlow(false)
     val noMoviesMessageVisible: StateFlow<Boolean> = _noMoviesMessageVisible
 
+    private val _showError = MutableSharedFlow<String>()
+    val showError = _showError.asSharedFlow()
+
     fun showAllSavedMovies() = viewModelScope.launch {
         when (val status = getAllFavoritesUseCase.execute()) {
             is OperationStatus.Success -> {
@@ -30,17 +35,20 @@ class FavoritesViewModel(
 
             is OperationStatus.Failure -> {
                 _noMoviesMessageVisible.emit(true)
+                _showError.emit(status.exception.message.toString())
             }
         }
     }
 
     fun deleteSavedMovie(movie: Movie) = viewModelScope.launch {
-        when (deleteFromFavoritesUsaCase.execute(movie)) {
+        when (val status = deleteFromFavoritesUsaCase.execute(movie)) {
             is OperationStatus.Success -> {
                 showAllSavedMovies()
             }
 
-            is OperationStatus.Failure -> {}
+            is OperationStatus.Failure -> {
+                _showError.emit(status.exception.message.toString())
+            }
         }
     }
 }

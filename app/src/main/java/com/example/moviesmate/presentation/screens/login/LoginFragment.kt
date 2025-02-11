@@ -2,7 +2,9 @@ package com.example.moviesmate.presentation.screens.login
 
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.moviesmate.databinding.FragmentLoginBinding
 import com.example.moviesmate.core.base.BaseFragment
@@ -23,10 +25,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             val password = password.text.toString()
             if (viewModel.isFormValid(email, password)) {
                 viewModel.loginUser(email, password)
-            } else {
-                Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT)
-                    .show()
-                return@setOnClickListener
             }
         }
 
@@ -39,23 +37,26 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         }
     }
 
-    // --- Set collectors ---
     private fun setCollectors() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.loginFlow.collect {
-                findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToContainerFragment())
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.loginFlow.collect {
+                    findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToContainerFragment())
+                }
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.isLoadingState.collect { isLoading ->
-                binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.isLoadingState.collect { isLoading ->
+                    binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+                }
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.showError.collect { errorMessage ->
-                if (!errorMessage.isNullOrEmpty()) {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.showError.collect { errorMessage ->
                     Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_LONG).show()
                 }
             }

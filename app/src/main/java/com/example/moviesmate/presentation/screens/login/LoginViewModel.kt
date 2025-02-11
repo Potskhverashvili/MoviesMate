@@ -36,6 +36,13 @@ class LoginViewModel(
     }
 
     fun isFormValid(email: String, password: String): Boolean {
-        return email.isNotEmpty() && password.isNotEmpty()
+        return when{
+            email.isEmpty() || password.isEmpty() -> {
+                viewModelScope.launch { _showError.emit("Please fill in all fields") }
+                false
+            }
+            else -> true
+        }
     }
+
 }

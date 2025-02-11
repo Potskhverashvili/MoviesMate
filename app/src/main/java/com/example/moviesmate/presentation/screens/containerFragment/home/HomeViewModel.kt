@@ -41,7 +41,7 @@ class HomeViewModel(
         fetchPopularMovies()
     }
 
-    fun fetchUpcomingMovies() = viewModelScope.launch {
+    private fun fetchUpcomingMovies() = viewModelScope.launch {
         _isLoadingState.emit(true)
         when (val status = upcomingMoviesUseCase.execute()) {
             is OperationStatus.Success -> {
@@ -53,7 +53,7 @@ class HomeViewModel(
         _isLoadingState.emit(false)
     }
 
-    fun fetchPopularMovies() = viewModelScope.launch {
+    private fun fetchPopularMovies() = viewModelScope.launch {
         _isLoadingState.emit(true)
         when (val status = popularMoviesUseCase.execute()) {
             is OperationStatus.Success -> {
@@ -69,7 +69,7 @@ class HomeViewModel(
         _isLoadingState.emit(true)
         when (val result = getUserNameUseCase.execute()) {
             is OperationStatus.Success -> {
-                _username.emit(result.value.toString())
+                _username.emit(result.value)
             }
 
             is OperationStatus.Failure -> {
@@ -81,13 +81,13 @@ class HomeViewModel(
 
     fun fetchUserProfileImage() = viewModelScope.launch {
         _isLoadingState.emit(true)
-        when (val status = getUserProfileImageUseCase.execute()) { // Fetch URL from Firebase
+        when (val status = getUserProfileImageUseCase.execute()) {
             is OperationStatus.Success -> {
-                _selectedImageUri.emit(Uri.parse(status.value)) // Emit image URL
+                _selectedImageUri.emit(Uri.parse(status.value))
             }
 
             is OperationStatus.Failure -> {
-                _selectedImageUri.emit(null) // Set null if image doesn't exist
+                _selectedImageUri.emit(null)
 
             }
         }
