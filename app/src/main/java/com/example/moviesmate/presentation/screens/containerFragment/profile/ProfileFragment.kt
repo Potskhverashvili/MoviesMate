@@ -117,5 +117,4 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)
     }
-
 }
