@@ -59,7 +59,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             pickImageLauncher.launch("image/*")
         }
 
-
+        binding.imageArrow.setOnClickListener {
+            val nestedScrollView = binding.nestedScrollView
+            nestedScrollView.smoothScrollTo(0, nestedScrollView.getChildAt(0).height)
+        }
     }
 
     private fun setCollector() {
@@ -117,4 +120,5 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)
     }
+
 }

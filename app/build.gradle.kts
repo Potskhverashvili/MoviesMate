@@ -58,56 +58,56 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     // Splash Screen
-    implementation("androidx.core:core-splashscreen:1.0.0")
+    implementation(libs.androidx.core.splashscreen)
 
     // Lottie
-    implementation("com.airbnb.android:lottie:6.3.0")
+    implementation(libs.lottie)
 
     // Koin
-    implementation("io.insert-koin:koin-android:4.0.0")
+    implementation(libs.koin.android)
 
     // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
     // Glide
-    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation(libs.glide)
 
     // Fragments integration
     val navVersion = "2.8.4"
-    implementation("androidx.navigation:navigation-fragment:$navVersion")
-    implementation("androidx.navigation:navigation-ui:$navVersion")
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui)
 
     //---------------- Room Database -----------------
     val roomVersion = "2.6.1"
-    implementation("androidx.room:room-runtime:$roomVersion")
-    implementation("androidx.room:room-ktx:$roomVersion")
-    ksp("androidx.room:room-compiler:$roomVersion") // Kotlin Symbol Processing - KSP
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler) // Kotlin Symbol Processing - KSP
 
     // View Model
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
-    implementation("androidx.activity:activity-ktx:1.9.3")
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.activity.ktx)
 
     // Youtube dependencies
-    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0")
+    implementation(libs.androidyoutubeplayer.core)
 
     // Circular image dependencies
-    implementation("de.hdodenhof:circleimageview:3.1.0")
+    implementation(libs.circleimageview)
 
     // Paging library
     val paging_version = "3.3.5"
-    implementation("androidx.paging:paging-runtime:$paging_version")
+    implementation(libs.androidx.paging.runtime)
 
     // Shimmer dependency
-    implementation("com.facebook.shimmer:shimmer:0.5.0")
+    implementation(libs.shimmer)
 
     //ViewPager
-    implementation ("androidx.viewpager2:viewpager2:1.0.0")
+    implementation (libs.androidx.viewpager2)
 
     // Youtube dependencies
-    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0")
+    implementation(libs.androidyoutubeplayer.core)
 
 
-    implementation ("com.google.android.material:material:1.4.0")
+    implementation (libs.material.v140)
 
 }
