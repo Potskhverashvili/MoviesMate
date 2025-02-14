@@ -14,6 +14,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
     private val viewModel by viewModel<LoginViewModel>()
 
+
     override fun viewCreated() {
         setListeners()
         setCollectors()

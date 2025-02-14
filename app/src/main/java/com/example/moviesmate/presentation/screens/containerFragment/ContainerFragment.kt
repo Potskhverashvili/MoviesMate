@@ -28,8 +28,6 @@ class ContainerFragment :
         navController = navHostFragment.navController
         binding.bottomNavigation.setupWithNavController(navController)
 
-
-        // Add listener for destination changes
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.detailsFragment -> {
@@ -41,6 +39,9 @@ class ContainerFragment :
                 }
 
                 R.id.searchInputFragment -> {
+                    binding.bottomNavigation.visibility = View.GONE
+                }
+                R.id.youtubeVideoFragment -> {
                     binding.bottomNavigation.visibility = View.GONE
                 }
 

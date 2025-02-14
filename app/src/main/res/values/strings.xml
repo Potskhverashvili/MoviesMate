@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MoviesMate</string>
+    <string name="app_name">Movies Mate</string>
     <color name="textColorLight">#FFFFFF</color> <!-- Black for Light Mode -->
     <color name="textColorDark">#FFFFFF</color> <!-- White for Dark Mode -->
 </resources>
