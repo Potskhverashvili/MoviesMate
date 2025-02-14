@@ -58,6 +58,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         btnUpdateImage.setOnClickListener {
             pickImageLauncher.launch("image/*")
         }
+
+        binding.imageArrow.setOnClickListener {
+            val nestedScrollView = binding.nestedScrollView
+            nestedScrollView.smoothScrollTo(0, nestedScrollView.getChildAt(0).height)
+        }
     }
 
     private fun setCollector() {
