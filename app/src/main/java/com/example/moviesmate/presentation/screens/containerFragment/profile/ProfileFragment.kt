@@ -7,6 +7,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.moviesmate.R
@@ -48,7 +50,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
         btnLogOut.setOnClickListener {
             viewModel.logOut()
-            activity?.finish()
+            val navController = requireActivity().findNavController(R.id.fragmentContainerView)
+            navController.popBackStack(R.id.containerFragment, true)
+            navController.navigate(R.id.loginFragment)
         }
 
         btnUpdateImage.setOnClickListener {

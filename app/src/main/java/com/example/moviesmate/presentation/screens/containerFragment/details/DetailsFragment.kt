@@ -1,6 +1,7 @@
 package com.example.moviesmate.presentation.screens.containerFragment.details
 
 import android.annotation.SuppressLint
+import android.content.pm.ActivityInfo
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Lifecycle
@@ -24,6 +25,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
     private val actorDetailAdapter = ActorDetailAdapter()
     private lateinit var movie: MovieDetails
     private var isFavorite: Boolean = false
+
 
     override fun viewCreated() {
         checkIfMovieIsSaved()
