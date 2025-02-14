@@ -54,6 +54,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         btnUpdateImage.setOnClickListener {
             pickImageLauncher.launch("image/*")
         }
+
+
     }
 
     private fun setCollector() {

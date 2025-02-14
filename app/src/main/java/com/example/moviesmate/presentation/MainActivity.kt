@@ -9,11 +9,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.example.moviesmate.R
 import com.example.moviesmate.core.NetworkChangeReceiver
 import com.example.moviesmate.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.CoroutineScope
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -54,6 +56,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleNetworkChange(isConnected: Boolean) {
+
         if (isConnected) {
             binding.fragmentContainerView.visibility = View.VISIBLE
             binding.internetError.visibility = View.GONE
@@ -64,6 +67,8 @@ class MainActivity : AppCompatActivity() {
             binding.internetError.playAnimation()
         }
     }
+
+
 
     override fun onDestroy() {
         super.onDestroy()
