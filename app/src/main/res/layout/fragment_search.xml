@@ -30,7 +30,7 @@
             android:layout_gravity="center"
             android:fontFamily="@font/poppins_medium"
             android:letterSpacing="0.02"
-            android:text="Got any movie ideas?"
+            android:text="@string/got_any_movie_ideas"
             android:textColor="@color/white"
             android:textSize="18sp" />
 

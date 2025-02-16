@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start|center_vertical"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Back"
+            android:contentDescription="@string/back"
             android:padding="8dp"
             android:src="@drawable/ic_back" />
 
@@ -37,7 +37,7 @@
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
             android:letterSpacing="0.02"
-            android:text="Verify Your Email"
+            android:text="@string/verify_your_email"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -66,7 +66,7 @@
         android:fontFamily="@font/poppins_medium"
         android:gravity="center"
         android:textColor="@color/black"
-        android:text="The email was sent successfully."
+        android:text="@string/the_email_was_sent_successfully"
         android:textSize="21sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -93,7 +93,7 @@
         android:background="@drawable/ripple_btn_background"
         android:fontFamily="@font/poppins_light"
         android:padding="10dp"
-        android:text="Proceed to Login"
+        android:text="@string/proceed_to_login"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="21sp"

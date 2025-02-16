@@ -1,6 +1,5 @@
 package com.example.moviesmate.presentation
 
-import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.ActivityInfo
 import android.net.ConnectivityManager
@@ -10,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.moviesmate.R
 import com.example.moviesmate.core.NetworkChangeReceiver
@@ -48,7 +46,6 @@ class MainActivity : AppCompatActivity() {
         }
         navController.graph = navGraph
 
-        // Internet handle
         networkReceiver = NetworkChangeReceiver { isConnected ->
             handleNetworkChange(isConnected)
         }

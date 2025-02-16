@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Favorites"
+            android:text="@string/favorites"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_medium"
         android:gravity="center"
-        android:text="Oops! You haven't saved\nany movies yet"
+        android:text="@string/oops_you_haven_t_saved_nany_movies_yet"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@id/noMoviesAnimation"
         app:layout_constraintStart_toStartOf="@id/noMoviesAnimation"

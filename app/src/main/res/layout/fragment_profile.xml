@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blackVariant">
@@ -79,18 +80,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Dzago@sd"
                 android:textColor="@color/white"
                 android:textSize="23sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="username@1856" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/userEmail"
@@ -98,12 +98,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:fontFamily="@font/poppins_light"
-                android:text="georgeSampleEmail@gmail.com"
                 android:textColor="@color/LightGray"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/userName"
                 app:layout_constraintStart_toStartOf="@id/userName"
-                app:layout_constraintTop_toBottomOf="@id/userName" />
+                app:layout_constraintTop_toBottomOf="@id/userName"
+                tools:text="sample@gmail.com" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/emailNewUserNameLayout"
@@ -111,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:hint="Update Username"
+                android:hint="@string/update_username"
                 android:padding="12dp"
                 app:boxCornerRadiusBottomEnd="12dp"
                 app:boxCornerRadiusBottomStart="12dp"
@@ -136,7 +136,6 @@
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Update Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/updateUsernameButton"
                 android:layout_width="match_parent"
@@ -145,7 +144,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="12dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Update Username"
+                android:text="@string/update_username"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:visibility="visible"
@@ -168,7 +167,7 @@
                 android:layout_marginEnd="12dp"
                 android:background="@color/red"
                 android:letterSpacing="0.01"
-                android:text="LogOut"
+                android:text="@string/logout"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -189,9 +188,9 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="90dp"
                 android:orientation="vertical"
                 android:padding="16dp"
-                android:layout_marginTop="90dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageArrow">
@@ -201,7 +200,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="Developers"
+                    android:text="@string/developers"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -212,7 +211,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/poppins_light"
-                    android:text="Giorgi Dzagania"
+                    android:text="@string/giorgi_dzagania"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 
@@ -221,7 +220,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_light"
-                    android:text="https://www.linkedin.com/in/giorgi-dzagania/"
+                    android:text="@string/https_www_linkedin_com_in_giorgi_dzagania"
                     android:textColor="@color/mutedBlue"
                     android:textSize="14sp" />
 
@@ -231,7 +230,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:fontFamily="@font/poppins_light"
-                    android:text="Gia Potskhverashvili"
+                    android:text="@string/gia_potskhverashvili"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 
@@ -240,7 +239,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_light"
-                    android:text="https://www.linkedin.com/in/gia-potskhverashvili/"
+                    android:text="@string/https_www_linkedin_com_in_gia_potskhverashvili"
                     android:textColor="@color/mutedBlue"
                     android:textSize="14sp" />
 
@@ -259,4 +258,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
