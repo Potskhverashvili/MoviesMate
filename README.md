@@ -87,7 +87,10 @@ It fetches real-time data from The Movie Database (TMDB) API.
       <img src="https://github.com/user-attachments/assets/24be3040-ec84-4216-b2ed-4197661896f6" alt="Image 2" width="200" height="450">
       <img src="https://github.com/user-attachments/assets/3f7813f5-86da-4abf-8ee1-ece43a3a3924" alt="Image 3" width="200" height="450">
       <img src="https://github.com/user-attachments/assets/bab3550b-e7fe-4290-8baf-59fd07b4963a" alt="Image 3" width="200" height="450">
-      <img src="https://github.com/user-attachments/assets/9f05059b-fba1-4782-8393-e977fbf22af4" alt="Image 3" width="200" height="450">
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;">
+      <img src="https://github.com/user-attachments/assets/2d4ee526-49cd-455f-8116-33bf93b848dd" alt="Image 6" width="450" height="200">
     </div>
 
   
