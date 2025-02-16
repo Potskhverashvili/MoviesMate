@@ -111,8 +111,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.isLoadingState.collect { isLoading ->
                     binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-                    binding.upcomingMoviesTv.visibility = if (isLoading) View.INVISIBLE else View.VISIBLE
-                    binding.popularMoviesTv.visibility = if (isLoading) View.INVISIBLE else View.VISIBLE
+                    binding.upcomingMoviesTv.visibility =
+                        if (isLoading) View.INVISIBLE else View.VISIBLE
+                    binding.popularMoviesTv.visibility =
+                        if (isLoading) View.INVISIBLE else View.VISIBLE
                 }
             }
         }

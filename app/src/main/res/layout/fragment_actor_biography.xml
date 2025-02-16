@@ -22,7 +22,7 @@
             app:contentScrim="@color/red"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
             app:expandedTitleTextColor="@color/white"
-            app:title="George Dzagania">
+            tools:title="George Dzagania">
 
             <!-- Image inside CollapsingToolbarLayout to make it collapse -->
             <androidx.appcompat.widget.AppCompatImageView
@@ -54,7 +54,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- NestedScrollView (Starts Below AppBarLayout) -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
@@ -69,7 +68,6 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Actor Name -->
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/actorName"
                 android:layout_width="wrap_content"
@@ -81,12 +79,11 @@
                 android:textSize="36sp"
                 tools:text="George Dzagania" />
 
-            <!-- Born Section -->
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="Born"
+                android:text="@string/born"
                 android:textColor="@color/red"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -103,7 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="Biography"
+                android:text="@string/biography"
                 android:textColor="@color/red"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -121,7 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Known For"
+                android:text="@string/known_for"
                 android:textColor="@color/red"
                 android:textSize="18sp"
                 android:textStyle="bold" />

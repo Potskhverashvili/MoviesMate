@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Movies Mate</string>
     <string name="born">Born</string>
     <string name="biography">Biography</string>
     <string name="known_for">Known For</string>
@@ -9,11 +9,9 @@
     <string name="genre">Genre</string>
     <string name="comedy">Comedy</string>
     <string name="length">Length</string>
-    <string name="_2h_20min">2h 20min</string>
     <string name="description">Description</string>
     <string name="favorites">Favorites</string>
     <string name="oops_you_haven_t_saved_nany_movies_yet">Oops! You haven\'t saved\nany movies yet</string>
-    <string name="back">Back</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="enter_your_e_mail_address_we_will_n_send_you_a_email_to_reset_your_password">Enter your e-mail address we will \n send you a email to reset your password</string>
     <string name="e_mail">E-mail</string>
@@ -43,6 +41,4 @@
     <string name="verify_your_email">Verify Your Email</string>
     <string name="the_email_was_sent_successfully">The email was sent successfully.</string>
     <string name="proceed_to_login">Proceed to Login</string>
-    <color name="textColorLight">#FFFFFF</color> <!-- Black for Light Mode -->
-    <color name="textColorDark">#FFFFFF</color> <!-- White for Dark Mode -->
 </resources>

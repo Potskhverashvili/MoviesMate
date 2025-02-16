@@ -87,12 +87,12 @@
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_back"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/search_background"
-        android:layout_marginStart="12dp"
+        android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/btnSearch"
@@ -104,13 +104,13 @@
         android:drawableStart="@drawable/ic_btn_search"
         android:drawablePadding="8dp"
         android:drawableTint="@android:color/white"
-        android:hint="Search here..."
+        android:hint="@string/search_here"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/btnBack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnBack"
-        app:layout_constraintTop_toTopOf="@id/btnBack"
-        app:layout_constraintBottom_toBottomOf="@id/btnBack"/>
+        app:layout_constraintTop_toTopOf="@id/btnBack" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerviewSearch"
@@ -145,7 +145,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:gravity="center"
-        android:text="No matches for your search."
+        android:text="@string/no_matches_for_your_search"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
