@@ -33,7 +33,7 @@ It fetches real-time data from The Movie Database (TMDB) API.
      Here you can create a new account or sign in existing one
 
      <div style="display: flex;">
-       <img src="https://github.com/user-attachments/assets/640a027f-950e-41f4-ae7b-21d7875c637a" alt="Image 1" width="200" height="400" style="margin-right: 20px;">
+       <img src="https://github.com/user-attachments/assets/733a12af-83ee-4168-ab99-b42b20c523da" alt="Image 1" width="200" height="400" style="margin-right: 20px;">
        <img src="https://github.com/user-attachments/assets/88232cdd-1a9c-4acc-80fc-cabae014462f" alt="Image 2" width="200" height="400">
        <img src="https://github.com/user-attachments/assets/d5c02a7d-2103-4122-b06c-1a328b6c7ef1" alt="Image 3" width="200" height="400">
        <img src ="https://github.com/user-attachments/assets/e63791a6-12a6-4b2e-86cd-662cfb736c5e" alt="Image 4" width="200" height="400">
