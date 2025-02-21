@@ -1,5 +1,6 @@
 package com.example.moviesmate.data.repository
 
+import android.util.Log
 import com.example.moviesmate.core.ApiCallHelper
 import com.example.moviesmate.core.OperationStatus
 import com.example.moviesmate.core.RoomCallHelper
@@ -32,7 +33,6 @@ import com.example.moviesmate.domain.repository.MoviesRepository
 class MoviesRepositoryImpl(
     private val service: MovieService,
     private val movieDao: MovieDao
-
 ) : MoviesRepository {
 
     override suspend fun getGenresTypes(): OperationStatus<GenresType> {
@@ -85,9 +85,18 @@ class MoviesRepositoryImpl(
     }
 
     // ------------------------------------------------------------------------
-    override suspend fun saveToFavorite(movie: Movie): OperationStatus<Unit> {
+    override suspend fun saveToFavorite(movie: MovieDetails): OperationStatus<Unit> {
         return RoomCallHelper.safeRoomCall {
-            movieDao.saveToFavorite(movie = movie.toMovieDbo())
+            Log.d("MyLog", "Mapping MovieDetails to MovieDbo: $movie")
+
+            val movieDbo = movie.toMovieDbo()
+
+            if (movieDbo == null) {
+                Log.e("MyLog", "Mapping failed: MovieDbo is null")
+            } else {
+                Log.d("MyLog", "Successfully mapped to MovieDbo: $movieDbo")
+                movieDao.saveToFavorite(movie = movieDbo)
+            }
         }
     }
 

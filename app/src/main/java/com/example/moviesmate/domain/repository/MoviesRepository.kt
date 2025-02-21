@@ -22,14 +22,12 @@ interface MoviesRepository {
     suspend fun infoAboutActor(actorId: Int): OperationStatus<AboutActor>
     suspend fun getActorFilmography(actorId: Int): OperationStatus<ActorFilmography>
 
-    suspend fun saveToFavorite(movie: Movie): OperationStatus<Unit>
+    suspend fun saveToFavorite(movie: MovieDetails): OperationStatus<Unit>
     suspend fun deleteFromFavorite(movie: Movie): OperationStatus<Unit>
     suspend fun getAllSavedMovies(): OperationStatus<List<Movie>>
 
-
     suspend fun getUpcomingMovies(): OperationStatus<HomePageMovies>
     suspend fun getPopularMovies(): OperationStatus<HomePageMovies>
-
     suspend fun getVideoTrailer(movieId: String): OperationStatus<Youtube>
 
 }

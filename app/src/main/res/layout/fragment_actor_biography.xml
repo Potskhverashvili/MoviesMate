@@ -22,6 +22,7 @@
             app:contentScrim="@color/red"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
             app:expandedTitleTextColor="@color/white"
+            app:collapsedTitleTextColor="@color/white"
             tools:title="George Dzagania">
 
             <!-- Image inside CollapsingToolbarLayout to make it collapse -->

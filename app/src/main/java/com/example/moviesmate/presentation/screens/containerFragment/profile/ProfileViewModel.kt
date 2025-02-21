@@ -34,8 +34,8 @@ class ProfileViewModel(
     private val _selectedImageUri = MutableStateFlow<Uri?>(null)
     val selectedImageUri = _selectedImageUri.asStateFlow()
 
-    private val _error = MutableStateFlow<String?>(null)
-    val error = _error.asStateFlow()
+    private val _error = MutableSharedFlow<String?>()
+    val error = _error.asSharedFlow()
 
     private val _loading = MutableStateFlow(false)
     val loading = _loading.asStateFlow()
@@ -49,7 +49,6 @@ class ProfileViewModel(
         when (val result = getUserNameUseCase.execute()) {
             is OperationStatus.Success -> {
                 _username.emit(result.value)
-                _error.emit(null)
             }
 
             is OperationStatus.Failure -> {
@@ -60,11 +59,15 @@ class ProfileViewModel(
     }
 
     fun updateUserName(updateName: String) = viewModelScope.launch {
+        if (updateName.isBlank()) {
+            _error.emit("Username must contain at least one letter")
+            return@launch
+        }
+
         _loading.emit(true)
         when (updateUserNameUseCase.execute(updateName)) {
             is OperationStatus.Success -> {
-                getUsername()  //
-                _error.emit(null)
+                getUsername()
             }
 
             is OperationStatus.Failure -> {
@@ -79,7 +82,6 @@ class ProfileViewModel(
         when (val status = getUserEmailUseCase.execute()) {
             is OperationStatus.Success -> {
                 _userEmail.emit(status.value)
-                _error.emit(null)
             }
 
             is OperationStatus.Failure -> {
@@ -93,7 +95,6 @@ class ProfileViewModel(
         _loading.emit(true)
         when (logOutUseCase.execute()) {
             is OperationStatus.Success -> {
-                _error.emit(null)
             }
 
             is OperationStatus.Failure -> {
@@ -125,7 +126,6 @@ class ProfileViewModel(
             }
 
             is OperationStatus.Failure -> {
-                _selectedImageUri.emit(null)
                 _error.emit("No profile image found")
             }
         }

@@ -21,10 +21,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     override fun viewCreated() {
         getUserName()
+        getGreeting()
         getProfileImage()
         prepareRecyclerview()
         setListeners()
         setCollectors()
+    }
+
+    private fun getGreeting() {
+        viewModel.getGreeting()
     }
 
     private fun getProfileImage() {
@@ -103,6 +108,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.username.collect { username ->
                     binding.userName.text = username
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.greeting.collect { greetingText ->
+                    binding.textviewHey.text = greetingText
                 }
             }
         }

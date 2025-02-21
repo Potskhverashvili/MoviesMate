@@ -57,7 +57,7 @@ class FavoritesFragment :
         favoritesAdapter.onItemClick = { movie ->
             findNavController().navigate(
                 FavoritesFragmentDirections.actionFavoritesFragmentToDetailsFragment(
-                    movie.id
+                    movie.id ?: -1
                 )
             )
         }
