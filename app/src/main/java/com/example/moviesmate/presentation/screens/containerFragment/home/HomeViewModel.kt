@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
 class HomeViewModel(
     private val upcomingMoviesUseCase: UpcomingMoviesUseCase,
@@ -32,6 +33,9 @@ class HomeViewModel(
 
     private val _username = MutableStateFlow<String?>(null)
     val username = _username.asStateFlow()
+
+    private val _greeting = MutableStateFlow("")
+    val greeting = _greeting.asStateFlow()
 
     private val _isLoadingState = MutableStateFlow(false)
     val isLoadingState: StateFlow<Boolean> = _isLoadingState
@@ -77,6 +81,16 @@ class HomeViewModel(
             }
         }
         _isLoadingState.emit(false)
+    }
+
+    fun getGreeting() = viewModelScope.launch {
+        val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        val greetingMessage = when {
+            hour < 12 -> "Good Morning"
+            hour in 12..17 -> "Good Afternoon"
+            else -> "Good Evening"
+        }
+        _greeting.value = greetingMessage
     }
 
     fun fetchUserProfileImage() = viewModelScope.launch {

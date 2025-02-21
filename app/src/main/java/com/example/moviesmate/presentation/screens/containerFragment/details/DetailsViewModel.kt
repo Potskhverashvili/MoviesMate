@@ -1,5 +1,6 @@
 package com.example.moviesmate.presentation.screens.containerFragment.details
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesmate.core.OperationStatus
@@ -62,9 +63,20 @@ class DetailsViewModel(
         }
     }
 
-    fun saveToFavorite(movie: MovieDetails) = viewModelScope.launch {
-        movie.toMovie()?.let { saveToFavoriteUseCase.execute(it) }
-        _isFavoriteMovie.emit(true)
+    fun saveToFavorite(movieDetail: MovieDetails) = viewModelScope.launch {
+//        movieDetail.toMovie()?.let { saveToFavoriteUseCase.execute(it) }
+//        _isFavoriteMovie.emit(true)
+        when (saveToFavoriteUseCase.execute(movieDetail)) {
+            is OperationStatus.Success -> {
+                Log.d("MyLog","success id == ${movieDetail.id}")
+                _isFavoriteMovie.emit(true)
+            }
+
+            is OperationStatus.Failure -> {
+                _errorMessage.emit("Failed To Save Movie")
+            }
+        }
+        Log.d("MyLog","${movieDetail.id}")
     }
 
 
@@ -84,6 +96,7 @@ class DetailsViewModel(
                 val favorites = status.value
                 _isFavoriteMovie.emit(favorites.any { it.id == id })
             }
+
             is OperationStatus.Failure -> {}
         }
     }

@@ -20,6 +20,7 @@
             app:contentScrim="@color/red"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
             app:expandedTitleTextColor="@color/white"
+            app:collapsedTitleTextColor="@color/white"
             app:title="Spider-Man: No Way Home">
 
             <androidx.appcompat.widget.AppCompatImageView

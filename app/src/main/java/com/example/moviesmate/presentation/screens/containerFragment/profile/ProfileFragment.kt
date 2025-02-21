@@ -3,6 +3,7 @@ package com.example.moviesmate.presentation.screens.containerFragment.profile
 import android.content.Intent
 import android.net.Uri
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -98,6 +99,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.loading.collect { isLoading ->
                     binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.error.collect { errorMessage ->
+                    Toast.makeText(requireContext(), "$errorMessage", Toast.LENGTH_SHORT).show()
                 }
             }
         }

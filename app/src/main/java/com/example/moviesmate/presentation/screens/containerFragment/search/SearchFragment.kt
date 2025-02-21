@@ -44,7 +44,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             )
             adapter = searchedSpecificGenreAdapter.withLoadStateFooter(loadStateAdapter)
         }
-
     }
 
     private fun setListeners() {
