@@ -50,10 +50,10 @@ It fetches real-time data from The Movie Database (TMDB) API.
 
 *** 
 * ## Home <br>
-    A personalized view featuring their username and cover image. Quick access to popular movies and upcoming movies.
+    A personalized movie hub with a user greeting, upcoming releases, and trending films. Intuitive navigation ensures seamless browsing..
   
     <div style="display: flex;">
-      <img src="https://github.com/user-attachments/assets/7fee0bc4-a0ce-446f-84db-9556bd9602f7" alt="Image 1" width="200" height="450" style="margin-right: 20px;">
+      <img src="https://github.com/user-attachments/assets/b974222c-ab81-4680-961a-55f566f22912" alt="Image 1" width="200" height="450" style="margin-right: 20px;">
     </div>
 
 *** 
