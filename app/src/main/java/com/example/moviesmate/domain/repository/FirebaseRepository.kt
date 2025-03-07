@@ -13,9 +13,7 @@ interface FirebaseRepository {
     ): OperationStatus<FirebaseUser>
 
     suspend fun loginInUser(email: String, password: String): OperationStatus<FirebaseUser>
-
     suspend fun passwordReset(email: String): OperationStatus<Unit>
-
     suspend fun getUsername(): OperationStatus<String>
 
     suspend fun updateUsername(updateName: String): OperationStatus<Unit>
