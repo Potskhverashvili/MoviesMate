@@ -10,10 +10,10 @@ import com.example.moviesmate.domain.model.SearchInput
 fun CategoryMovies.Result.toMovieDbo(): MovieDbo? {
     return this.poster_path?.let {
         MovieDbo(
-            id = this.id,
-            image = it,
-            title = this.title
-        )
+        id = this.id,
+        image = it,
+        title = this.title
+    )
     }
 }
 

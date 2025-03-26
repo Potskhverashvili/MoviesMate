@@ -2,6 +2,7 @@ package com.example.moviesmate.presentation.screens.containerFragment.profile
 
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -84,15 +85,16 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+//            repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.selectedImageUri.collect { uri ->
+                    Log.d("Check", "Check ${uri}")
                     uri?.let {
                         Glide.with(this@ProfileFragment)
                             .load(it)
                             .into(binding.userImage)
                     }
                 }
-            }
+//            }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {

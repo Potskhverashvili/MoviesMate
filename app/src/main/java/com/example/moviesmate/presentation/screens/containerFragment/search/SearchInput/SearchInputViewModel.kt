@@ -24,7 +24,6 @@ class SearchInputViewModel(
     private val _isLoading = MutableSharedFlow<Boolean>()
     val isLoading = _isLoading.asSharedFlow()
 
-
     private val _noMoviesFound = MutableStateFlow(false)
     val noMoviesFound = _noMoviesFound.asStateFlow()
 

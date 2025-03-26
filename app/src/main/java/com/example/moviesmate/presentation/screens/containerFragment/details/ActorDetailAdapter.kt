@@ -36,8 +36,8 @@ class ActorDetailAdapter :
 
             Glide.with(actorImage.context)
                 .load("https://image.tmdb.org/t/p/w500${actor.profile_path}")
-                .placeholder(R.color.red)
-                .error(R.drawable.ic_launcher_background)
+                .placeholder(R.drawable.ic_person_default_2)
+                .error(R.drawable.ic_person_default_2)
                 .into(actorImage)
 
             binding.root.setOnClickListener {

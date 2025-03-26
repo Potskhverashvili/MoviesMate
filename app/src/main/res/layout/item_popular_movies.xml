@@ -24,7 +24,7 @@
             android:layout_gravity="center"
             android:scaleType="centerCrop"
             android:clipToOutline="true"
-            android:background="@drawable/rounded_background"
+            android:background="@drawable/rounded_backgorund_corners"
             tools:src="@tools:sample/avatars" />
 
         <androidx.appcompat.widget.AppCompatTextView

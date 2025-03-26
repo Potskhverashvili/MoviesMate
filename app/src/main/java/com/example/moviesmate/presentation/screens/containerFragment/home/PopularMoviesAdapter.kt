@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.moviesmate.R
 import com.example.moviesmate.databinding.ItemPopularMoviesBinding
 import com.example.moviesmate.domain.model.HomePageMovies
 
@@ -35,6 +36,7 @@ class PopularMoviesAdapter() :
             val imageUrl = "https://image.tmdb.org/t/p/w500${movie.backdrop_path}"
             Glide.with(binding.coverImage)
                 .load(imageUrl)
+                .placeholder(R.drawable.ic_default_movie_poster)
                 .into(binding.coverImage)
 
             binding.movieTitle.text = movie.title
