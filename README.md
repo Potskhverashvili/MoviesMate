@@ -1,17 +1,17 @@
-# 🎬 Movie App
+# Movie App
 
-### 📌 Overview
+###  Overview
 This is a Movie App that allows users to explore movies, view details, and search for their favorite films. 
 It fetches real-time data from The Movie Database (TMDB) API.
 
 ***
-### ⚙️ Features
-* 🔍 Search for movies
-* 📌 Browse popular top-rated and upcoming movies
-* 📖 View detailed movie information (rating, description, cast, etc.)
-* ⭐ Save favorite movies
+### Features
+*  Search for movies
+*  Browse popular top-rated and upcoming movies
+*  View detailed movie information (rating, description, cast, etc.)
+*  Save favorite movies
 
-### 🛠️ Tech Stack  
+### Tech Stack  
 * Firebase Auth
 * Firebase Firestore
 * Firebase Realtime Database
@@ -27,7 +27,7 @@ It fetches real-time data from The Movie Database (TMDB) API.
 * Material Design
 
 ***
-# 📸 Screenshots
+# Screenshots
 
    * ## Authorization <br>
      Here you can create a new account or sign in existing one
