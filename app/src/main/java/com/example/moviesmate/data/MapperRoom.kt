@@ -7,12 +7,14 @@ import com.example.moviesmate.domain.model.MovieDetails
 import com.example.moviesmate.domain.model.SearchInput
 
 // SearchAdapter to Dbo
-fun CategoryMovies.Result.toMovieDbo(): MovieDbo {
-    return MovieDbo(
+fun CategoryMovies.Result.toMovieDbo(): MovieDbo? {
+    return this.poster_path?.let {
+        MovieDbo(
         id = this.id,
-        image = this.poster_path,
+        image = it,
         title = this.title
     )
+    }
 }
 
 fun CategoryMovies.Result.toMovie(): Movie {
