@@ -4,6 +4,7 @@ import android.content.IntentFilter
 import android.content.pm.ActivityInfo
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.util.Log.d
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -14,12 +15,12 @@ import com.example.moviesmate.R
 import com.example.moviesmate.core.NetworkChangeReceiver
 import com.example.moviesmate.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val user = FirebaseAuth.getInstance()
     private lateinit var networkReceiver: NetworkChangeReceiver
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
@@ -68,4 +69,6 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         unregisterReceiver(networkReceiver)
     }
+    
+
 }

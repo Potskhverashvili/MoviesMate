@@ -1,5 +1,6 @@
 package com.example.moviesmate.presentation.screens.login
 
+import android.util.Log.d
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesmate.core.OperationStatus
@@ -30,6 +31,7 @@ class LoginViewModel(
 
             is OperationStatus.Failure -> {
                 _showError.emit(status.exception.message)
+
             }
         }
         _isLoadingState.emit(false)

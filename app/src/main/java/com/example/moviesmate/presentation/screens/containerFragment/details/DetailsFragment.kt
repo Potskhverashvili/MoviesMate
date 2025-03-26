@@ -1,10 +1,10 @@
 package com.example.moviesmate.presentation.screens.containerFragment.details
 
 import android.annotation.SuppressLint
-import android.content.pm.ActivityInfo
-import android.util.Log
+import android.util.Log.d
 import android.widget.Toast
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
@@ -12,10 +12,10 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.moviesmate.R
+import com.example.moviesmate.core.base.BaseFragment
 import com.example.moviesmate.data.toMovie
 import com.example.moviesmate.databinding.FragmentDetailsBinding
 import com.example.moviesmate.domain.model.MovieDetails
-import com.example.moviesmate.core.base.BaseFragment
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -33,6 +33,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
         getMovieDetails()
         setListeners()
         setCollectors()
+
     }
 
     private fun checkIfMovieIsSaved() {
@@ -58,7 +59,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
             goToYoutubeVideo()
         }
 
-        binding.btnBack.setOnClickListener{
+        binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
 
@@ -80,7 +81,11 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(FragmentDetailsBind
     }
 
     private fun goToYoutubeVideo() {
-        findNavController().navigate(DetailsFragmentDirections.actionDetailsFragmentToYoutubeVideoFragment(args.movieId))
+        findNavController().navigate(
+            DetailsFragmentDirections.actionDetailsFragmentToYoutubeVideoFragment(
+                args.movieId
+            )
+        )
     }
 
     @SuppressLint("DefaultLocale")

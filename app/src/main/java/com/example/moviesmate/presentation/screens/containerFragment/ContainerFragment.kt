@@ -20,11 +20,8 @@ class ContainerFragment :
     private fun setUp() {
         val navHostFragment =
             childFragmentManager.findFragmentById(R.id.fragmentContainerViewTwo) as? NavHostFragment
+                ?: return
 
-        if (navHostFragment == null) {
-            Log.e("HomePageFragment", "NavHostFragment is null")
-            return
-        }
         navController = navHostFragment.navController
         binding.bottomNavigation.setupWithNavController(navController)
 
