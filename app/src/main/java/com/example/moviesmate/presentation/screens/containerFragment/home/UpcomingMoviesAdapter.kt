@@ -62,5 +62,4 @@ class UpcomingMoviesAdapter :
             return oldItem == newItem
         }
     }
-
 }

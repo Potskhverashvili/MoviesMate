@@ -6,8 +6,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.example.moviesmate.databinding.FragmentLoginBinding
 import com.example.moviesmate.core.base.BaseFragment
+import com.example.moviesmate.databinding.FragmentLoginBinding
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

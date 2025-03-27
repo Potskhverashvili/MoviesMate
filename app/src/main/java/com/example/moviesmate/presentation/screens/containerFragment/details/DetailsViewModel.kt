@@ -1,10 +1,10 @@
 package com.example.moviesmate.presentation.screens.containerFragment.details
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesmate.core.OperationStatus
-import com.example.moviesmate.data.toMovie
 import com.example.moviesmate.domain.model.ActorDetails
 import com.example.moviesmate.domain.model.Movie
 import com.example.moviesmate.domain.model.MovieDetails
@@ -68,7 +68,7 @@ class DetailsViewModel(
 //        _isFavoriteMovie.emit(true)
         when (saveToFavoriteUseCase.execute(movieDetail)) {
             is OperationStatus.Success -> {
-                Log.d("MyLog","success id == ${movieDetail.id}")
+                Log.d("MyLog", "success id == ${movieDetail.id}")
                 _isFavoriteMovie.emit(true)
             }
 
@@ -76,7 +76,7 @@ class DetailsViewModel(
                 _errorMessage.emit("Failed To Save Movie")
             }
         }
-        Log.d("MyLog","${movieDetail.id}")
+        Log.d("MyLog", "${movieDetail.id}")
     }
 
 

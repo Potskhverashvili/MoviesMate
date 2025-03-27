@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.moviesmate.R
 import com.example.moviesmate.databinding.ItemActorFilmographyBinding
 import com.example.moviesmate.domain.model.ActorFilmography
 
@@ -37,6 +38,7 @@ class ActorFilmographyAdapter :
             val posterUrl = "https://image.tmdb.org/t/p/w500${relatedMovie.poster_path}"
             Glide.with(moviePosterImg)
                 .load(posterUrl)
+                .placeholder(R.drawable.ic_default_movie_poster)
                 .into(moviePosterImg)
 
             root.setOnClickListener {
