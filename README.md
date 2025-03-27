@@ -14,8 +14,6 @@ It fetches real-time data from The Movie Database (TMDB) API.
 ### Tech Stack  
 * Firebase Auth
 * Firebase Firestore
-* Firebase Realtime Database
-* Firebase Messaging
 * Retrofit (Gson)
 * Coroutines
 * Glide
